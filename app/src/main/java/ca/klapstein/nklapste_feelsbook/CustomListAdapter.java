@@ -44,16 +44,11 @@ public class CustomListAdapter  extends ArrayAdapter<FeelCard> {
     @NonNull
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-
-        //get the persons information
         String title = getItem(position).getFeel().toString();
 
         final FeelCard feel = getItem(position);
         try{
-            //create the view result for showing the animation
             final View result;
-
-            //ViewHolder object
             final ViewHolder holder;
 
             if(convertView == null){
@@ -67,7 +62,6 @@ public class CustomListAdapter  extends ArrayAdapter<FeelCard> {
                 final Button button_delete = convertView.findViewById(R.id.button_delete);
                 button_delete.setOnClickListener(new View.OnClickListener() {
                     public void onClick(View v) {
-                        // Code here executes on main thread after user presses button
                         Log.d(TAG, "pushed button_delete");
                         remove(feel);
                     }
@@ -76,14 +70,11 @@ public class CustomListAdapter  extends ArrayAdapter<FeelCard> {
                 final Button button_comment = convertView.findViewById(R.id.button_comment);
                 button_comment.setOnClickListener(new View.OnClickListener() {
                     public void onClick(View v) {
-                        // Code here executes on main thread after user presses button
                         Log.d(TAG, "pushed button_comment");
                         feel.setComment("comment");
                         holder.comment.setText("comment");
                     }
                 });
-
-
                 convertView.setTag(holder);
             }
             else{
