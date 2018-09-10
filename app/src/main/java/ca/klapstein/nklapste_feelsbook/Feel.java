@@ -16,7 +16,7 @@ public class Feel {
         this.comment = "";
 
         try {
-            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault());
+            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss", Locale.getDefault());
             this.date = dateFormat.format(new Date());
         } catch (Exception e) {
             e.printStackTrace();
