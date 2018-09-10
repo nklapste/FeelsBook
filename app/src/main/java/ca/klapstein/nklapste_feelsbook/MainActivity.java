@@ -18,16 +18,16 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private static final String TAG = "MainActivity";
     private static final int EDIT_COMMENT_REQUEST_CODE = 1;
 
-    private MyAdapter mAdapter;
+    private FeelAdapter mAdapter;
 
-    private ArrayList<FeelCard> feels_list = new ArrayList<>();
+    private ArrayList<Feel> feelList = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         // TODO load old feels list
-        feels_list = new ArrayList<>();
+        feelList = new ArrayList<>();
 
         setContentView(R.layout.listview_layout);
         RecyclerView mFeelsRecyclerView = (RecyclerView) findViewById(R.id.feels_recycler_view);
@@ -38,14 +38,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(this);
         mFeelsRecyclerView.setLayoutManager(mLayoutManager);
 
-        mAdapter = new MyAdapter(feels_list);
+        mAdapter = new FeelAdapter(feelList);
         mFeelsRecyclerView.setAdapter(mAdapter);
 
         mFeelsRecyclerView.addOnItemTouchListener(new RecyclerTouchListener(getApplicationContext(), mFeelsRecyclerView, new RecyclerTouchListener.ClickListener() {
             @Override
             public void onClick(View view, int position) {
-                FeelCard feelCard = feels_list.get(position);
-                Toast.makeText(getApplicationContext(), feelCard.getFeel()+ " is selected!", Toast.LENGTH_SHORT).show();
+                Feel feel = feelList.get(position);
+                Toast.makeText(getApplicationContext(), feel.getFeel()+ " is selected!", Toast.LENGTH_SHORT).show();
             }
 
             @Override
@@ -60,13 +60,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     public boolean onMenuItemClick(MenuItem item) {
                         switch (item.getItemId()) {
                             case R.id.button_delete:
-                                feels_list.remove(position);
+                                feelList.remove(position);
                                 mAdapter.notifyItemRemoved(position);
-                                mAdapter.notifyItemRangeChanged(position, feels_list.size());
+                                mAdapter.notifyItemRangeChanged(position, feelList.size());
                                 return true;
                             case R.id.button_comment:
                                 Intent intent = new Intent(getApplicationContext(), EditFeel.class);
-                                intent.putExtra("comment", feels_list.get(position).getComment());
+                                intent.putExtra("comment", feelList.get(position).getComment());
                                 intent.putExtra("position", position);
                                 startActivityForResult(intent, 1);
                                 return true;
@@ -81,7 +81,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             }
         }));
 
-        // TODO make generic for all buttons
+        // set the OnClick function for the feeling buttons
         final Button button_love = findViewById(R.id.button_love);
         button_love.setOnClickListener(this);
 
@@ -100,56 +100,52 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         final Button button_anger = findViewById(R.id.button_anger);
         button_anger.setOnClickListener(this);
     }
+
     @Override
-    protected void onActivityResult(int requestCode,
-                                    int resultCode,
-                                    Intent intent) {
+    protected void onActivityResult(int requestCode, int resultCode, Intent intent) {
         if (requestCode == EDIT_COMMENT_REQUEST_CODE && resultCode == RESULT_OK) {
             String comment = intent.getStringExtra("comment");
             int position = intent.getIntExtra("position", 0);
-            Log.d(TAG, "setting comment: "+comment);
-            FeelCard feelCard = feels_list.get(position);
-            feelCard.setComment(comment);
-            feels_list.set(position, feelCard);
+            Feel feel = feelList.get(position);
+            feel.setComment(comment);
+            feelList.set(position, feel);
             mAdapter.notifyItemChanged(position);
-//            mAdapter.notifyItemRangeChanged(position, feels_list.size());
-
         }
     }
 
     @Override
     public void onClick(View v) {
         // default method for handling onClick Events..
-        Feel feel = null;
+        Feels feels = null;
         switch (v.getId()){
             case R.id.button_love:
-                feel=Feel.LOVE;
+                feels = Feels.LOVE;
                 break;
 
             case R.id.button_anger:
-                feel = Feel.ANGER;
+                feels = Feels.ANGER;
                 break;
 
             case R.id.button_joy:
-                feel = Feel.JOY;
+                feels = Feels.JOY;
                 break;
 
             case R.id.button_sadness:
-                feel = Feel.SADNESS;
+                feels = Feels.SADNESS;
                 break;
 
             case R.id.button_surprise:
-                feel = Feel.SURPRISE;
+                feels = Feels.SURPRISE;
                 break;
 
             case R.id.button_fear:
-                feel = Feel.FEAR;
+                feels = Feels.FEAR;
                 break;
 
             default:
                 break;
         }
-        feels_list.add(new FeelCard(feel));
+        feelList.add(new Feel(feels));
         mAdapter.notifyDataSetChanged();
     }
 }
