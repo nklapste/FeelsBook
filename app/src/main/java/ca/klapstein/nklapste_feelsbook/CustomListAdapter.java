@@ -99,6 +99,7 @@ public class CustomListAdapter  extends ArrayAdapter<FeelCard> {
             holder.title.setText(title);
             return convertView;
         }catch (IllegalArgumentException e){
+            // TODO: better error management
             Log.e(TAG, "getView: IllegalArgumentException: " + e.getMessage());
             return convertView;
         }
