@@ -6,4 +6,7 @@
     <string name="joy">joy</string>
     <string name="love">love</string>
     <string name="fear">fear</string>
+    <string name="delete">Delete</string>
+    <string name="comment">Comment</string>
+    <string name="add_a_feeling">Add a Feeling</string>
 </resources>
