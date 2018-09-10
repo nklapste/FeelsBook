@@ -26,7 +26,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        // TODO load old feels list
+        // TODO save feelList on destruction and load old feels list
         feelList = new ArrayList<>();
 
         setContentView(R.layout.listview_layout);
@@ -44,8 +44,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         mFeelsRecyclerView.addOnItemTouchListener(new RecyclerTouchListener(getApplicationContext(), mFeelsRecyclerView, new RecyclerTouchListener.ClickListener() {
             @Override
             public void onClick(View view, int position) {
-                Feel feel = feelList.get(position);
-                Toast.makeText(getApplicationContext(), feel.getFeel()+ " is selected!", Toast.LENGTH_SHORT).show();
             }
 
             @Override
