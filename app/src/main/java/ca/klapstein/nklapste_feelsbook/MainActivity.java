@@ -1,6 +1,8 @@
 package ca.klapstein.nklapste_feelsbook;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -11,6 +13,10 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.PopupMenu;
 
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
@@ -21,12 +27,42 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     private ArrayList<Feel> feelList = new ArrayList<>();
 
+    public static void saveSharedPreferencesFeelList(Context context, ArrayList<Feel> feelList) {
+        SharedPreferences mPrefs = context.getSharedPreferences("feelList", context.MODE_PRIVATE);
+        SharedPreferences.Editor prefsEditor = mPrefs.edit();
+        Gson gson = new Gson();
+        String json = gson.toJson(feelList);
+        prefsEditor.putString("myJson", json);
+        prefsEditor.apply();
+    }
+
+    public static ArrayList<Feel> loadSharedPreferencesFeelList(Context context) {
+        ArrayList<Feel> callLog = new ArrayList<Feel>();
+        SharedPreferences mPrefs = context.getSharedPreferences("feelList", context.MODE_PRIVATE);
+        Gson gson = new Gson();
+        String json = mPrefs.getString("myJson", "");
+        if (json.isEmpty()) {
+            callLog = new ArrayList<Feel>();
+        } else {
+            Type type = new TypeToken<ArrayList<Feel>>() {
+            }.getType();
+            callLog = gson.fromJson(json, type);
+        }
+        return callLog;
+    }
+
+    @Override
+    protected void onDestroy() {
+        saveSharedPreferencesFeelList(getApplicationContext(), feelList);
+        super.onDestroy();
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         // TODO save feelList on destruction and load old feels list
-        feelList = new ArrayList<>();
+        feelList = loadSharedPreferencesFeelList(getApplicationContext());
 
         setContentView(R.layout.listview_layout);
         RecyclerView mFeelsRecyclerView = (RecyclerView) findViewById(R.id.feels_recycler_view);
@@ -144,5 +180,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
         feelList.add(0, new Feel(feels));
         mAdapter.notifyDataSetChanged();
+
+        saveSharedPreferencesFeelList(getApplicationContext(), feelList);
     }
 }
