@@ -68,13 +68,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         RecyclerView mFeelsRecyclerView = (RecyclerView) findViewById(R.id.feels_recycler_view);
 
         mFeelsRecyclerView.setHasFixedSize(true);
-
+        tallyFeelings();
         // use a linear layout manager
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(this);
         mFeelsRecyclerView.setLayoutManager(mLayoutManager);
         mAdapter = new FeelAdapter(feelList);
         mFeelsRecyclerView.setAdapter(mAdapter);
-        tallyFeelings();
         mFeelsRecyclerView.addOnItemTouchListener(new RecyclerTouchListener(getApplicationContext(), mFeelsRecyclerView, new RecyclerTouchListener.ClickListener() {
             @Override
             public void onClick(View view, int position) {
@@ -154,6 +153,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
     }
 
+
     public void tallyFeelings(){
         Integer angerTally = 0;
         Integer fearTally = 0;
@@ -200,6 +200,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         Log.i(TAG, loveTally.toString());
         Log.i(TAG, sadnessTally.toString());
         Log.i(TAG, surpriseTally.toString());
+
+        Intent intent = new Intent(getApplicationContext(), StatsActivity.class);
+        intent.putExtra("angerTally", angerTally);
+        intent.putExtra("fearTally", fearTally);
+        intent.putExtra("joyTally", joyTally);
+        intent.putExtra("loveTally", loveTally);
+        intent.putExtra("sadnessTally", sadnessTally);
+        intent.putExtra("surpriseTally", surpriseTally);
+        startActivity(intent);
     }
 
     @Override
