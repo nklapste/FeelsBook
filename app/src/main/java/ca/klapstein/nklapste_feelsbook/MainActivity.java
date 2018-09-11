@@ -81,8 +81,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             /**
              * Create a popup menu on a long click of a Feel.
              *
-             * @param view
-             * @param position
+             * @param view {@code View}
+             * @param position {@code int}
              */
             @Override
             public void onLongClick(View view, final int position) {
@@ -143,7 +143,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             String date = intent.getStringExtra("date");
             String feeling = intent.getStringExtra("feeling");
             String comment = intent.getStringExtra("comment");
-            int position = intent.getIntExtra("position", 0);
+            final int position = intent.getIntExtra("position", 0);
 
             Feel feel = mFeelList.get(position);
             feel.setComment(comment);
