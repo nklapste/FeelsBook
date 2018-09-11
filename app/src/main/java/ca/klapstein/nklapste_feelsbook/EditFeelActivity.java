@@ -14,8 +14,8 @@ import java.text.ParseException;
 
 import static ca.klapstein.nklapste_feelsbook.Feel.dateFormat;
 
-public class EditFeel extends AppCompatActivity {
-    private static final String TAG = "EditFeel";
+public class EditFeelActivity extends AppCompatActivity {
+    private static final String TAG = "EditFeelActivity";
 
     // TODO: name refactoring
     @Override

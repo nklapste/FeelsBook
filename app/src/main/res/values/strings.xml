@@ -10,4 +10,5 @@
     <string name="comment">Comment</string>
     <string name="add_a_feeling">Add a Feeling</string>
     <string name="edit_feeling">Edit Feeling</string>
+    <string name="title_activity_stats">StatsActivity</string>
 </resources>

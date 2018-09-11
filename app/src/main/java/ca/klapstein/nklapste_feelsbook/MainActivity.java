@@ -7,6 +7,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -71,10 +72,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         // use a linear layout manager
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(this);
         mFeelsRecyclerView.setLayoutManager(mLayoutManager);
-
         mAdapter = new FeelAdapter(feelList);
         mFeelsRecyclerView.setAdapter(mAdapter);
-
+        tallyFeelings();
         mFeelsRecyclerView.addOnItemTouchListener(new RecyclerTouchListener(getApplicationContext(), mFeelsRecyclerView, new RecyclerTouchListener.ClickListener() {
             @Override
             public void onClick(View view, int position) {
@@ -97,7 +97,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                                 mAdapter.notifyItemRangeChanged(position, feelList.size());
                                 return true;
                             case R.id.button_edit_feeling:
-                                Intent intent = new Intent(getApplicationContext(), EditFeel.class);
+                                Intent intent = new Intent(getApplicationContext(), EditFeelActivity.class);
                                 intent.putExtra("date", feelList.get(position).getDate());
                                 intent.putExtra("feeling", feelList.get(position).getFeeling());
                                 intent.putExtra("comment", feelList.get(position).getComment());
@@ -152,6 +152,54 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
             mAdapter.notifyItemChanged(position);
         }
+    }
+
+    public void tallyFeelings(){
+        Integer angerTally = 0;
+        Integer fearTally = 0;
+        Integer joyTally = 0;
+        Integer loveTally = 0;
+        Integer sadnessTally = 0;
+        Integer surpriseTally = 0;
+
+        for (Feel feel : feelList) {
+            String feeling = feel.getFeeling();
+            switch (feeling) {
+                case Feel.ANGER:
+                    angerTally += 1;
+                    break;
+
+                case Feel.FEAR:
+                    fearTally += 1;
+                    break;
+
+                case Feel.JOY:
+                    joyTally += 1;
+                    break;
+
+                case Feel.LOVE:
+                    loveTally += 1;
+                    break;
+
+                case Feel.SADNESS:
+                    sadnessTally += 1;
+                    break;
+
+                case Feel.SURPRISE:
+                    surpriseTally += 1;
+                    break;
+
+                default:
+                    break;
+            }
+        }
+
+        Log.i(TAG, angerTally.toString());
+        Log.i(TAG, fearTally.toString());
+        Log.i(TAG, joyTally.toString());
+        Log.i(TAG, loveTally.toString());
+        Log.i(TAG, sadnessTally.toString());
+        Log.i(TAG, surpriseTally.toString());
     }
 
     @Override
