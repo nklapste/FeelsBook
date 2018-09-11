@@ -53,6 +53,7 @@ public class EditFeel extends AppCompatActivity {
         final EditText dateEditText = (EditText) findViewById(R.id.dateEditText);
         final String date = getIntent().getStringExtra("date");
         dateEditText.setText(date);
+        // TODO: validate date string
 
         final EditText commentEditText = (EditText) findViewById(R.id.commentEditText);
         final String comment = getIntent().getStringExtra("comment");
