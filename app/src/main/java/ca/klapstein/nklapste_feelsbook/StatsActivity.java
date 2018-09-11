@@ -15,8 +15,8 @@ public class StatsActivity extends AppCompatActivity {
      *
      * Also consider the {@code Locale} of the device when formatting.
      *
-     * @param tally {@code int}
-     * @return {@code String}
+     * @param tally {@code int} The int representing to total tally of a feeling type.
+     * @return {@code String} The Locale specific string representation of tally.
      */
     private String stringifyTally(int tally) {
         return String.format(Locale.getDefault(), "%d", tally);
