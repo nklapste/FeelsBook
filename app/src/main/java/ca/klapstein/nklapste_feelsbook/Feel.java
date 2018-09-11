@@ -17,7 +17,7 @@ public class Feel {
     private String comment;
     private String feeling;
     private String date;
-    private static final SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss", Locale.getDefault());
+    public static final SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss", Locale.getDefault());
 
     Feel(String feeling) {
         this.feeling = feeling;

@@ -3,10 +3,16 @@ package ca.klapstein.nklapste_feelsbook;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.Toast;
+
+import java.text.ParseException;
+
+import static ca.klapstein.nklapste_feelsbook.Feel.dateFormat;
 
 public class EditFeel extends AppCompatActivity {
     private static final String TAG = "EditFeel";
@@ -65,9 +71,19 @@ public class EditFeel extends AppCompatActivity {
         button_save_feel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 final String comment = commentEditText.getText().toString();
                 final String feeling = feelSpinner.getSelectedItem().toString();
-                final String date = dateEditText.getText().toString();
+                String date = dateEditText.getText().toString();
+                try {
+                    Log.d(TAG, "parsing date string: " + date);
+                    date = dateFormat.format(dateFormat.parse(date));
+                } catch (ParseException e) {
+                    Toast.makeText(getApplicationContext(), "Inputted date is incorrect! Please conform to a yyyy-MM-ddTHH:mm:ss Datetime format.",
+                            Toast.LENGTH_LONG).show();
+                    return;
+                }
+
                 Intent data = new Intent();
                 data.putExtra("date", date);
                 data.putExtra("feeling", feeling);

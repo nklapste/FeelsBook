@@ -96,7 +96,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                                 mAdapter.notifyItemRemoved(position);
                                 mAdapter.notifyItemRangeChanged(position, feelList.size());
                                 return true;
-                            case R.id.button_comment:
+                            case R.id.button_edit_feeling:
                                 Intent intent = new Intent(getApplicationContext(), EditFeel.class);
                                 intent.putExtra("date", feelList.get(position).getDate());
                                 intent.putExtra("feeling", feelList.get(position).getFeeling());
