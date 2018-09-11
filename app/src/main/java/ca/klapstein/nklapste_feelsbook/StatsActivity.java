@@ -10,6 +10,14 @@ import java.util.Locale;
 public class StatsActivity extends AppCompatActivity {
     private static final String TAG = "MainActivity";
 
+    /**
+     * Convert a feeling tally {@code int} into a string representation.
+     *
+     * Also consider the {@code Locale} of the device when formatting.
+     *
+     * @param tally {@code int}
+     * @return {@code String}
+     */
     private String stringifyTally(int tally) {
         return String.format(Locale.getDefault(), "%d", tally);
     }
