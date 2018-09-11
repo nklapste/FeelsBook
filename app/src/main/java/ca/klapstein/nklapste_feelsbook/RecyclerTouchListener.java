@@ -23,13 +23,13 @@ public class RecyclerTouchListener implements RecyclerView.OnItemTouchListener {
         this.clickListener = clickListener;
         gestureDetector = new GestureDetector(context, new GestureDetector.SimpleOnGestureListener() {
             @Override
-            public boolean onSingleTapUp(MotionEvent e) {
+            public boolean onSingleTapUp(MotionEvent event) {
                 return true;
             }
 
             @Override
-            public void onLongPress(MotionEvent e) {
-                View child = recyclerView.findChildViewUnder(e.getX(), e.getY());
+            public void onLongPress(MotionEvent event) {
+                View child = recyclerView.findChildViewUnder(event.getX(), event.getY());
                 if (child != null && clickListener != null) {
                     clickListener.onLongClick(child, recyclerView.getChildPosition(child));
                 }
@@ -38,17 +38,17 @@ public class RecyclerTouchListener implements RecyclerView.OnItemTouchListener {
     }
 
     @Override
-    public boolean onInterceptTouchEvent(RecyclerView rv, MotionEvent e) {
+    public boolean onInterceptTouchEvent(RecyclerView view, MotionEvent event) {
 
-        View child = rv.findChildViewUnder(e.getX(), e.getY());
-        if (child != null && clickListener != null && gestureDetector.onTouchEvent(e)) {
-            clickListener.onClick(child, rv.getChildPosition(child));
+        View child = view.findChildViewUnder(event.getX(), event.getY());
+        if (child != null && clickListener != null && gestureDetector.onTouchEvent(event)) {
+            clickListener.onClick(child, view.getChildPosition(child));
         }
         return false;
     }
 
     @Override
-    public void onTouchEvent(RecyclerView rv, MotionEvent e) {
+    public void onTouchEvent(RecyclerView view, MotionEvent event) {
     }
 
     @Override
