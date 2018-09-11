@@ -67,8 +67,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         RecyclerView mFeelsRecyclerView = (RecyclerView) findViewById(R.id.feels_recycler_view);
 
         mFeelsRecyclerView.setHasFixedSize(true);
+        // TODO: add a method to calc stats
         tallyFeelings();
-        // use a linear layout manager
+
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(this);
         mFeelsRecyclerView.setLayoutManager(mLayoutManager);
         mAdapter = new FeelAdapter(mFeelList);
@@ -80,6 +81,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
             /**
              * Create a popup menu on a long click of a Feel.
+             *
+             * This menu provides two options:
+             *      1. Edit the Feel.
+             *      2. Delete the Feel.
              *
              * @param view {@code View}
              * @param position {@code int}
@@ -155,7 +160,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
     }
 
-
     public void tallyFeelings() {
         Integer angerTally = 0;
         Integer fearTally = 0;
@@ -216,7 +220,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     @Override
     public void onClick(View view) {
-        // default method for handling onClick Events..
         String feeling;
         switch (view.getId()) {
             case R.id.button_anger:
