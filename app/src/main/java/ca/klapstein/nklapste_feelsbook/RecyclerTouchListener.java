@@ -1,6 +1,7 @@
 package ca.klapstein.nklapste_feelsbook;
 
 import android.content.Context;
+import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
@@ -38,7 +39,7 @@ public class RecyclerTouchListener implements RecyclerView.OnItemTouchListener {
     }
 
     @Override
-    public boolean onInterceptTouchEvent(RecyclerView view, MotionEvent event) {
+    public boolean onInterceptTouchEvent(@NonNull RecyclerView view, @NonNull MotionEvent event) {
 
         View child = view.findChildViewUnder(event.getX(), event.getY());
         if (child != null && clickListener != null && gestureDetector.onTouchEvent(event)) {
@@ -48,7 +49,7 @@ public class RecyclerTouchListener implements RecyclerView.OnItemTouchListener {
     }
 
     @Override
-    public void onTouchEvent(RecyclerView view, MotionEvent event) {
+    public void onTouchEvent(@NonNull RecyclerView view, @NonNull MotionEvent event) {
     }
 
     @Override
