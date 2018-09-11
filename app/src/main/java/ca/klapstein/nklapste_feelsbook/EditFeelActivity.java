@@ -70,7 +70,7 @@ public class EditFeelActivity extends AppCompatActivity {
         final Button button_save_feel = (Button) findViewById(R.id.button_save_feel);
         button_save_feel.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
+            public void onClick(View view) {
 
                 final String comment = commentEditText.getText().toString();
                 final String feeling = feelSpinner.getSelectedItem().toString();
