@@ -212,38 +212,38 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     @Override
-    public void onClick(View v) {
+    public void onClick(View view) {
         // default method for handling onClick Events..
-        String feels = null;
-        switch (v.getId()){
+        String feeling;
+        switch (view.getId()){
             case R.id.button_anger:
-                feels = Feel.ANGER;
+                feeling = Feel.ANGER;
                 break;
 
             case R.id.button_fear:
-                feels = Feel.FEAR;
+                feeling = Feel.FEAR;
                 break;
 
             case R.id.button_joy:
-                feels = Feel.JOY;
+                feeling = Feel.JOY;
                 break;
 
             case R.id.button_love:
-                feels = Feel.LOVE;
+                feeling = Feel.LOVE;
                 break;
 
             case R.id.button_sadness:
-                feels = Feel.SADNESS;
+                feeling = Feel.SADNESS;
                 break;
 
             case R.id.button_surprise:
-                feels = Feel.SURPRISE;
+                feeling = Feel.SURPRISE;
                 break;
 
             default:
-                break;
+                return;
         }
-        feelList.add(0, new Feel(feels));
+        feelList.add(0, new Feel(feeling));
         mAdapter.notifyDataSetChanged();
 
         saveSharedPreferencesFeelList(getApplicationContext(), feelList);
