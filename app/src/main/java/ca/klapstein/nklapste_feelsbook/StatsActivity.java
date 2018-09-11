@@ -5,8 +5,14 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.TextView;
 
+import java.util.Locale;
+
 public class StatsActivity extends AppCompatActivity {
     private static final String TAG = "MainActivity";
+
+    private String stringifyTally(int tally) {
+        return String.format(Locale.getDefault(), "%d", tally);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -16,27 +22,27 @@ public class StatsActivity extends AppCompatActivity {
 
         Integer angerTally = intent.getIntExtra("angerTally", 0);
         final TextView angerTextViewNumber = findViewById(R.id.angerTextViewNumber);
-        angerTextViewNumber.setText(angerTally.toString());
+        angerTextViewNumber.setText(stringifyTally(angerTally));
 
         Integer fearTally = intent.getIntExtra("fearTally", 0);
         final TextView fearTextViewNumber = findViewById(R.id.fearTextViewNumber);
-        fearTextViewNumber.setText(fearTally.toString());
+        fearTextViewNumber.setText(stringifyTally(fearTally));
 
         Integer joyTally = intent.getIntExtra("joyTally", 0);
         final TextView joyTextViewNumber = findViewById(R.id.joyTextViewNumber);
-        joyTextViewNumber.setText(joyTally.toString());
+        joyTextViewNumber.setText(stringifyTally(joyTally));
 
         Integer loveTally = intent.getIntExtra("loveTally", 0);
         final TextView loveTextViewNumber = findViewById(R.id.loveTextViewNumber);
-        loveTextViewNumber.setText(loveTally.toString());
+        loveTextViewNumber.setText(stringifyTally(loveTally));
 
         Integer sadnessTally = intent.getIntExtra("sadnessTally", 0);
         final TextView sadnessTextViewNumber = findViewById(R.id.sadnessTextViewNumber);
-        sadnessTextViewNumber.setText(sadnessTally.toString());
+        sadnessTextViewNumber.setText(stringifyTally(sadnessTally));
 
         Integer surpriseTally = intent.getIntExtra("surpriseTally", 0);
         final TextView surpriseTextViewNumber = findViewById(R.id.surpriseTextViewNumber);
-        surpriseTextViewNumber.setText(surpriseTally.toString());
+        surpriseTextViewNumber.setText(stringifyTally(surpriseTally));
     }
 
 }
