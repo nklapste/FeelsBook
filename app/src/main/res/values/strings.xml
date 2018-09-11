@@ -11,4 +11,8 @@
     <string name="add_a_feeling">Add a Feeling</string>
     <string name="edit_feeling">Edit Feeling</string>
     <string name="title_activity_stats">StatsActivity</string>
+    <string name="date">Date</string>
+    <string name="feel">Feel</string>
+    <string name="save">Save</string>
+    <string name="comment_hint">Enter your comment here</string>
 </resources>
