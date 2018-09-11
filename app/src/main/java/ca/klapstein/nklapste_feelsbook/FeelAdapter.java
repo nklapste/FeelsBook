@@ -29,7 +29,12 @@ class FeelAdapter extends RecyclerView.Adapter<FeelAdapter.FeelViewHolder> {
         return new FeelViewHolder(itemView);
     }
 
-    // Replace the contents of a view (invoked by the layout manager)
+    /**
+     *  Replace the contents of a view (invoked by the layout manager)
+     *
+     * @param holder {@code FeelViewHolder}
+     * @param position {@code position} position of the entity within the RecyclerView
+     */
     @Override
     public void onBindViewHolder(@NonNull FeelViewHolder holder, final int position) {
         holder.date.setText(feelsList.get(position).getDate());
@@ -42,9 +47,10 @@ class FeelAdapter extends RecyclerView.Adapter<FeelAdapter.FeelViewHolder> {
         return feelsList.size();
     }
 
-    // Provide a reference to the views for each data item
-    // Complex data items may need more than one view per item, and
-    // you provide access to all the views for a data item in a view holder
+    /**
+     * Provide a reference to the views for each data item. Complex data items may need more than
+     * one view per item, and you provide access to all the views for a data item in a view holder
+     */
     public static class FeelViewHolder extends RecyclerView.ViewHolder {
         public TextView title, comment, date, button;
 
