@@ -7,7 +7,12 @@ import android.view.MotionEvent;
 import android.view.View;
 
 /**
+ * RecyclerTouchListener is based off code provided at:
+ *
  * https://www.androidhive.info/2016/01/android-working-with-recycler-view/
+ *
+ * Provides a {@code ClickListener} interface that then provides stubs for a {@code onClick} and
+ * {@code onLongClick} methods for RecyclerViews.
  */
 public class RecyclerTouchListener implements RecyclerView.OnItemTouchListener {
 
