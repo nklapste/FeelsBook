@@ -15,7 +15,7 @@ import android.view.View;
  * {@code onLongClick} methods for RecyclerViews.
  */
 public class RecyclerTouchListener implements RecyclerView.OnItemTouchListener {
-
+    private static final String TAG = "RecyclerTouchListener";
     private GestureDetector gestureDetector;
     private ClickListener clickListener;
 
