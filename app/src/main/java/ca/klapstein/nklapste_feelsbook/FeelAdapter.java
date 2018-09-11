@@ -10,6 +10,9 @@ import android.widget.TextView;
 import java.util.ArrayList;
 
 
+/**
+ * RecyclerView adapter for integrating a {@code ArrayList<Feel>}.
+ */
 class FeelAdapter extends RecyclerView.Adapter<FeelAdapter.FeelViewHolder> {
     private static final String TAG = "FeelAdapter";
     private ArrayList<Feel> feelsList;
