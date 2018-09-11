@@ -151,7 +151,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             feel.setFeeling(feeling);
 
             mFeelList.set(position, feel);
-
             mAdapter.notifyItemChanged(position);
         }
     }

@@ -76,9 +76,10 @@ public class EditFeelActivity extends AppCompatActivity {
                 final String feeling = feelSpinner.getSelectedItem().toString();
                 String date = dateEditText.getText().toString();
                 try {
-                    Log.d(TAG, "parsing date string: " + date);
+                    Log.d(TAG, "Parsing date string: " + date);
                     date = dateFormat.format(dateFormat.parse(date));
                 } catch (ParseException e) {
+                    Log.e(TAG, "Failed to parse date string: " + date, e);
                     Toast.makeText(getApplicationContext(), "Inputted date is incorrect! Please conform to a yyyy-MM-ddTHH:mm:ss Datetime format.",
                             Toast.LENGTH_LONG).show();
                     return;
