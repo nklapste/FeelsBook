@@ -3,8 +3,8 @@ package ca.klapstein.nklapste_feelsbook;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -156,7 +156,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
 
-    public void tallyFeelings(){
+    public void tallyFeelings() {
         Integer angerTally = 0;
         Integer fearTally = 0;
         Integer joyTally = 0;
@@ -217,7 +217,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public void onClick(View view) {
         // default method for handling onClick Events..
         String feeling;
-        switch (view.getId()){
+        switch (view.getId()) {
             case R.id.button_anger:
                 feeling = Feel.ANGER;
                 break;

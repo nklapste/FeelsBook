@@ -8,9 +8,9 @@ import android.view.View;
 
 /**
  * RecyclerTouchListener is based off code provided at:
- *
+ * <p>
  * https://www.androidhive.info/2016/01/android-working-with-recycler-view/
- *
+ * <p>
  * Provides a {@code ClickListener} interface that then provides stubs for a {@code onClick} and
  * {@code onLongClick} methods for RecyclerViews.
  */

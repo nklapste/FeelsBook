@@ -6,7 +6,7 @@ import java.util.Locale;
 
 /**
  * Object Class defining a feeling as described by:
- *
+ * <p>
  * http://changingminds.org/explanations/emotions/basic%20emotions.htm from
  * Shaver, P., Schwartz, J., Kirson, D., & O'Connor, C. (2001).
  * Emotional Knowledge: Further Exploration of a Prototype Approach.
@@ -14,20 +14,17 @@ import java.util.Locale;
  * Philadelphia, PA: Psychology Press.
  */
 public class Feel {
-    private static final String TAG = "Feel";
-
     public static final String ANGER = "Anger";
     public static final String SADNESS = "Sadness";
     public static final String SURPRISE = "Surprise";
     public static final String JOY = "Joy";
     public static final String FEAR = "Fear";
     public static final String LOVE = "Love";
-
+    public static final SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss", Locale.getDefault());
+    private static final String TAG = "Feel";
     private String comment;
     private String feeling;
     private String date;
-
-    public static final SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss", Locale.getDefault());
 
     Feel(String feeling) {
         this.feeling = feeling;

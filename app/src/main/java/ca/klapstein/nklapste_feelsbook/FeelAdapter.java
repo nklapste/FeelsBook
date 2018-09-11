@@ -1,4 +1,3 @@
-
 package ca.klapstein.nklapste_feelsbook;
 
 import android.support.annotation.NonNull;
@@ -14,19 +13,6 @@ import java.util.ArrayList;
 class FeelAdapter extends RecyclerView.Adapter<FeelAdapter.FeelViewHolder> {
     private static final String TAG = "FeelAdapter";
     private ArrayList<Feel> feelsList;
-
-    // Provide a reference to the views for each data item
-    // Complex data items may need more than one view per item, and
-    // you provide access to all the views for a data item in a view holder
-    public static class FeelViewHolder extends RecyclerView.ViewHolder {
-        public TextView title, comment, date, button;
-        public FeelViewHolder(View view) {
-            super(view);
-            title = (TextView) view.findViewById(R.id.feel_name);
-            date = (TextView) view.findViewById(R.id.feel_date);
-            comment = (TextView) view.findViewById(R.id.feel_comment);
-        }
-    }
 
     public FeelAdapter(ArrayList<Feel> feelList) {
         this.feelsList = feelList;
@@ -51,5 +37,19 @@ class FeelAdapter extends RecyclerView.Adapter<FeelAdapter.FeelViewHolder> {
     @Override
     public int getItemCount() {
         return feelsList.size();
+    }
+
+    // Provide a reference to the views for each data item
+    // Complex data items may need more than one view per item, and
+    // you provide access to all the views for a data item in a view holder
+    public static class FeelViewHolder extends RecyclerView.ViewHolder {
+        public TextView title, comment, date, button;
+
+        public FeelViewHolder(View view) {
+            super(view);
+            title = (TextView) view.findViewById(R.id.feel_name);
+            date = (TextView) view.findViewById(R.id.feel_date);
+            comment = (TextView) view.findViewById(R.id.feel_comment);
+        }
     }
 }
