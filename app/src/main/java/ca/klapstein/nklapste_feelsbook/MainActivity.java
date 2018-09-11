@@ -21,6 +21,7 @@ import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
     private static final String TAG = "MainActivity";
+
     private static final int EDIT_COMMENT_REQUEST_CODE = 1;
 
     private FeelAdapter mAdapter;
@@ -200,13 +201,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     break;
             }
         }
-
-        Log.i(TAG, angerTally.toString());
-        Log.i(TAG, fearTally.toString());
-        Log.i(TAG, joyTally.toString());
-        Log.i(TAG, loveTally.toString());
-        Log.i(TAG, sadnessTally.toString());
-        Log.i(TAG, surpriseTally.toString());
 
         Intent intent = new Intent(getApplicationContext(), StatsActivity.class);
         intent.putExtra("angerTally", angerTally);

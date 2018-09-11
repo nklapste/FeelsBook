@@ -15,6 +15,7 @@ import java.util.ArrayList;
  */
 class FeelAdapter extends RecyclerView.Adapter<FeelAdapter.FeelViewHolder> {
     private static final String TAG = "FeelAdapter";
+
     private ArrayList<Feel> feelsList;
 
     public FeelAdapter(ArrayList<Feel> feelList) {

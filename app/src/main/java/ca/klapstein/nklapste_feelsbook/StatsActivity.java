@@ -52,5 +52,4 @@ public class StatsActivity extends AppCompatActivity {
         final TextView surpriseTextViewNumber = findViewById(R.id.surpriseTextViewNumber);
         surpriseTextViewNumber.setText(stringifyTally(surpriseTally));
     }
-
 }

@@ -14,6 +14,8 @@ import java.util.Locale;
  * Philadelphia, PA: Psychology Press.
  */
 public class Feel {
+    private static final String TAG = "Feel";
+
     public static final String ANGER = "Anger";
     public static final String SADNESS = "Sadness";
     public static final String SURPRISE = "Surprise";
@@ -21,7 +23,6 @@ public class Feel {
     public static final String FEAR = "Fear";
     public static final String LOVE = "Love";
     public static final SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss", Locale.getDefault());
-    private static final String TAG = "Feel";
     private String comment;
     private String feeling;
     private String date;
