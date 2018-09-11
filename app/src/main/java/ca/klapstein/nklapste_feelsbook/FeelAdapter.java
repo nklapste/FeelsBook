@@ -1,6 +1,7 @@
 
 package ca.klapstein.nklapste_feelsbook;
 
+import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -31,8 +32,9 @@ class FeelAdapter extends RecyclerView.Adapter<FeelAdapter.FeelViewHolder> {
         this.feelsList = feelList;
     }
 
+    @NonNull
     @Override
-    public FeelViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public FeelViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View itemView = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.feel_view, parent, false);
         return new FeelViewHolder(itemView);
@@ -40,9 +42,9 @@ class FeelAdapter extends RecyclerView.Adapter<FeelAdapter.FeelViewHolder> {
 
     // Replace the contents of a view (invoked by the layout manager)
     @Override
-    public void onBindViewHolder(FeelViewHolder holder, final int position) {
+    public void onBindViewHolder(@NonNull FeelViewHolder holder, final int position) {
         holder.date.setText(feelsList.get(position).getDate());
-        holder.title.setText(feelsList.get(position).getFeel().toString());
+        holder.title.setText(feelsList.get(position).getFeeling());
         holder.comment.setText(feelsList.get(position).getComment());
     }
 

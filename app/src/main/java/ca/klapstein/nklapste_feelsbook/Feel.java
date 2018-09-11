@@ -7,16 +7,23 @@ import java.util.Locale;
 public class Feel {
     private static final String TAG = "Feel";
 
-    private String comment;
-    private Feels feels;
-    private String date;
+    public static final String ANGER = "Anger";
+    public static final String SADNESS = "Sadness";
+    public static final String SURPRISE = "Surprise";
+    public static final String JOY = "Joy";
+    public static final String FEAR = "Fear";
+    public static final String LOVE = "Love";
 
-    Feel(Feels feels) {
-        this.feels = feels;
+    private String comment;
+    private String feeling;
+    private String date;
+    private static final SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss", Locale.getDefault());
+
+    Feel(String feeling) {
+        this.feeling = feeling;
         this.comment = "";
 
         try {
-            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss", Locale.getDefault());
             this.date = dateFormat.format(new Date());
         } catch (Exception e) {
             e.printStackTrace();
@@ -32,11 +39,19 @@ public class Feel {
         this.comment = comment;
     }
 
-    public Feels getFeel() {
-        return feels;
+    public String getFeeling() {
+        return feeling;
+    }
+
+    public void setFeeling(String feeling) {
+        this.feeling = feeling;
     }
 
     public String getDate() {
         return date;
+    }
+
+    public void setDate(String date) {
+        this.date = date;
     }
 }

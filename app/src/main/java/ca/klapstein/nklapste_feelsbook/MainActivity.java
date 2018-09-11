@@ -7,7 +7,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -37,18 +36,18 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     public static ArrayList<Feel> loadSharedPreferencesFeelList(Context context) {
-        ArrayList<Feel> callLog = new ArrayList<Feel>();
+        ArrayList<Feel> feelList = new ArrayList<Feel>();
         SharedPreferences mPrefs = context.getSharedPreferences("feelList", context.MODE_PRIVATE);
         Gson gson = new Gson();
         String json = mPrefs.getString("myJson", "");
         if (json.isEmpty()) {
-            callLog = new ArrayList<Feel>();
+            feelList = new ArrayList<Feel>();
         } else {
             Type type = new TypeToken<ArrayList<Feel>>() {
             }.getType();
-            callLog = gson.fromJson(json, type);
+            feelList = gson.fromJson(json, type);
         }
-        return callLog;
+        return feelList;
     }
 
     @Override
@@ -99,6 +98,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                                 return true;
                             case R.id.button_comment:
                                 Intent intent = new Intent(getApplicationContext(), EditFeel.class);
+                                intent.putExtra("date", feelList.get(position).getDate());
+                                intent.putExtra("feeling", feelList.get(position).getFeeling());
                                 intent.putExtra("comment", feelList.get(position).getComment());
                                 intent.putExtra("position", position);
                                 startActivityForResult(intent, 1);
@@ -137,11 +138,18 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent intent) {
         if (requestCode == EDIT_COMMENT_REQUEST_CODE && resultCode == RESULT_OK) {
+            String date = intent.getStringExtra("date");
+            String feeling = intent.getStringExtra("feeling");
             String comment = intent.getStringExtra("comment");
             int position = intent.getIntExtra("position", 0);
+
             Feel feel = feelList.get(position);
             feel.setComment(comment);
+            feel.setDate(date);
+            feel.setFeeling(feeling);
+
             feelList.set(position, feel);
+
             mAdapter.notifyItemChanged(position);
         }
     }
@@ -149,30 +157,30 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     public void onClick(View v) {
         // default method for handling onClick Events..
-        Feels feels = null;
+        String feels = null;
         switch (v.getId()){
-            case R.id.button_love:
-                feels = Feels.LOVE;
-                break;
-
             case R.id.button_anger:
-                feels = Feels.ANGER;
-                break;
-
-            case R.id.button_joy:
-                feels = Feels.JOY;
-                break;
-
-            case R.id.button_sadness:
-                feels = Feels.SADNESS;
-                break;
-
-            case R.id.button_surprise:
-                feels = Feels.SURPRISE;
+                feels = Feel.ANGER;
                 break;
 
             case R.id.button_fear:
-                feels = Feels.FEAR;
+                feels = Feel.FEAR;
+                break;
+
+            case R.id.button_joy:
+                feels = Feel.JOY;
+                break;
+
+            case R.id.button_love:
+                feels = Feel.LOVE;
+                break;
+
+            case R.id.button_sadness:
+                feels = Feel.SADNESS;
+                break;
+
+            case R.id.button_surprise:
+                feels = Feel.SURPRISE;
                 break;
 
             default:

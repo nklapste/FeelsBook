@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="feels" >
+        <item>Anger</item>
+        <item>Fear</item>
+        <item>Joy</item>
+        <item>Love</item>
+        <item>Sadness</item>
+        <item>Surprise</item>
+    </string-array>
+</resources>
