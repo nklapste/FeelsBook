@@ -28,7 +28,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private ArrayList<Feel> feelList = new ArrayList<>();
 
     public static void saveSharedPreferencesFeelList(Context context, ArrayList<Feel> feelList) {
-        SharedPreferences mPrefs = context.getSharedPreferences("feelList", context.MODE_PRIVATE);
+        SharedPreferences mPrefs = context.getSharedPreferences("feelList", MODE_PRIVATE);
         SharedPreferences.Editor prefsEditor = mPrefs.edit();
         Gson gson = new Gson();
         String json = gson.toJson(feelList);
@@ -38,7 +38,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     public static ArrayList<Feel> loadSharedPreferencesFeelList(Context context) {
         ArrayList<Feel> feelList = new ArrayList<Feel>();
-        SharedPreferences mPrefs = context.getSharedPreferences("feelList", context.MODE_PRIVATE);
+        SharedPreferences mPrefs = context.getSharedPreferences("feelList", MODE_PRIVATE);
         Gson gson = new Gson();
         String json = mPrefs.getString("myJson", "");
         if (json.isEmpty()) {
