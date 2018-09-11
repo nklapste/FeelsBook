@@ -25,22 +25,22 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     private FeelAdapter mAdapter;
 
-    private ArrayList<Feel> feelList = new ArrayList<>();
+    private ArrayList<Feel> mFeelList = new ArrayList<>();
 
     public static void saveSharedPreferencesFeelList(Context context, ArrayList<Feel> feelList) {
-        SharedPreferences mPrefs = context.getSharedPreferences("feelList", MODE_PRIVATE);
+        SharedPreferences mPrefs = context.getSharedPreferences("mFeelList", MODE_PRIVATE);
         SharedPreferences.Editor prefsEditor = mPrefs.edit();
         Gson gson = new Gson();
         String json = gson.toJson(feelList);
-        prefsEditor.putString("myJson", json);
+        prefsEditor.putString("mFeelListJson", json);
         prefsEditor.apply();
     }
 
     public static ArrayList<Feel> loadSharedPreferencesFeelList(Context context) {
-        ArrayList<Feel> feelList = new ArrayList<Feel>();
-        SharedPreferences mPrefs = context.getSharedPreferences("feelList", MODE_PRIVATE);
+        ArrayList<Feel> feelList;
+        SharedPreferences mPrefs = context.getSharedPreferences("mFeelList", MODE_PRIVATE);
         Gson gson = new Gson();
-        String json = mPrefs.getString("myJson", "");
+        String json = mPrefs.getString("mFeelListJson", "");
         if (json.isEmpty()) {
             feelList = new ArrayList<Feel>();
         } else {
@@ -53,7 +53,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     @Override
     protected void onDestroy() {
-        saveSharedPreferencesFeelList(getApplicationContext(), feelList);
+        saveSharedPreferencesFeelList(getApplicationContext(), mFeelList);
         super.onDestroy();
     }
 
@@ -61,8 +61,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        // TODO save feelList on destruction and load old feels list
-        feelList = loadSharedPreferencesFeelList(getApplicationContext());
+        mFeelList = loadSharedPreferencesFeelList(getApplicationContext());
 
         setContentView(R.layout.listview_layout);
         RecyclerView mFeelsRecyclerView = (RecyclerView) findViewById(R.id.feels_recycler_view);
@@ -72,13 +71,19 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         // use a linear layout manager
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(this);
         mFeelsRecyclerView.setLayoutManager(mLayoutManager);
-        mAdapter = new FeelAdapter(feelList);
+        mAdapter = new FeelAdapter(mFeelList);
         mFeelsRecyclerView.setAdapter(mAdapter);
         mFeelsRecyclerView.addOnItemTouchListener(new RecyclerTouchListener(getApplicationContext(), mFeelsRecyclerView, new RecyclerTouchListener.ClickListener() {
             @Override
             public void onClick(View view, int position) {
             }
 
+            /**
+             * Create a popup menu on a long click of a Feel.
+             *
+             * @param view
+             * @param position
+             */
             @Override
             public void onLongClick(View view, final int position) {
                 //creating a popup menu
@@ -91,15 +96,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     public boolean onMenuItemClick(MenuItem item) {
                         switch (item.getItemId()) {
                             case R.id.button_delete:
-                                feelList.remove(position);
+                                mFeelList.remove(position);
                                 mAdapter.notifyItemRemoved(position);
-                                mAdapter.notifyItemRangeChanged(position, feelList.size());
+                                mAdapter.notifyItemRangeChanged(position, mFeelList.size());
                                 return true;
                             case R.id.button_edit_feeling:
                                 Intent intent = new Intent(getApplicationContext(), EditFeelActivity.class);
-                                intent.putExtra("date", feelList.get(position).getDate());
-                                intent.putExtra("feeling", feelList.get(position).getFeeling());
-                                intent.putExtra("comment", feelList.get(position).getComment());
+                                intent.putExtra("date", mFeelList.get(position).getDate());
+                                intent.putExtra("feeling", mFeelList.get(position).getFeeling());
+                                intent.putExtra("comment", mFeelList.get(position).getComment());
                                 intent.putExtra("position", position);
                                 startActivityForResult(intent, 1);
                                 return true;
@@ -108,9 +113,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         }
                     }
                 });
-                //displaying the popup
                 popup.show();
-
             }
         }));
 
@@ -142,12 +145,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             String comment = intent.getStringExtra("comment");
             int position = intent.getIntExtra("position", 0);
 
-            Feel feel = feelList.get(position);
+            Feel feel = mFeelList.get(position);
             feel.setComment(comment);
             feel.setDate(date);
             feel.setFeeling(feeling);
 
-            feelList.set(position, feel);
+            mFeelList.set(position, feel);
 
             mAdapter.notifyItemChanged(position);
         }
@@ -162,7 +165,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         Integer sadnessTally = 0;
         Integer surpriseTally = 0;
 
-        for (Feel feel : feelList) {
+        for (Feel feel : mFeelList) {
             String feeling = feel.getFeeling();
             switch (feeling) {
                 case Feel.ANGER:
@@ -243,9 +246,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             default:
                 return;
         }
-        feelList.add(0, new Feel(feeling));
+        mFeelList.add(0, new Feel(feeling));
         mAdapter.notifyDataSetChanged();
 
-        saveSharedPreferencesFeelList(getApplicationContext(), feelList);
+        saveSharedPreferencesFeelList(getApplicationContext(), mFeelList);
     }
 }
