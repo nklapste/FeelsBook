@@ -25,6 +25,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private FeelAdapter mAdapter;
     private FeelQueue mFeelQueue;
 
+    /**
+     * Save the MainActivites FeelQueue on closing.
+     */
     @Override
     protected void onDestroy() {
         PreferencesManager.saveSharedPreferencesFeelList(getApplicationContext(), mFeelQueue);
