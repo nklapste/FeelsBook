@@ -57,9 +57,17 @@ public class Feel implements Comparable<Feel>{
         this.date = date;
     }
 
+    /**
+     * Compare to {@code Feel}s.
+     *
+     * Only compare them by their date.
+     *
+     * @param feel {@code Feel}
+     * @return
+     */
     @Override
-    public int compareTo(@NonNull Feel o) {
-        return this.getDate().compareTo(o.getDate());
+    public int compareTo(@NonNull Feel feel) {
+        return this.getDate().compareTo(feel.getDate());
     }
 
     public enum FEELINGS {
