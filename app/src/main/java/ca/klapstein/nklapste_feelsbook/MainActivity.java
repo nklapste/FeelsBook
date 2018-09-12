@@ -13,9 +13,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.PopupMenu;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
+import java.text.ParseException;
 import java.util.Date;
 
 import static ca.klapstein.nklapste_feelsbook.Feel.dateFormat;
@@ -24,16 +22,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private static final String TAG = "MainActivity";
 
     private static final int EDIT_COMMENT_REQUEST_CODE = 1;
-
     private FeelAdapter mAdapter;
-
-    private ArrayList<Feel> mFeelList;
-    private Comparator<Feel> mFeelListComparator = new Comparator<Feel>() {
-        @Override
-        public int compare(Feel o1, Feel o2) {
-            return o1.getDate().compareTo(o2.getDate());
-        }
-    };
+    private FeelList mFeelList;
 
     @Override
     protected void onDestroy() {
@@ -126,9 +116,21 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         // set the OnClick function for the Stats button
         final Button button_stats = findViewById(R.id.button_stats);
         button_stats.setOnClickListener(new View.OnClickListener() {
+
+            /**
+             * Compute the tally of all feelings within mFeelList and send the totals to
+             * StatsActivity to be displayed.
+             */
             @Override
             public void onClick(View v) {
-                tallyFeelings();
+                Intent intent = new Intent(getApplicationContext(), StatsActivity.class);
+                intent.putExtra("angerTally", mFeelList.getAngerTally());
+                intent.putExtra("fearTally", mFeelList.getFearTally());
+                intent.putExtra("joyTally", mFeelList.getJoyTally());
+                intent.putExtra("loveTally", mFeelList.getLoveTally());
+                intent.putExtra("sadnessTally", mFeelList.getSadnessTally());
+                intent.putExtra("surpriseTally", mFeelList.getSurpriseTally());
+                startActivity(intent);
             }
         });
     }
@@ -137,79 +139,24 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent intent) {
         if (requestCode == EDIT_COMMENT_REQUEST_CODE && resultCode == RESULT_OK) {
-            Date date = new Date(intent.getStringExtra("date"));
+            Date date = null;
+            try {
+                date = dateFormat.parse(intent.getStringExtra("date"));
+            } catch (ParseException e) {
+                Log.e(TAG, "Failed to parse date: " + intent.getStringExtra("date"), e);
+            }
             String feeling = intent.getStringExtra("feeling");
             String comment = intent.getStringExtra("comment");
             final int position = intent.getIntExtra("position", 0);
 
-            Feel feel = mFeelList.get(position);
+            mFeelList.remove(position);
+            Feel feel = new Feel(feeling);
             feel.setComment(comment);
             feel.setDate(date);
-            feel.setFeeling(feeling);
-
-            mFeelList.set(position, feel);
-            mAdapter.notifyItemChanged(position);
-
-            // TODO: better way to sort feels
-            mFeelList.sort(mFeelListComparator);
-            Collections.reverse(mFeelList);
+            mFeelList.add(feel);
             mAdapter.notifyDataSetChanged();
+            PreferencesManager.saveSharedPreferencesFeelList(getApplicationContext(), mFeelList);
         }
-    }
-
-    /**
-     * Compute the tally of all feelings within mFeelList and send the totals to
-     * StatsActivity to be displayed.
-     */
-    public void tallyFeelings() {
-        Integer angerTally = 0;
-        Integer fearTally = 0;
-        Integer joyTally = 0;
-        Integer loveTally = 0;
-        Integer sadnessTally = 0;
-        Integer surpriseTally = 0;
-
-        for (Feel feel : mFeelList) {
-            String feeling = feel.getFeeling();
-            switch (feeling) {
-                case Feel.ANGER:
-                    angerTally += 1;
-                    break;
-
-                case Feel.FEAR:
-                    fearTally += 1;
-                    break;
-
-                case Feel.JOY:
-                    joyTally += 1;
-                    break;
-
-                case Feel.LOVE:
-                    loveTally += 1;
-                    break;
-
-                case Feel.SADNESS:
-                    sadnessTally += 1;
-                    break;
-
-                case Feel.SURPRISE:
-                    surpriseTally += 1;
-                    break;
-
-                default:
-                    Log.e(TAG, "Unsupported feeling attempted to be tallied: " + feeling);
-                    break;
-            }
-        }
-
-        Intent intent = new Intent(getApplicationContext(), StatsActivity.class);
-        intent.putExtra("angerTally", angerTally);
-        intent.putExtra("fearTally", fearTally);
-        intent.putExtra("joyTally", joyTally);
-        intent.putExtra("loveTally", loveTally);
-        intent.putExtra("sadnessTally", sadnessTally);
-        intent.putExtra("surpriseTally", surpriseTally);
-        startActivity(intent);
     }
 
     @RequiresApi(api = Build.VERSION_CODES.N)
@@ -245,14 +192,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 Log.e(TAG, "Unsupported button pushed: " + view.getId());
                 return;
         }
-        mFeelList.add(0, new Feel(feeling));
+        mFeelList.add(new Feel(feeling));
         mAdapter.notifyDataSetChanged();
-
-        // TODO: better way to sort feels
-        mFeelList.sort(mFeelListComparator);
-        Collections.reverse(mFeelList);
-        mAdapter.notifyDataSetChanged();
-
         PreferencesManager.saveSharedPreferencesFeelList(getApplicationContext(), mFeelList);
     }
 }

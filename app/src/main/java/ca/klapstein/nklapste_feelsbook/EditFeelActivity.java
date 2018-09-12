@@ -14,7 +14,6 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.TimePicker;
-import android.widget.Toast;
 
 import java.text.ParseException;
 import java.util.Calendar;
@@ -128,17 +127,15 @@ public class EditFeelActivity extends AppCompatActivity {
                 final String feeling = feelSpinner.getSelectedItem().toString();
                 String date = dateEditText.getText().toString();
                 try {
-                    Log.d(TAG, "Parsing new_date string: " + date);
                     date = dateFormat.format(dateFormat.parse(date));
                 } catch (ParseException e) {
-                    Log.e(TAG, "Failed to parse new_date string: " + date, e);
-                    Toast.makeText(getApplicationContext(), "Inputted new_date is incorrect! Please conform to a yyyy-MM-ddTHH:mm:ss Datetime format.",
-                            Toast.LENGTH_LONG).show();
+                    Log.e(TAG, "Failed to parse date string: " + date, e);
+                    // TODO: error handling
                     return;
                 }
 
                 Intent data = new Intent();
-                data.putExtra("new_date", date);
+                data.putExtra("date", date);
                 data.putExtra("feeling", feeling);
                 data.putExtra("comment", comment);
                 data.putExtra("position", position);

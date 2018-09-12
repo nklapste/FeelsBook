@@ -37,15 +37,15 @@ public class PreferencesManager {
      *
      * @param context {@code Context}
      */
-    public static ArrayList<Feel> loadSharedPreferencesFeelList(Context context) {
-        ArrayList<Feel> feelList;
+    public static FeelList loadSharedPreferencesFeelList(Context context) {
+        FeelList feelList;
         SharedPreferences mPrefs = context.getSharedPreferences(FEELS_LIST_PREF_NAME, Context.MODE_PRIVATE);
         Gson gson = new Gson();
         String json = mPrefs.getString(FEELS_LIST_PREF_JSON_KEY, "");
         if (json.isEmpty()) {
-            feelList = new ArrayList<Feel>();
+            feelList = new FeelList();
         } else {
-            Type type = new TypeToken<ArrayList<Feel>>() {
+            Type type = new TypeToken<FeelList>() {
             }.getType();
             feelList = gson.fromJson(json, type);
         }
