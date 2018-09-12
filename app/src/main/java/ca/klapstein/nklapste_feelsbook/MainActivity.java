@@ -1,9 +1,9 @@
 package ca.klapstein.nklapste_feelsbook;
 
-import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
+import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.RequiresApi;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -13,11 +13,13 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.PopupMenu;
 
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
-
-import java.lang.reflect.Type;
+import java.text.ParseException;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.Date;
+
+import static ca.klapstein.nklapste_feelsbook.Feel.dateFormat;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
     private static final String TAG = "MainActivity";
@@ -28,33 +30,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     private ArrayList<Feel> mFeelList = new ArrayList<>();
 
-    public static void saveSharedPreferencesFeelList(Context context, ArrayList<Feel> feelList) {
-        SharedPreferences mPrefs = context.getSharedPreferences("mFeelList", MODE_PRIVATE);
-        SharedPreferences.Editor prefsEditor = mPrefs.edit();
-        Gson gson = new Gson();
-        String json = gson.toJson(feelList);
-        prefsEditor.putString("mFeelListJson", json);
-        prefsEditor.apply();
-    }
-
-    public static ArrayList<Feel> loadSharedPreferencesFeelList(Context context) {
-        ArrayList<Feel> feelList;
-        SharedPreferences mPrefs = context.getSharedPreferences("mFeelList", MODE_PRIVATE);
-        Gson gson = new Gson();
-        String json = mPrefs.getString("mFeelListJson", "");
-        if (json.isEmpty()) {
-            feelList = new ArrayList<Feel>();
-        } else {
-            Type type = new TypeToken<ArrayList<Feel>>() {
-            }.getType();
-            feelList = gson.fromJson(json, type);
-        }
-        return feelList;
-    }
-
     @Override
     protected void onDestroy() {
-        saveSharedPreferencesFeelList(getApplicationContext(), mFeelList);
+        PreferencesManager.saveSharedPreferencesFeelList(getApplicationContext(), mFeelList);
         super.onDestroy();
     }
 
@@ -62,7 +40,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        mFeelList = loadSharedPreferencesFeelList(getApplicationContext());
+        mFeelList = PreferencesManager.loadSharedPreferencesFeelList(getApplicationContext());
 
         setContentView(R.layout.listview_layout);
         RecyclerView mFeelsRecyclerView = (RecyclerView) findViewById(R.id.feels_recycler_view);
@@ -106,7 +84,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                                 return true;
                             case R.id.button_edit_feeling:
                                 Intent intent = new Intent(getApplicationContext(), EditFeelActivity.class);
-                                intent.putExtra("date", mFeelList.get(position).getDate());
+                                intent.putExtra("date", dateFormat.format(mFeelList.get(position).getDate()));
                                 intent.putExtra("feeling", mFeelList.get(position).getFeeling());
                                 intent.putExtra("comment", mFeelList.get(position).getComment());
                                 intent.putExtra("position", position);
@@ -150,10 +128,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         });
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent intent) {
         if (requestCode == EDIT_COMMENT_REQUEST_CODE && resultCode == RESULT_OK) {
-            String date = intent.getStringExtra("date");
+            Date date = new Date(intent.getStringExtra("date"));
             String feeling = intent.getStringExtra("feeling");
             String comment = intent.getStringExtra("comment");
             final int position = intent.getIntExtra("position", 0);
@@ -165,6 +144,16 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
             mFeelList.set(position, feel);
             mAdapter.notifyItemChanged(position);
+
+            // TODO: better way to sort feels
+            mFeelList.sort(new Comparator<Feel>() {
+                @Override
+                public int compare(Feel o1, Feel o2) {
+                    return o1.getDate().compareTo(o2.getDate());
+                }
+            });
+            Collections.reverse(mFeelList);
+            mAdapter.notifyDataSetChanged();
         }
     }
 
@@ -223,6 +212,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         startActivity(intent);
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
     public void onClick(View view) {
         String feeling;
@@ -255,10 +245,19 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 Log.e(TAG, "Unsupported button pushed: " + view.getId());
                 return;
         }
-
         mFeelList.add(0, new Feel(feeling));
         mAdapter.notifyDataSetChanged();
 
-        saveSharedPreferencesFeelList(getApplicationContext(), mFeelList);
+        // TODO: better way to sort feels
+        mFeelList.sort(new Comparator<Feel>() {
+            @Override
+            public int compare(Feel o1, Feel o2) {
+                return o1.getDate().compareTo(o2.getDate());
+            }
+        });
+        Collections.reverse(mFeelList);
+        mAdapter.notifyDataSetChanged();
+
+        PreferencesManager.saveSharedPreferencesFeelList(getApplicationContext(), mFeelList);
     }
 }

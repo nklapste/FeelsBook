@@ -16,27 +16,31 @@ import java.util.Locale;
 public class Feel {
     private static final String TAG = "Feel";
 
+    public enum FEELINGS {
+        Anger,
+        Sadness,
+        Surprise,
+        Joy,
+        Fear,
+        Love
+    }
+
     public static final String ANGER = "Anger";
     public static final String SADNESS = "Sadness";
     public static final String SURPRISE = "Surprise";
     public static final String JOY = "Joy";
     public static final String FEAR = "Fear";
     public static final String LOVE = "Love";
+
     public static final SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss", Locale.getDefault());
     private String comment;
     private String feeling;
-    private String date;
+    private Date date;
 
     Feel(String feeling) {
         this.feeling = feeling;
         this.comment = "";
-
-        try {
-            this.date = dateFormat.format(new Date());
-        } catch (Exception e) {
-            e.printStackTrace();
-            this.date = null;
-        }
+        this.date = new Date();
     }
 
     public String getComment() {
@@ -55,11 +59,11 @@ public class Feel {
         this.feeling = feeling;
     }
 
-    public String getDate() {
+    public Date getDate() {
         return date;
     }
 
-    public void setDate(String date) {
+    public void setDate(Date date) {
         this.date = date;
     }
 }
