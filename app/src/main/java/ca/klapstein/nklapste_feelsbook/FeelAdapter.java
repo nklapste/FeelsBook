@@ -7,21 +7,19 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import java.util.ArrayList;
-
 import static ca.klapstein.nklapste_feelsbook.Feel.dateFormat;
 
 
 /**
- * RecyclerView adapter for integrating a {@code ArrayList<Feel>}.
+ * RecyclerView adapter for integrating a {@code FeelQueue}.
  */
 class FeelAdapter extends RecyclerView.Adapter<FeelAdapter.FeelViewHolder> {
     private static final String TAG = "FeelAdapter";
 
-    private ArrayList<Feel> feelsList;
+    private FeelQueue feelsList;
 
-    public FeelAdapter(ArrayList<Feel> feelList) {
-        this.feelsList = feelList;
+    public FeelAdapter(FeelQueue feelQueue) {
+        this.feelsList = feelQueue;
     }
 
     @NonNull
@@ -40,7 +38,7 @@ class FeelAdapter extends RecyclerView.Adapter<FeelAdapter.FeelViewHolder> {
      */
     @Override
     public void onBindViewHolder(@NonNull FeelViewHolder holder, final int position) {
-        Feel feel = feelsList.get(position);
+        Feel feel = (Feel) feelsList.toArray()[position];
         holder.date.setText(dateFormat.format(feel.getDate()));
         holder.title.setText(feel.getFeeling());
         holder.comment.setText(feel.getComment());

@@ -1,5 +1,7 @@
 package ca.klapstein.nklapste_feelsbook;
 
+import android.support.annotation.NonNull;
+
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
@@ -13,7 +15,7 @@ import java.util.Locale;
  * In G. Parrott (Eds.), Emotions in Social Psychology: Essential Readings (pp. 26-56).
  * Philadelphia, PA: Psychology Press.
  */
-public class Feel {
+public class Feel implements Comparable<Feel>{
     public static final String ANGER = "Anger";
     public static final String SADNESS = "Sadness";
     public static final String SURPRISE = "Surprise";
@@ -53,6 +55,11 @@ public class Feel {
 
     public void setDate(Date date) {
         this.date = date;
+    }
+
+    @Override
+    public int compareTo(@NonNull Feel o) {
+        return this.getDate().compareTo(o.getDate());
     }
 
     public enum FEELINGS {

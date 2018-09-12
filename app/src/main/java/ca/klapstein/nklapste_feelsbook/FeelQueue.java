@@ -2,12 +2,11 @@ package ca.klapstein.nklapste_feelsbook;
 
 import android.util.Log;
 
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Comparator;
+import java.util.PriorityQueue;
 
-public class FeelList extends ArrayList<Feel> {
-    private static final String TAG = "FeelList";
+public class FeelQueue extends PriorityQueue<Feel> {
+    private static final String TAG = "FeelQueue";
 
     private Integer angerTally;
     private Integer fearTally;
@@ -16,7 +15,7 @@ public class FeelList extends ArrayList<Feel> {
     private Integer sadnessTally;
     private Integer surpriseTally;
 
-    FeelList() {
+    FeelQueue() {
         this.angerTally = 0;
         this.fearTally = 0;
         this.angerTally = 0;
@@ -26,16 +25,15 @@ public class FeelList extends ArrayList<Feel> {
         this.surpriseTally = 0;
     }
 
-    private Comparator<Feel> feelDateComparator = new Comparator<Feel>() {
+    private Comparator<Feel> comparator = new Comparator<Feel>() {
         @Override
         public int compare(Feel o1, Feel o2) {
             return o1.getDate().compareTo(o2.getDate());
         }
     };
 
-    @Override
-    public Feel remove(int index) {
-        String feeling = this.get(index).getFeeling();
+    public boolean remove(Feel feel) {
+        String feeling = feel.getFeeling();
 
         switch (feeling) {
             case Feel.ANGER:
@@ -66,7 +64,7 @@ public class FeelList extends ArrayList<Feel> {
                 Log.e(TAG, "Unsupported feeling attempted to be tallied: " + feeling);
                 break;
         }
-        return super.remove(index);
+        return super.remove(feel);
     }
 
     @Override
@@ -101,11 +99,7 @@ public class FeelList extends ArrayList<Feel> {
                 Log.e(TAG, "Unsupported feeling attempted to be tallied: " + feeling);
                 break;
         }
-
-        boolean addResult = super.add(feel);
-        this.sort(feelDateComparator);
-        Collections.reverse(this);
-        return addResult;
+        return super.add(feel);
     }
 
     public Integer getLoveTally() {

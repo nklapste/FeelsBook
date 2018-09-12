@@ -23,11 +23,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     private static final int EDIT_COMMENT_REQUEST_CODE = 1;
     private FeelAdapter mAdapter;
-    private FeelList mFeelList;
+    private FeelQueue mFeelQueue;
 
     @Override
     protected void onDestroy() {
-        PreferencesManager.saveSharedPreferencesFeelList(getApplicationContext(), mFeelList);
+        PreferencesManager.saveSharedPreferencesFeelList(getApplicationContext(), mFeelQueue);
         super.onDestroy();
     }
 
@@ -35,7 +35,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        mFeelList = PreferencesManager.loadSharedPreferencesFeelList(getApplicationContext());
+        mFeelQueue = PreferencesManager.loadSharedPreferencesFeelList(getApplicationContext());
 
         setContentView(R.layout.listview_layout);
         RecyclerView mFeelsRecyclerView = (RecyclerView) findViewById(R.id.feels_recycler_view);
@@ -44,7 +44,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(this);
         mFeelsRecyclerView.setLayoutManager(mLayoutManager);
-        mAdapter = new FeelAdapter(mFeelList);
+        mAdapter = new FeelAdapter(mFeelQueue);
         mFeelsRecyclerView.setAdapter(mAdapter);
         mFeelsRecyclerView.addOnItemTouchListener(new RecyclerTouchListener(getApplicationContext(), mFeelsRecyclerView, new RecyclerTouchListener.ClickListener() {
             @Override
@@ -65,6 +65,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             public void onLongClick(View view, final int position) {
                 //creating a popup menu
                 PopupMenu popup = new PopupMenu(getApplicationContext(), view);
+
+                final Feel feel = (Feel) mFeelQueue.toArray()[position];
                 //inflating menu from xml resource
                 popup.inflate(R.menu.feel_options_menu);
                 //adding click listener
@@ -73,15 +75,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     public boolean onMenuItemClick(MenuItem item) {
                         switch (item.getItemId()) {
                             case R.id.button_delete:
-                                mFeelList.remove(position);
+                                mFeelQueue.remove(feel);
                                 mAdapter.notifyItemRemoved(position);
-                                mAdapter.notifyItemRangeChanged(position, mFeelList.size());
+                                mAdapter.notifyItemRangeChanged(position, mFeelQueue.size());
                                 return true;
                             case R.id.button_edit_feeling:
                                 Intent intent = new Intent(getApplicationContext(), EditFeelActivity.class);
-                                intent.putExtra("date", dateFormat.format(mFeelList.get(position).getDate()));
-                                intent.putExtra("feeling", mFeelList.get(position).getFeeling());
-                                intent.putExtra("comment", mFeelList.get(position).getComment());
+                                intent.putExtra("date", dateFormat.format(feel.getDate()));
+                                intent.putExtra("feeling", feel.getFeeling());
+                                intent.putExtra("comment", feel.getComment());
                                 intent.putExtra("position", position);
                                 startActivityForResult(intent, 1);
                                 return true;
@@ -118,18 +120,18 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         button_stats.setOnClickListener(new View.OnClickListener() {
 
             /**
-             * Compute the tally of all feelings within mFeelList and send the totals to
+             * Compute the tally of all feelings within mFeelQueue and send the totals to
              * StatsActivity to be displayed.
              */
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getApplicationContext(), StatsActivity.class);
-                intent.putExtra("angerTally", mFeelList.getAngerTally());
-                intent.putExtra("fearTally", mFeelList.getFearTally());
-                intent.putExtra("joyTally", mFeelList.getJoyTally());
-                intent.putExtra("loveTally", mFeelList.getLoveTally());
-                intent.putExtra("sadnessTally", mFeelList.getSadnessTally());
-                intent.putExtra("surpriseTally", mFeelList.getSurpriseTally());
+                intent.putExtra("angerTally", mFeelQueue.getAngerTally());
+                intent.putExtra("fearTally", mFeelQueue.getFearTally());
+                intent.putExtra("joyTally", mFeelQueue.getJoyTally());
+                intent.putExtra("loveTally", mFeelQueue.getLoveTally());
+                intent.putExtra("sadnessTally", mFeelQueue.getSadnessTally());
+                intent.putExtra("surpriseTally", mFeelQueue.getSurpriseTally());
                 startActivity(intent);
             }
         });
@@ -149,13 +151,16 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             String comment = intent.getStringExtra("comment");
             final int position = intent.getIntExtra("position", 0);
 
-            mFeelList.remove(position);
-            Feel feel = new Feel(feeling);
+            Feel feel = (Feel) mFeelQueue.toArray()[position];
+            mFeelQueue.remove(feel);
+
+            feel.setFeeling(feeling);
             feel.setComment(comment);
             feel.setDate(date);
-            mFeelList.add(feel);
+            mFeelQueue.add(feel);
+
             mAdapter.notifyDataSetChanged();
-            PreferencesManager.saveSharedPreferencesFeelList(getApplicationContext(), mFeelList);
+            PreferencesManager.saveSharedPreferencesFeelList(getApplicationContext(), mFeelQueue);
         }
     }
 
@@ -192,8 +197,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 Log.e(TAG, "Unsupported button pushed: " + view.getId());
                 return;
         }
-        mFeelList.add(new Feel(feeling));
+        mFeelQueue.add(new Feel(feeling));
         mAdapter.notifyDataSetChanged();
-        PreferencesManager.saveSharedPreferencesFeelList(getApplicationContext(), mFeelList);
+        PreferencesManager.saveSharedPreferencesFeelList(getApplicationContext(), mFeelQueue);
     }
 }
