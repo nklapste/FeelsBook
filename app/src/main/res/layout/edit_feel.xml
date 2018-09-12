@@ -53,8 +53,6 @@
         android:layout_marginLeft="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
-        android:contentDescription="The date of the recorded feeling"
-        android:digits="0123456789T-:"
         android:textColor="?attr/editTextColor"
         android:background="?attr/editTextBackground"
         android:gravity="center_vertical"
