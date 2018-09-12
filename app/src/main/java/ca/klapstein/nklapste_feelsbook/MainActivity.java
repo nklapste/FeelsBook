@@ -28,7 +28,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     private FeelAdapter mAdapter;
 
-    private ArrayList<Feel> mFeelList = new ArrayList<>();
+    private ArrayList<Feel> mFeelList;
+    private Comparator<Feel> mFeelListComparator = new Comparator<Feel>() {
+        @Override
+        public int compare(Feel o1, Feel o2) {
+            return o1.getDate().compareTo(o2.getDate());
+        }
+    };
 
     @Override
     protected void onDestroy() {
@@ -146,12 +152,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             mAdapter.notifyItemChanged(position);
 
             // TODO: better way to sort feels
-            mFeelList.sort(new Comparator<Feel>() {
-                @Override
-                public int compare(Feel o1, Feel o2) {
-                    return o1.getDate().compareTo(o2.getDate());
-                }
-            });
+            mFeelList.sort(mFeelListComparator);
             Collections.reverse(mFeelList);
             mAdapter.notifyDataSetChanged();
         }
@@ -249,12 +250,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         mAdapter.notifyDataSetChanged();
 
         // TODO: better way to sort feels
-        mFeelList.sort(new Comparator<Feel>() {
-            @Override
-            public int compare(Feel o1, Feel o2) {
-                return o1.getDate().compareTo(o2.getDate());
-            }
-        });
+        mFeelList.sort(mFeelListComparator);
         Collections.reverse(mFeelList);
         mAdapter.notifyDataSetChanged();
 
