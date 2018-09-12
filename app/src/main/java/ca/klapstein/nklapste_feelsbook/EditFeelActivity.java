@@ -24,6 +24,8 @@ import static ca.klapstein.nklapste_feelsbook.Feel.dateFormat;
 
 public class EditFeelActivity extends AppCompatActivity {
     private static final String TAG = "EditFeelActivity";
+    private Context context;
+    private TextView dateEditText;
 
     /**
      * Abhishek
@@ -47,16 +49,13 @@ public class EditFeelActivity extends AppCompatActivity {
                         newDate.set(Calendar.HOUR_OF_DAY, hourOfDay);
                         newDate.set(Calendar.MINUTE, minute);
 
-                        Log.d(TAG, "Setting new date: "+dateFormat.format(newDate.getTime()));
+                        Log.d(TAG, "Setting new date: " + dateFormat.format(newDate.getTime()));
                         dateEditText.setText(dateFormat.format(newDate.getTime()));
                     }
                 }, currentDate.get(Calendar.HOUR_OF_DAY), currentDate.get(Calendar.MINUTE), false).show();
             }
         }, currentDate.get(Calendar.YEAR), currentDate.get(Calendar.MONTH), currentDate.get(Calendar.DATE)).show();
     }
-
-    private Context context;
-    private TextView dateEditText;
 
     // TODO: name refactoring
     @Override

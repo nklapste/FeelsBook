@@ -12,7 +12,7 @@ public class StatsActivity extends AppCompatActivity {
 
     /**
      * Convert a feeling tally {@code int} into a string representation.
-     *
+     * <p>
      * Also consider the {@code Locale} of the device when formatting.
      *
      * @param tally {@code int} The int representing to total tally of a feeling type.

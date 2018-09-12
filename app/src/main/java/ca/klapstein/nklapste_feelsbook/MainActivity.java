@@ -13,7 +13,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.PopupMenu;
 
-import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;

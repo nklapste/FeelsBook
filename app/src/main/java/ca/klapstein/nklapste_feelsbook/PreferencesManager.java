@@ -13,14 +13,14 @@ import java.util.ArrayList;
  * Helper Class for accessing the  Android's SharedPreferences for use in FeelsBook.
  */
 public class PreferencesManager {
-    private static final String TAG = "PreferencesManager";
     public static final String FEELS_LIST_PREF_NAME = "mFeelsList";
     public static final String FEELS_LIST_PREF_JSON_KEY = "mFeelListJson";
+    private static final String TAG = "PreferencesManager";
 
     /**
      * Save a FeelsList using Android's SharedPreferences
      *
-     * @param context {@code Context}
+     * @param context  {@code Context}
      * @param feelList
      */
     public static void saveSharedPreferencesFeelList(Context context, ArrayList<Feel> feelList) {
