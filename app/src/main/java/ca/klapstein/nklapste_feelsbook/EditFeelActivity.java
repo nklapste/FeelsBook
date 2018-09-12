@@ -1,27 +1,69 @@
 package ca.klapstein.nklapste_feelsbook;
 
+import android.app.DatePickerDialog;
+import android.app.TimePickerDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.TextView;
+import android.widget.TimePicker;
 import android.widget.Toast;
 
 import java.text.ParseException;
+import java.util.Calendar;
+import java.util.Date;
 
 import static ca.klapstein.nklapste_feelsbook.Feel.dateFormat;
 
 public class EditFeelActivity extends AppCompatActivity {
     private static final String TAG = "EditFeelActivity";
 
+    /**
+     * Abhishek
+     * https://stackoverflow.com/users/5242161/abhishek
+     * https://stackoverflow.com/questions/2055509/datetime-picker-in-android-application
+     *
+     * @param date {@code Date}
+     */
+    public void showDateTimePicker(Date date) {
+        final Calendar currentDate = Calendar.getInstance();
+        currentDate.setTime(date);
+        final Calendar newDate = Calendar.getInstance();
+        newDate.setTime(date);
+        new DatePickerDialog(context, new DatePickerDialog.OnDateSetListener() {
+            @Override
+            public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
+                newDate.set(year, monthOfYear, dayOfMonth);
+                new TimePickerDialog(context, new TimePickerDialog.OnTimeSetListener() {
+                    @Override
+                    public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
+                        newDate.set(Calendar.HOUR_OF_DAY, hourOfDay);
+                        newDate.set(Calendar.MINUTE, minute);
+
+                        Log.d(TAG, "Setting new date: "+dateFormat.format(newDate.getTime()));
+                        dateEditText.setText(dateFormat.format(newDate.getTime()));
+                    }
+                }, currentDate.get(Calendar.HOUR_OF_DAY), currentDate.get(Calendar.MINUTE), false).show();
+            }
+        }, currentDate.get(Calendar.YEAR), currentDate.get(Calendar.MONTH), currentDate.get(Calendar.DATE)).show();
+    }
+
+    private Context context;
+    private TextView dateEditText;
+
     // TODO: name refactoring
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.edit_feel);
+        context = this;
 
         final Spinner feelSpinner = (Spinner) findViewById(R.id.feelSpinner);
         final String feeling = getIntent().getStringExtra("feeling");
@@ -56,10 +98,21 @@ public class EditFeelActivity extends AppCompatActivity {
         }
         feelSpinner.setSelection(selection);
 
-        final EditText dateEditText = (EditText) findViewById(R.id.dateEditText);
+        dateEditText = (TextView) findViewById(R.id.dateEditText);
         final String date = getIntent().getStringExtra("date");
         dateEditText.setText(date);
-        // TODO: validate date string
+        dateEditText.setOnClickListener(
+                new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        try {
+                            showDateTimePicker(dateFormat.parse(date));
+                        } catch (ParseException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }
+        );
 
         final EditText commentEditText = (EditText) findViewById(R.id.commentEditText);
         final String comment = getIntent().getStringExtra("comment");
@@ -76,17 +129,17 @@ public class EditFeelActivity extends AppCompatActivity {
                 final String feeling = feelSpinner.getSelectedItem().toString();
                 String date = dateEditText.getText().toString();
                 try {
-                    Log.d(TAG, "Parsing date string: " + date);
+                    Log.d(TAG, "Parsing new_date string: " + date);
                     date = dateFormat.format(dateFormat.parse(date));
                 } catch (ParseException e) {
-                    Log.e(TAG, "Failed to parse date string: " + date, e);
-                    Toast.makeText(getApplicationContext(), "Inputted date is incorrect! Please conform to a yyyy-MM-ddTHH:mm:ss Datetime format.",
+                    Log.e(TAG, "Failed to parse new_date string: " + date, e);
+                    Toast.makeText(getApplicationContext(), "Inputted new_date is incorrect! Please conform to a yyyy-MM-ddTHH:mm:ss Datetime format.",
                             Toast.LENGTH_LONG).show();
                     return;
                 }
 
                 Intent data = new Intent();
-                data.putExtra("date", date);
+                data.putExtra("new_date", date);
                 data.putExtra("feeling", feeling);
                 data.putExtra("comment", comment);
                 data.putExtra("position", position);

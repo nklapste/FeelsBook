@@ -46,7 +46,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/feelSpinner" />
 
-    <EditText
+    <TextView
         android:id="@+id/dateEditText"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -54,8 +54,13 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:contentDescription="The date of the recorded feeling"
-        android:ems="10"
         android:digits="0123456789T-:"
+        android:textColor="?attr/editTextColor"
+        android:background="?attr/editTextBackground"
+        android:gravity="center_vertical"
+        android:textAppearance="?android:attr/textAppearanceMediumInverse"
+        android:ems="10"
+        android:inputType=""
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/dateEditTextTitle" />
 
