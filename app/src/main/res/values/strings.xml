@@ -1,16 +1,17 @@
 <resources>
     <string name="app_name">nklapste-FeelsBook</string>
-    <string name="sadness">sadness</string>
-    <string name="anger">anger</string>
-    <string name="surprise">surprise</string>
-    <string name="joy">joy</string>
-    <string name="love">love</string>
-    <string name="fear">fear</string>
+    <string name="sadness">Sadness</string>
+    <string name="anger">Anger</string>
+    <string name="surprise">Surprise</string>
+    <string name="joy">Joy</string>
+    <string name="love">Love</string>
+    <string name="fear">Fear</string>
     <string name="delete">Delete</string>
     <string name="comment">Comment</string>
     <string name="add_a_feeling">Add a Feeling</string>
     <string name="edit_feeling">Edit Feeling</string>
-    <string name="title_activity_stats">StatsActivity</string>
+    <string name="title_activity_stats">nklapste-FeelsBook-Stats</string>
+    <string name="title_activity_edit_feel">nklapste-FeelsBook-EditFeel</string>
     <string name="date">Date</string>
     <string name="feel">Feel</string>
     <string name="save">Save</string>

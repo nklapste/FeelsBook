@@ -16,7 +16,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".EditFeelActivity" />
+        <activity
+            android:name=".EditFeelActivity"
+            android:label="@string/title_activity_edit_feel"
+            />
         <activity
             android:name=".StatsActivity"
             android:label="@string/title_activity_stats"></activity>
