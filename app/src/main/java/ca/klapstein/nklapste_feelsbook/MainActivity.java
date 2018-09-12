@@ -255,6 +255,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 Log.e(TAG, "Unsupported button pushed: " + view.getId());
                 return;
         }
+
         mFeelList.add(0, new Feel(feeling));
         mAdapter.notifyDataSetChanged();
 
