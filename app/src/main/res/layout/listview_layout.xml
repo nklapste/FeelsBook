@@ -28,6 +28,12 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
+        <Button
+            android:id="@+id/button_stats"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/stats" />
+
         <TextView
             android:id="@+id/textView"
             android:layout_width="match_parent"
@@ -38,8 +44,6 @@
             android:id="@+id/button_love"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="16dp"
-            android:layout_marginRight="16dp"
             android:text="@string/love"
             app:layout_constraintBottom_toTopOf="@+id/button_sadness"
             app:layout_constraintEnd_toEndOf="parent" />
@@ -48,8 +52,6 @@
             android:id="@+id/button_joy"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="16dp"
-            android:layout_marginRight="16dp"
             android:text="@string/joy"
             app:layout_constraintEnd_toEndOf="parent" />
 
@@ -57,8 +59,6 @@
             android:id="@+id/button_anger"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="16dp"
-            android:layout_marginRight="16dp"
             android:text="@string/anger"
             app:layout_constraintBottom_toTopOf="@+id/button_joy"
             app:layout_constraintEnd_toEndOf="parent" />
@@ -67,8 +67,6 @@
             android:id="@+id/button_fear"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="16dp"
-            android:layout_marginRight="16dp"
             android:text="@string/fear"
             app:layout_constraintBottom_toTopOf="@+id/button_love"
             app:layout_constraintEnd_toEndOf="parent"
@@ -79,8 +77,6 @@
             android:id="@+id/button_surprise"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="16dp"
-            android:layout_marginRight="16dp"
             android:text="@string/surprise"
             app:layout_constraintBottom_toTopOf="@+id/button_anger"
             app:layout_constraintEnd_toEndOf="parent" />
@@ -89,8 +85,6 @@
             android:id="@+id/button_sadness"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="16dp"
-            android:layout_marginRight="16dp"
             android:text="@string/sadness"
             app:layout_constraintBottom_toTopOf="@+id/button_surprise"
             app:layout_constraintEnd_toEndOf="parent" />

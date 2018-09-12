@@ -68,8 +68,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         RecyclerView mFeelsRecyclerView = (RecyclerView) findViewById(R.id.feels_recycler_view);
 
         mFeelsRecyclerView.setHasFixedSize(true);
-        // TODO: add a method to calc stats
-        tallyFeelings();
 
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(this);
         mFeelsRecyclerView.setLayoutManager(mLayoutManager);
@@ -141,6 +139,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         final Button button_anger = findViewById(R.id.button_anger);
         button_anger.setOnClickListener(this);
+
+        // set the OnClick function for the Stats button
+        final Button button_stats = findViewById(R.id.button_stats);
+        button_stats.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                tallyFeelings();
+            }
+        });
     }
 
     @Override
@@ -161,6 +168,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
     }
 
+    /**
+     * Compute the tally of all feelings within mFeelList and send the totals to
+     * StatsActivity to be displayed.
+     */
     public void tallyFeelings() {
         Integer angerTally = 0;
         Integer fearTally = 0;
