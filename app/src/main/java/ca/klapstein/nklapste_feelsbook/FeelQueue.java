@@ -2,7 +2,6 @@ package ca.klapstein.nklapste_feelsbook;
 
 import android.util.Log;
 
-import java.util.Comparator;
 import java.util.PriorityQueue;
 
 public class FeelQueue extends PriorityQueue<Feel> {
@@ -25,46 +24,44 @@ public class FeelQueue extends PriorityQueue<Feel> {
         this.surpriseTally = 0;
     }
 
-    private Comparator<Feel> comparator = new Comparator<Feel>() {
-        @Override
-        public int compare(Feel o1, Feel o2) {
-            return o1.getDate().compareTo(o2.getDate());
+    @Override
+    public boolean remove(Object o) {
+        boolean removeResult = super.remove(o);
+        if (removeResult && o.getClass().equals(Feel.class)) {
+            Feel feel = (Feel) o;
+            String feeling = feel.getFeeling();
+
+            switch (feeling) {
+                case Feel.ANGER:
+                    angerTally -= 1;
+                    break;
+
+                case Feel.FEAR:
+                    fearTally -= 1;
+                    break;
+
+                case Feel.JOY:
+                    joyTally -= 1;
+                    break;
+
+                case Feel.LOVE:
+                    loveTally -= 1;
+                    break;
+
+                case Feel.SADNESS:
+                    sadnessTally -= 1;
+                    break;
+
+                case Feel.SURPRISE:
+                    surpriseTally -= 1;
+                    break;
+
+                default:
+                    Log.e(TAG, "Unsupported feeling attempted to be tallied: " + feeling);
+                    break;
+            }
         }
-    };
-
-    public boolean remove(Feel feel) {
-        String feeling = feel.getFeeling();
-
-        switch (feeling) {
-            case Feel.ANGER:
-                angerTally -= 1;
-                break;
-
-            case Feel.FEAR:
-                fearTally -= 1;
-                break;
-
-            case Feel.JOY:
-                joyTally -= 1;
-                break;
-
-            case Feel.LOVE:
-                loveTally -= 1;
-                break;
-
-            case Feel.SADNESS:
-                sadnessTally -= 1;
-                break;
-
-            case Feel.SURPRISE:
-                surpriseTally -= 1;
-                break;
-
-            default:
-                Log.e(TAG, "Unsupported feeling attempted to be tallied: " + feeling);
-                break;
-        }
-        return super.remove(feel);
+        return removeResult;
     }
 
     @Override
