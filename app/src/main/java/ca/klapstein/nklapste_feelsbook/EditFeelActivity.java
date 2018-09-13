@@ -27,11 +27,13 @@ public class EditFeelActivity extends AppCompatActivity {
     private TextView dateEditText;
 
     /**
+     * showDateTimePicker is based of the solution provided by:
+     *
      * Abhishek
      * https://stackoverflow.com/users/5242161/abhishek
      * https://stackoverflow.com/questions/2055509/datetime-picker-in-android-application
      *
-     * @param date {@code Date}
+     * @param date {@code Date} The initial date to start the time pickers at.
      */
     public void showDateTimePicker(Date date) {
         final Calendar currentDate = Calendar.getInstance();
@@ -63,7 +65,7 @@ public class EditFeelActivity extends AppCompatActivity {
         setContentView(R.layout.edit_feel);
         context = this;
 
-        final Spinner feelSpinner = (Spinner) findViewById(R.id.feelSpinner);
+        final Spinner feelSpinner = findViewById(R.id.feelSpinner);
         final String feeling = getIntent().getStringExtra("feeling");
         int selection = 0;
         switch (feeling) {
@@ -96,7 +98,7 @@ public class EditFeelActivity extends AppCompatActivity {
         }
         feelSpinner.setSelection(selection);
 
-        dateEditText = (TextView) findViewById(R.id.dateEditText);
+        dateEditText = findViewById(R.id.dateEditText);
         final String date = getIntent().getStringExtra("date");
         dateEditText.setText(date);
         dateEditText.setOnClickListener(
@@ -112,13 +114,13 @@ public class EditFeelActivity extends AppCompatActivity {
                 }
         );
 
-        final EditText commentEditText = (EditText) findViewById(R.id.commentEditText);
+        final EditText commentEditText = findViewById(R.id.commentEditText);
         final String comment = getIntent().getStringExtra("comment");
         commentEditText.setText(comment);
 
         final int position = getIntent().getIntExtra("position", 0);
 
-        final Button button_save_feel = (Button) findViewById(R.id.button_save_feel);
+        final Button button_save_feel = findViewById(R.id.button_save_feel);
         button_save_feel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
