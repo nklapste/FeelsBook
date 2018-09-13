@@ -23,6 +23,7 @@ import static ca.klapstein.nklapste_feelsbook.Feel.dateFormat;
 
 public class EditFeelActivity extends AppCompatActivity {
     private static final String TAG = "EditFeelActivity";
+
     private Context context;
     private TextView dateEditText;
 
