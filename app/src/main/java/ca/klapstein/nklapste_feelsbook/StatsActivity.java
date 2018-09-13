@@ -28,28 +28,22 @@ public class StatsActivity extends AppCompatActivity {
         setContentView(R.layout.activity_stats);
         Intent intent = getIntent();
 
-        Integer angerTally = intent.getIntExtra("angerTally", 0);
         final TextView angerTextViewNumber = findViewById(R.id.angerTextViewNumber);
-        angerTextViewNumber.setText(stringifyTally(angerTally));
+        angerTextViewNumber.setText(stringifyTally(intent.getIntExtra("angerTally", 0)));
 
-        Integer fearTally = intent.getIntExtra("fearTally", 0);
         final TextView fearTextViewNumber = findViewById(R.id.fearTextViewNumber);
-        fearTextViewNumber.setText(stringifyTally(fearTally));
+        fearTextViewNumber.setText(stringifyTally(intent.getIntExtra("fearTally", 0)));
 
-        Integer joyTally = intent.getIntExtra("joyTally", 0);
         final TextView joyTextViewNumber = findViewById(R.id.joyTextViewNumber);
-        joyTextViewNumber.setText(stringifyTally(joyTally));
+        joyTextViewNumber.setText(stringifyTally(intent.getIntExtra("joyTally", 0)));
 
-        Integer loveTally = intent.getIntExtra("loveTally", 0);
         final TextView loveTextViewNumber = findViewById(R.id.loveTextViewNumber);
-        loveTextViewNumber.setText(stringifyTally(loveTally));
+        loveTextViewNumber.setText(stringifyTally(intent.getIntExtra("loveTally", 0)));
 
-        Integer sadnessTally = intent.getIntExtra("sadnessTally", 0);
         final TextView sadnessTextViewNumber = findViewById(R.id.sadnessTextViewNumber);
-        sadnessTextViewNumber.setText(stringifyTally(sadnessTally));
+        sadnessTextViewNumber.setText(stringifyTally(intent.getIntExtra("sadnessTally", 0)));
 
-        Integer surpriseTally = intent.getIntExtra("surpriseTally", 0);
         final TextView surpriseTextViewNumber = findViewById(R.id.surpriseTextViewNumber);
-        surpriseTextViewNumber.setText(stringifyTally(surpriseTally));
+        surpriseTextViewNumber.setText(stringifyTally(intent.getIntExtra("surpriseTally", 0)));
     }
 }
