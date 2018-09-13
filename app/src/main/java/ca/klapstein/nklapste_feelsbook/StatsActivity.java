@@ -8,7 +8,7 @@ import android.widget.TextView;
 import java.util.Locale;
 
 public class StatsActivity extends AppCompatActivity {
-    private static final String TAG = "MainActivity";
+    private static final String TAG = "StatsActivity";
 
     /**
      * Convert a feeling tally {@code int} into a string representation.
