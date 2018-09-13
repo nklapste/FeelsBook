@@ -28,7 +28,7 @@ public class FeelsBookPreferencesManager {
         SharedPreferences.Editor prefsEditor = mPrefs.edit();
         Gson gson = new Gson();
         String json = gson.toJson(feelQueue);
-        prefsEditor.putString("mFeelListJson", json);
+        prefsEditor.putString(FEELS_QUEUE_PREF_JSON_KEY, json);
         prefsEditor.apply();
     }
 
