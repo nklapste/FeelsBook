@@ -14,17 +14,17 @@ import java.lang.reflect.Type;
 public class FeelsBookPreferencesManager {
     private static final String TAG = "FeelsBookPreferencesManager";
 
-    public static final String FEELS_LIST_PREF_NAME = "mFeelsList";
-    public static final String FEELS_LIST_PREF_JSON_KEY = "mFeelListJson";
+    private static final String FEELS_QUEUE_PREF_NAME = "mFeelsQueue";
+    private static final String FEELS_QUEUE_PREF_JSON_KEY = "mFeelQueueJson";
 
     /**
      * Save a FeelsList using Android's SharedPreferences
      *
      * @param context  {@code Context}
-     * @param feelQueue
+     * @param feelQueue {@code FeelQueue}
      */
     public static void saveSharedPreferencesFeelList(Context context, FeelQueue feelQueue) {
-        SharedPreferences mPrefs = context.getSharedPreferences(FEELS_LIST_PREF_NAME, Context.MODE_PRIVATE);
+        SharedPreferences mPrefs = context.getSharedPreferences(FEELS_QUEUE_PREF_NAME, Context.MODE_PRIVATE);
         SharedPreferences.Editor prefsEditor = mPrefs.edit();
         Gson gson = new Gson();
         String json = gson.toJson(feelQueue);
@@ -39,9 +39,9 @@ public class FeelsBookPreferencesManager {
      */
     public static FeelQueue loadSharedPreferencesFeelList(Context context) {
         FeelQueue feelQueue;
-        SharedPreferences mPrefs = context.getSharedPreferences(FEELS_LIST_PREF_NAME, Context.MODE_PRIVATE);
+        SharedPreferences mPrefs = context.getSharedPreferences(FEELS_QUEUE_PREF_NAME, Context.MODE_PRIVATE);
         Gson gson = new Gson();
-        String json = mPrefs.getString(FEELS_LIST_PREF_JSON_KEY, "");
+        String json = mPrefs.getString(FEELS_QUEUE_PREF_JSON_KEY, "");
         if (json.isEmpty()) {
             feelQueue = new FeelQueue();
         } else {
