@@ -16,6 +16,8 @@ import java.util.Locale;
  * Philadelphia, PA: Psychology Press.
  */
 public class Feel implements Comparable<Feel>{
+    private static final String TAG = "Feel";
+
     public static final String ANGER = "Anger";
     public static final String SADNESS = "Sadness";
     public static final String SURPRISE = "Surprise";
@@ -23,10 +25,10 @@ public class Feel implements Comparable<Feel>{
     public static final String FEAR = "Fear";
     public static final String LOVE = "Love";
     public static final SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss", Locale.getDefault());
-    private static final String TAG = "Feel";
     private String comment;
     private String feeling;
     private Date date;
+
     Feel(String feeling) {
         this.feeling = feeling;
         this.comment = "";
@@ -63,7 +65,7 @@ public class Feel implements Comparable<Feel>{
      * Only compare them by their date.
      *
      * @param feel {@code Feel}
-     * @return
+     * @return {@code int}
      */
     @Override
     public int compareTo(@NonNull Feel feel) {
