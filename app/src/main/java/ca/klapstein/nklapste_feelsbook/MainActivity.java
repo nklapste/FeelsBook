@@ -26,7 +26,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private FeelQueue mFeelQueue;
 
     /**
-     * Save the MainActivites FeelQueue on closing.
+     * Save the MainActivites {@code FeelQueue} on closing.
      */
     @Override
     protected void onDestroy() {
@@ -49,6 +49,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         mFeelsRecyclerView.setLayoutManager(mLayoutManager);
         mAdapter = new FeelAdapter(mFeelQueue);
         mFeelsRecyclerView.setAdapter(mAdapter);
+
+        // set the onClick and onLongClick functions for the RecycleView
         mFeelsRecyclerView.addOnItemTouchListener(new RecyclerTouchListener(getApplicationContext(), mFeelsRecyclerView, new RecyclerTouchListener.ClickListener() {
             @Override
             public void onClick(View view, int position) {
@@ -99,7 +101,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             }
         }));
 
-        // set the OnClick function for the feeling buttons
+        // set the OnClick function for the Feeling buttons
         final Button button_love = findViewById(R.id.button_love);
         button_love.setOnClickListener(this);
 
@@ -148,6 +150,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             try {
                 date = dateFormat.parse(intent.getStringExtra("date"));
             } catch (ParseException e) {
+                // this should never happen unless someone is mucking about in the source code
                 Log.e(TAG, "Failed to parse date: " + intent.getStringExtra("date"), e);
             }
             String feeling = intent.getStringExtra("feeling");
