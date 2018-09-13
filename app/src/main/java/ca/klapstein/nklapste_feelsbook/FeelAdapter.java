@@ -56,11 +56,11 @@ class FeelAdapter extends RecyclerView.Adapter<FeelAdapter.FeelViewHolder> {
     public static class FeelViewHolder extends RecyclerView.ViewHolder {
         public TextView title, comment, date, button;
 
-        public FeelViewHolder(View view) {
+        FeelViewHolder(View view) {
             super(view);
-            title = (TextView) view.findViewById(R.id.feel_name);
-            date = (TextView) view.findViewById(R.id.feel_date);
-            comment = (TextView) view.findViewById(R.id.feel_comment);
+            title = view.findViewById(R.id.feel_name);
+            date = view.findViewById(R.id.feel_date);
+            comment = view.findViewById(R.id.feel_comment);
         }
     }
 }
