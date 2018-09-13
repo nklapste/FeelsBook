@@ -41,7 +41,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         mFeelQueue = FeelsBookPreferencesManager.loadSharedPreferencesFeelList(getApplicationContext());
 
         setContentView(R.layout.listview_layout);
-        RecyclerView mFeelsRecyclerView = (RecyclerView) findViewById(R.id.feels_recycler_view);
+        RecyclerView mFeelsRecyclerView = findViewById(R.id.feels_recycler_view);
 
         mFeelsRecyclerView.setHasFixedSize(true);
 
