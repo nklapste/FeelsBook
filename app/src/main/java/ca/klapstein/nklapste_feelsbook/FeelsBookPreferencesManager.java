@@ -11,10 +11,11 @@ import java.lang.reflect.Type;
 /**
  * Helper Class for accessing the  Android's SharedPreferences for use in FeelsBook.
  */
-public class PreferencesManager {
+public class FeelsBookPreferencesManager {
+    private static final String TAG = "FeelsBookPreferencesManager";
+
     public static final String FEELS_LIST_PREF_NAME = "mFeelsList";
     public static final String FEELS_LIST_PREF_JSON_KEY = "mFeelListJson";
-    private static final String TAG = "PreferencesManager";
 
     /**
      * Save a FeelsList using Android's SharedPreferences

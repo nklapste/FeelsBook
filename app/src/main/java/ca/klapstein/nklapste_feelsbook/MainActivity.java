@@ -30,7 +30,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
      */
     @Override
     protected void onDestroy() {
-        PreferencesManager.saveSharedPreferencesFeelList(getApplicationContext(), mFeelQueue);
+        FeelsBookPreferencesManager.saveSharedPreferencesFeelList(getApplicationContext(), mFeelQueue);
         super.onDestroy();
     }
 
@@ -38,7 +38,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        mFeelQueue = PreferencesManager.loadSharedPreferencesFeelList(getApplicationContext());
+        mFeelQueue = FeelsBookPreferencesManager.loadSharedPreferencesFeelList(getApplicationContext());
 
         setContentView(R.layout.listview_layout);
         RecyclerView mFeelsRecyclerView = (RecyclerView) findViewById(R.id.feels_recycler_view);
@@ -163,7 +163,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             mFeelQueue.add(feel);
 
             mAdapter.notifyDataSetChanged();
-            PreferencesManager.saveSharedPreferencesFeelList(getApplicationContext(), mFeelQueue);
+            FeelsBookPreferencesManager.saveSharedPreferencesFeelList(getApplicationContext(), mFeelQueue);
         }
     }
 
@@ -202,6 +202,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
         mFeelQueue.add(new Feel(feeling));
         mAdapter.notifyDataSetChanged();
-        PreferencesManager.saveSharedPreferencesFeelList(getApplicationContext(), mFeelQueue);
+        FeelsBookPreferencesManager.saveSharedPreferencesFeelList(getApplicationContext(), mFeelQueue);
     }
 }
