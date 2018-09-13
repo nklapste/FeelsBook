@@ -24,7 +24,9 @@ public class Feel implements Comparable<Feel>{
     public static final String JOY = "Joy";
     public static final String FEAR = "Fear";
     public static final String LOVE = "Love";
-    public static final SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss", Locale.getDefault());
+
+    static final SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss", Locale.getDefault());
+
     private String comment;
     private String feeling;
     private Date date;
@@ -70,14 +72,5 @@ public class Feel implements Comparable<Feel>{
     @Override
     public int compareTo(@NonNull Feel feel) {
         return this.getDate().compareTo(feel.getDate());
-    }
-
-    public enum FEELINGS {
-        Anger,
-        Sadness,
-        Surprise,
-        Joy,
-        Fear,
-        Love
     }
 }
