@@ -18,7 +18,7 @@ class FeelAdapter extends RecyclerView.Adapter<FeelAdapter.FeelViewHolder> {
 
     private FeelQueue feelsList;
 
-    public FeelAdapter(FeelQueue feelQueue) {
+    FeelAdapter(FeelQueue feelQueue) {
         this.feelsList = feelQueue;
     }
 
