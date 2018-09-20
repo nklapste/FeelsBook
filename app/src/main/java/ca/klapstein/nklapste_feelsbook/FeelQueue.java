@@ -32,6 +32,14 @@ public class FeelQueue extends PriorityQueue<Feel> {
         this.surpriseTally = 0;
     }
 
+    /**
+     * Attempt to remove an object from the FeelQueue.
+     *
+     * If it is successfully removed decrement the tally of feel removed.
+     *
+     * @param o {@code Object}
+     * @return {@code boolean}
+     */
     @Override
     public boolean remove(Object o) {
         boolean removeResult = super.remove(o);
@@ -72,6 +80,14 @@ public class FeelQueue extends PriorityQueue<Feel> {
         return removeResult;
     }
 
+    /**
+     * Inserts the specified {@code Feel} into this FeelQueue.
+     *
+     * If it is successfully inserted increment the tally of the feel inserted.
+     *
+     * @param feel {@code Feel}
+     * @return {@code boolean}
+     */
     @Override
     public boolean offer(Feel feel) {
         boolean offerResult = super.offer(feel);

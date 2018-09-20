@@ -24,7 +24,6 @@ import static ca.klapstein.nklapste_feelsbook.Feel.dateFormat;
 public class EditFeelActivity extends AppCompatActivity {
     private static final String TAG = "EditFeelActivity";
 
-    private Context context;
     private TextView dateEditText;
     private Spinner feelSpinner;
     private EditText commentEditText;
@@ -42,6 +41,7 @@ public class EditFeelActivity extends AppCompatActivity {
         final Calendar currentDate = Calendar.getInstance();
         currentDate.setTime(date);
         final Calendar newDate = Calendar.getInstance();
+        final Context context = this;
         newDate.setTime(date);
         new DatePickerDialog(context, new DatePickerDialog.OnDateSetListener() {
             @Override
@@ -66,7 +66,7 @@ public class EditFeelActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.edit_feel);
-        context = this;
+
         feelSpinner = findViewById(R.id.feelSpinner);
         final String feeling = getIntent().getStringExtra("feeling");
         setFeelSpinnerDefault(feeling);
@@ -97,6 +97,12 @@ public class EditFeelActivity extends AppCompatActivity {
         });
     }
 
+    /**
+     * Convert a string representation of a feel into the relevant selection number for the
+     * EditFeelActivity feelSpinner.
+     *
+     * @param feeling {@code String}
+     */
     public void setFeelSpinnerDefault(String feeling){
         int selection = 0;
         switch (feeling) {
@@ -130,6 +136,12 @@ public class EditFeelActivity extends AppCompatActivity {
         feelSpinner.setSelection(selection);
     }
 
+    /**
+     * On clicking the Date edit text parse the containing text into a {@code Date} and display
+     * a date time picker to modify the feel's date.
+     *
+     * @param date {String}
+     */
     public void onDateEditTextClick(String date) {
         try {
             showDateTimePicker(dateFormat.parse(date));
@@ -138,7 +150,13 @@ public class EditFeelActivity extends AppCompatActivity {
         }
     }
 
-    public void onSaveButtonClick(int position) {
+    /**
+     * On clicking the save button add the modified feel characteristics onto the Intent result
+     * and finish the activity.
+     *
+     * @param position {@code int}
+     */
+    public void onSaveButtonClick(final int position) {
         final String comment = commentEditText.getText().toString();
         final String feeling = feelSpinner.getSelectedItem().toString();
         String date = dateEditText.getText().toString();
