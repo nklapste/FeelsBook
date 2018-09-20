@@ -10,6 +10,9 @@ import java.lang.reflect.Type;
 
 /**
  * Helper Class for accessing the  Android's SharedPreferences for use in FeelsBook.
+ *
+ * Use {@code Gson} to serialize/deserialize FeelQueue to/from a JSON string for saving/loading
+ * in Android's SharedPreferences.
  */
 public class FeelsBookPreferencesManager {
     private static final String TAG = "FeelsBookPreferencesManager";
@@ -18,7 +21,7 @@ public class FeelsBookPreferencesManager {
     private static final String FEELS_QUEUE_PREF_JSON_KEY = "mFeelQueueJson";
 
     /**
-     * Save a FeelsList using Android's SharedPreferences
+     * Save a FeelsList using Android's SharedPreferences.
      *
      * @param context  {@code Context}
      * @param feelQueue {@code FeelQueue}
@@ -33,7 +36,7 @@ public class FeelsBookPreferencesManager {
     }
 
     /**
-     * Load the FeelsList using Android's SharedPreferences
+     * Load the FeelsList using Android's SharedPreferences.
      *
      * @param context {@code Context}
      */

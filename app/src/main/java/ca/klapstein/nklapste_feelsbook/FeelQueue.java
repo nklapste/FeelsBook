@@ -8,7 +8,7 @@ import java.util.PriorityQueue;
  * A PriorityQueue subclass that only accepts {@code Feel}s.
  *
  * Since a PriorityQueue is inherently sorted it provides an easy way to implement the feelings
- * list while retaining order by date
+ * list while retaining order by date.
  *
  * Additionally running tallies of each feeling are kept for quick statistics generation.
  */

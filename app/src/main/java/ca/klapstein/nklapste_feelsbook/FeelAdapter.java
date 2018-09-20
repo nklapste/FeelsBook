@@ -34,7 +34,7 @@ class FeelAdapter extends RecyclerView.Adapter<FeelAdapter.FeelViewHolder> {
      * Replace the contents of a view (invoked by the layout manager)
      *
      * @param holder   {@code FeelViewHolder}
-     * @param position {@code position} position of the entity within the RecyclerView
+     * @param position {@code int} position of the entity within the RecyclerView
      */
     @Override
     public void onBindViewHolder(@NonNull FeelViewHolder holder, final int position) {
