@@ -26,9 +26,11 @@ public class EditFeelActivity extends AppCompatActivity {
 
     private Context context;
     private TextView dateEditText;
+    private Spinner feelSpinner;
+    private EditText commentEditText;
 
     /**
-     * showDateTimePicker is based of the solution provided by:
+     * showDateTimePicker is based of a code solution provided by:
      *
      * Abhishek
      * https://stackoverflow.com/users/5242161/abhishek
@@ -65,9 +67,37 @@ public class EditFeelActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.edit_feel);
         context = this;
-
-        final Spinner feelSpinner = findViewById(R.id.feelSpinner);
+        feelSpinner = findViewById(R.id.feelSpinner);
         final String feeling = getIntent().getStringExtra("feeling");
+        setFeelSpinnerDefault(feeling);
+
+        dateEditText = findViewById(R.id.dateEditText);
+        final String date = getIntent().getStringExtra("date");
+        dateEditText.setText(date);
+        dateEditText.setOnClickListener(
+                new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        onDateEditTextClick(date);
+                    }
+                }
+        );
+
+        commentEditText = findViewById(R.id.commentEditText);
+        final String comment = getIntent().getStringExtra("comment");
+        commentEditText.setText(comment);
+
+        final Button button_save_feel = findViewById(R.id.button_save_feel);
+        final int position = getIntent().getIntExtra("position", 0);
+        button_save_feel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                onSaveButtonClick(position);
+            }
+        });
+    }
+
+    public void setFeelSpinnerDefault(String feeling){
         int selection = 0;
         switch (feeling) {
             case Feel.ANGER:
@@ -98,53 +128,34 @@ public class EditFeelActivity extends AppCompatActivity {
                 break;
         }
         feelSpinner.setSelection(selection);
+    }
 
-        dateEditText = findViewById(R.id.dateEditText);
-        final String date = getIntent().getStringExtra("date");
-        dateEditText.setText(date);
-        dateEditText.setOnClickListener(
-                new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        try {
-                            showDateTimePicker(dateFormat.parse(date));
-                        } catch (ParseException e) {
-                            e.printStackTrace();
-                        }
-                    }
-                }
-        );
+    public void onDateEditTextClick(String date) {
+        try {
+            showDateTimePicker(dateFormat.parse(date));
+        } catch (ParseException e) {
+            Log.e(TAG, "Failed to parse date string: " + date, e);
+        }
+    }
 
-        final EditText commentEditText = findViewById(R.id.commentEditText);
-        final String comment = getIntent().getStringExtra("comment");
-        commentEditText.setText(comment);
+    public void onSaveButtonClick(int position) {
+        final String comment = commentEditText.getText().toString();
+        final String feeling = feelSpinner.getSelectedItem().toString();
+        String date = dateEditText.getText().toString();
+        try {
+            date = dateFormat.format(dateFormat.parse(date));
+        } catch (ParseException e) {
+            Log.e(TAG, "Failed to parse date string: " + date, e);
+            // TODO: error handling
+            return;
+        }
 
-        final int position = getIntent().getIntExtra("position", 0);
-
-        final Button button_save_feel = findViewById(R.id.button_save_feel);
-        button_save_feel.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-                final String comment = commentEditText.getText().toString();
-                final String feeling = feelSpinner.getSelectedItem().toString();
-                String date = dateEditText.getText().toString();
-                try {
-                    date = dateFormat.format(dateFormat.parse(date));
-                } catch (ParseException e) {
-                    Log.e(TAG, "Failed to parse date string: " + date, e);
-                    // TODO: error handling
-                    return;
-                }
-
-                Intent data = new Intent();
-                data.putExtra("date", date);
-                data.putExtra("feeling", feeling);
-                data.putExtra("comment", comment);
-                data.putExtra("position", position);
-                setResult(RESULT_OK, data);
-                finish();
-            }
-        });
+        Intent data = new Intent();
+        data.putExtra("date", date);
+        data.putExtra("feeling", feeling);
+        data.putExtra("comment", comment);
+        data.putExtra("position", position);
+        setResult(RESULT_OK, data);
+        finish();
     }
 }
