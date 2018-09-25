@@ -151,7 +151,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent intent) {
         if (requestCode == EDIT_COMMENT_REQUEST_CODE && resultCode == RESULT_OK) {
-            Date date = null;
+            Date date;
             try {
                 date = dateFormat.parse(intent.getStringExtra("date"));
             } catch (ParseException e) {
