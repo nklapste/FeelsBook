@@ -16,6 +16,12 @@ import android.widget.PopupMenu;
 import java.text.ParseException;
 import java.util.Date;
 
+import static ca.klapstein.nklapste_feelsbook.Feel.Feelings.Anger;
+import static ca.klapstein.nklapste_feelsbook.Feel.Feelings.Fear;
+import static ca.klapstein.nklapste_feelsbook.Feel.Feelings.Joy;
+import static ca.klapstein.nklapste_feelsbook.Feel.Feelings.Love;
+import static ca.klapstein.nklapste_feelsbook.Feel.Feelings.Sadness;
+import static ca.klapstein.nklapste_feelsbook.Feel.Feelings.Surprise;
 import static ca.klapstein.nklapste_feelsbook.Feel.dateFormat;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
@@ -142,7 +148,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         });
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent intent) {
         if (requestCode == EDIT_COMMENT_REQUEST_CODE && resultCode == RESULT_OK) {
@@ -153,7 +158,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 // this should never happen unless someone is mucking about in the source code
                 Log.e(TAG, "Failed to parse date string: " + intent.getStringExtra("date"), e);
             }
-            String feeling = intent.getStringExtra("feeling");
+            Feel.Feelings feeling = Feel.Feelings.valueOf(intent.getStringExtra("feeling"));
             String comment = intent.getStringExtra("comment");
             final int position = intent.getIntExtra("position", 0);
 
@@ -170,33 +175,32 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
     public void onClick(View view) {
-        String feeling;
+        Feel.Feelings feeling;
         switch (view.getId()) {
             case R.id.button_anger:
-                feeling = Feel.ANGER;
+                feeling = Anger;
                 break;
 
             case R.id.button_fear:
-                feeling = Feel.FEAR;
+                feeling = Fear;
                 break;
 
             case R.id.button_joy:
-                feeling = Feel.JOY;
+                feeling = Joy;
                 break;
 
             case R.id.button_love:
-                feeling = Feel.LOVE;
+                feeling = Love;
                 break;
 
             case R.id.button_sadness:
-                feeling = Feel.SADNESS;
+                feeling = Sadness;
                 break;
 
             case R.id.button_surprise:
-                feeling = Feel.SURPRISE;
+                feeling = Surprise;
                 break;
 
             default:

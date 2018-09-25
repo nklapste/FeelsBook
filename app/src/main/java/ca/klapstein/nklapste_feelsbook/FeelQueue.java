@@ -4,6 +4,13 @@ import android.util.Log;
 
 import java.util.PriorityQueue;
 
+import static ca.klapstein.nklapste_feelsbook.Feel.Feelings.Anger;
+import static ca.klapstein.nklapste_feelsbook.Feel.Feelings.Fear;
+import static ca.klapstein.nklapste_feelsbook.Feel.Feelings.Joy;
+import static ca.klapstein.nklapste_feelsbook.Feel.Feelings.Love;
+import static ca.klapstein.nklapste_feelsbook.Feel.Feelings.Sadness;
+import static ca.klapstein.nklapste_feelsbook.Feel.Feelings.Surprise;
+
 /**
  * A PriorityQueue subclass that only accepts {@code Feel}s.
  *
@@ -45,35 +52,34 @@ public class FeelQueue extends PriorityQueue<Feel> {
         boolean removeResult = super.remove(o);
         if (removeResult && o.getClass().equals(Feel.class)) {
             Feel feel = (Feel) o;
-            String feeling = feel.getFeeling();
 
-            switch (feeling) {
-                case Feel.ANGER:
+            switch (feel.getFeeling()) {
+                case Anger:
                     angerTally -= 1;
                     break;
 
-                case Feel.FEAR:
+                case Fear:
                     fearTally -= 1;
                     break;
 
-                case Feel.JOY:
+                case Joy:
                     joyTally -= 1;
                     break;
 
-                case Feel.LOVE:
+                case Love:
                     loveTally -= 1;
                     break;
 
-                case Feel.SADNESS:
+                case Sadness:
                     sadnessTally -= 1;
                     break;
 
-                case Feel.SURPRISE:
+                case Surprise:
                     surpriseTally -= 1;
                     break;
 
                 default:
-                    Log.e(TAG, "Unsupported feeling attempted to be tallied: " + feeling);
+                    Log.e(TAG, "Unsupported feeling attempted to be tallied: " + feel.getFeeling());
                     break;
             }
         }
@@ -92,34 +98,33 @@ public class FeelQueue extends PriorityQueue<Feel> {
     public boolean offer(Feel feel) {
         boolean offerResult = super.offer(feel);
         if (offerResult) {
-            String feeling = feel.getFeeling();
-            switch (feeling) {
-                case Feel.ANGER:
+            switch (feel.getFeeling()) {
+                case Anger:
                     angerTally += 1;
                     break;
 
-                case Feel.FEAR:
+                case Fear:
                     fearTally += 1;
                     break;
 
-                case Feel.JOY:
+                case Joy:
                     joyTally += 1;
                     break;
 
-                case Feel.LOVE:
+                case Love:
                     loveTally += 1;
                     break;
 
-                case Feel.SADNESS:
+                case Sadness:
                     sadnessTally += 1;
                     break;
 
-                case Feel.SURPRISE:
+                case Surprise:
                     surpriseTally += 1;
                     break;
 
                 default:
-                    Log.e(TAG, "Unsupported feeling attempted to be tallied: " + feeling);
+                    Log.e(TAG, "Unsupported feeling attempted to be tallied: " + feel.getFeeling());
                     break;
             }
         }

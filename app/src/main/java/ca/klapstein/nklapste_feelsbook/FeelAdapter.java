@@ -40,7 +40,7 @@ class FeelAdapter extends RecyclerView.Adapter<FeelAdapter.FeelViewHolder> {
     public void onBindViewHolder(@NonNull FeelViewHolder holder, final int position) {
         Feel feel = (Feel) feelsList.toArray()[position];
         holder.date.setText(dateFormat.format(feel.getDate()));
-        holder.title.setText(feel.getFeeling());
+        holder.title.setText(feel.getFeeling().toString());
         holder.comment.setText(feel.getComment());
     }
 

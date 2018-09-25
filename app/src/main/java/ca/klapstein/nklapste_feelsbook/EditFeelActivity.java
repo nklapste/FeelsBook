@@ -68,7 +68,7 @@ public class EditFeelActivity extends AppCompatActivity {
         setContentView(R.layout.edit_feel);
 
         feelSpinner = findViewById(R.id.feelSpinner);
-        final String feeling = getIntent().getStringExtra("feeling");
+        final Feel.Feelings feeling = Feel.Feelings.valueOf(getIntent().getStringExtra("feeling"));
         setFeelSpinnerDefault(feeling);
 
         dateEditText = findViewById(R.id.dateEditText);
@@ -103,30 +103,30 @@ public class EditFeelActivity extends AppCompatActivity {
      *
      * @param feeling {@code String}
      */
-    public void setFeelSpinnerDefault(String feeling){
+    public void setFeelSpinnerDefault(Feel.Feelings feeling){
         int selection = 0;
         switch (feeling) {
-            case Feel.ANGER:
+            case Anger:
                 selection = 0;
                 break;
 
-            case Feel.FEAR:
+            case Fear:
                 selection = 1;
                 break;
 
-            case Feel.JOY:
+            case Joy:
                 selection = 2;
                 break;
 
-            case Feel.LOVE:
+            case Love:
                 selection = 3;
                 break;
 
-            case Feel.SADNESS:
+            case Sadness:
                 selection = 4;
                 break;
 
-            case Feel.SURPRISE:
+            case Surprise:
                 selection = 5;
                 break;
 

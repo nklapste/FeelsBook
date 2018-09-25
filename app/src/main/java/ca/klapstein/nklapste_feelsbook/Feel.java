@@ -18,20 +18,22 @@ import java.util.Locale;
 public class Feel implements Comparable<Feel>{
     private static final String TAG = "Feel";
 
-    public static final String ANGER = "Anger";
-    public static final String SADNESS = "Sadness";
-    public static final String SURPRISE = "Surprise";
-    public static final String JOY = "Joy";
-    public static final String FEAR = "Fear";
-    public static final String LOVE = "Love";
+   public enum Feelings {
+        Anger,
+        Sadness,
+        Surprise,
+        Joy,
+        Fear,
+        Love,
+    }
 
     static final SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss", Locale.getDefault());
 
     private String comment;
-    private String feeling;
+    private Feelings feeling;
     private Date date;
 
-    Feel(String feeling) {
+    Feel(Feelings feeling) {
         // TODO: add check to see if string is valid feeling
         this.feeling = feeling;
         this.comment = "";
@@ -46,11 +48,11 @@ public class Feel implements Comparable<Feel>{
         this.comment = comment;
     }
 
-    public String getFeeling() {
+    public Feelings getFeeling() {
         return feeling;
     }
 
-    public void setFeeling(String feeling) {
+    public void setFeeling(Feelings feeling) {
         // TODO: add check to see if string is valid feeling
         this.feeling = feeling;
     }
