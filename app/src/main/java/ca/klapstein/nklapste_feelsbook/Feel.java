@@ -34,7 +34,6 @@ public class Feel implements Comparable<Feel>{
     private Date date;
 
     Feel(Feelings feeling) {
-        // TODO: add check to see if string is valid feeling
         this.feeling = feeling;
         this.comment = "";
         this.date = new Date();
@@ -53,7 +52,6 @@ public class Feel implements Comparable<Feel>{
     }
 
     public void setFeeling(Feelings feeling) {
-        // TODO: add check to see if string is valid feeling
         this.feeling = feeling;
     }
 
