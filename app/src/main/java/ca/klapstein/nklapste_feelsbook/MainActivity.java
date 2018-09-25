@@ -1,9 +1,7 @@
 package ca.klapstein.nklapste_feelsbook;
 
 import android.content.Intent;
-import android.os.Build;
 import android.os.Bundle;
-import android.support.annotation.RequiresApi;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -32,7 +30,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private FeelQueue mFeelQueue;
 
     /**
-     * Save the MainActivites {@code FeelQueue} on closing.
+     * Save the MainActivity's {@code FeelQueue} on closing.
      */
     @Override
     protected void onDestroy() {
@@ -43,12 +41,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.listview_layout);
 
         mFeelQueue = FeelsBookPreferencesManager.loadSharedPreferencesFeelList(getApplicationContext());
 
-        setContentView(R.layout.listview_layout);
         RecyclerView mFeelsRecyclerView = findViewById(R.id.feels_recycler_view);
-
         mFeelsRecyclerView.setHasFixedSize(true);
 
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(this);
@@ -59,51 +56,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         // set the onClick and onLongClick functions for the RecycleView
         mFeelsRecyclerView.addOnItemTouchListener(new RecyclerTouchListener(getApplicationContext(), mFeelsRecyclerView, new RecyclerTouchListener.ClickListener() {
             @Override
-            public void onClick(View view, int position) {
-            }
+            public void onClick(View view, int position) {}
 
-            /**
-             * Create a popup menu on a long click of a Feel.
-             *
-             * This menu provides two options:
-             *      1. Edit the Feel.
-             *      2. Delete the Feel.
-             *
-             * @param view {@code View}
-             * @param position {@code int}
-             */
             @Override
-            public void onLongClick(View view, final int position) {
-                //creating a popup menu
-                PopupMenu popup = new PopupMenu(getApplicationContext(), view);
-
-                final Feel feel = (Feel) mFeelQueue.toArray()[position];
-                //inflating menu from xml resource
-                popup.inflate(R.menu.feel_options_menu);
-                //adding click listener
-                popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
-                    @Override
-                    public boolean onMenuItemClick(MenuItem item) {
-                        switch (item.getItemId()) {
-                            case R.id.button_delete:
-                                mFeelQueue.remove(feel);
-                                mAdapter.notifyItemRemoved(position);
-                                mAdapter.notifyItemRangeChanged(position, mFeelQueue.size());
-                                return true;
-                            case R.id.button_edit_feeling:
-                                Intent intent = new Intent(getApplicationContext(), EditFeelActivity.class);
-                                intent.putExtra("date", dateFormat.format(feel.getDate()));
-                                intent.putExtra("feeling", feel.getFeeling());
-                                intent.putExtra("comment", feel.getComment());
-                                intent.putExtra("position", position);
-                                startActivityForResult(intent, 1);
-                                return true;
-                            default:
-                                return false;
-                        }
-                    }
-                });
-                popup.show();
+            public void onLongClick(View view, int position) {
+                onFeelListItemClick(view, position);
             }
         }));
 
@@ -129,51 +86,109 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         // set the OnClick function for the Stats button
         final Button button_stats = findViewById(R.id.button_stats);
         button_stats.setOnClickListener(new View.OnClickListener() {
-
-            /**
-             * Compute the tally of all feelings within mFeelQueue and send the totals to
-             * StatsActivity to be displayed.
-             */
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(), StatsActivity.class);
-                intent.putExtra("angerTally", mFeelQueue.getAngerTally());
-                intent.putExtra("fearTally", mFeelQueue.getFearTally());
-                intent.putExtra("joyTally", mFeelQueue.getJoyTally());
-                intent.putExtra("loveTally", mFeelQueue.getLoveTally());
-                intent.putExtra("sadnessTally", mFeelQueue.getSadnessTally());
-                intent.putExtra("surpriseTally", mFeelQueue.getSurpriseTally());
-                startActivity(intent);
+                onStatsButtonClick();
             }
         });
+    }
+
+    /**
+     * Create a popup menu on a long click of a Feel.
+     *
+     * This menu provides two options:
+     *      1. Edit the Feel.
+     *      2. Delete the Feel.
+     *
+     * @param view {@code View}
+     * @param position {@code int}
+     */
+    private void onFeelListItemClick(View view, final int position){
+        //creating a popup menu
+        PopupMenu popup = new PopupMenu(getApplicationContext(), view);
+
+        final Feel feel = (Feel) mFeelQueue.toArray()[position];
+        //inflating menu from xml resource
+        popup.inflate(R.menu.feel_options_menu);
+        //adding click listener
+        popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem item) {
+                switch (item.getItemId()) {
+                    case R.id.button_delete:
+                        mFeelQueue.remove(feel);
+                        mAdapter.notifyItemRemoved(position);
+                        mAdapter.notifyItemRangeChanged(position, mFeelQueue.size());
+                        return true;
+                    case R.id.button_edit_feeling:
+                        Intent intent = new Intent(getApplicationContext(), EditFeelActivity.class);
+                        intent.putExtra("date", dateFormat.format(feel.getDate()));
+                        intent.putExtra("feeling", feel.getFeeling().toString());
+                        intent.putExtra("comment", feel.getComment());
+                        intent.putExtra("position", position);
+                        startActivityForResult(intent, 1);
+                        return true;
+                    default:
+                        return false;
+                }
+            }
+        });
+        popup.show();
+    }
+
+    /**
+     * Get the tally of all feelings within mFeelQueue and send the totals to
+     * StatsActivity to be displayed.
+     */
+    private void onStatsButtonClick(){
+        Intent intent = new Intent(getApplicationContext(), StatsActivity.class);
+        intent.putExtra("angerTally", mFeelQueue.getAngerTally());
+        intent.putExtra("fearTally", mFeelQueue.getFearTally());
+        intent.putExtra("joyTally", mFeelQueue.getJoyTally());
+        intent.putExtra("loveTally", mFeelQueue.getLoveTally());
+        intent.putExtra("sadnessTally", mFeelQueue.getSadnessTally());
+        intent.putExtra("surpriseTally", mFeelQueue.getSurpriseTally());
+        startActivity(intent);
     }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent intent) {
         if (requestCode == EDIT_COMMENT_REQUEST_CODE && resultCode == RESULT_OK) {
-            Date date;
-            try {
-                date = dateFormat.parse(intent.getStringExtra("date"));
-            } catch (ParseException e) {
-                // this should never happen unless someone is mucking about in the source code
-                Log.e(TAG, "Failed to parse date string: " + intent.getStringExtra("date"), e);
-                throw new RuntimeException(e);
-            }
-            Feel.Feelings feeling = Feel.Feelings.valueOf(intent.getStringExtra("feeling"));
-            String comment = intent.getStringExtra("comment");
-            final int position = intent.getIntExtra("position", 0);
-
-            Feel feel = (Feel) mFeelQueue.toArray()[position];
-            mFeelQueue.remove(feel);
-
-            feel.setFeeling(feeling);
-            feel.setComment(comment);
-            feel.setDate(date);
-            mFeelQueue.add(feel);
-
-            mAdapter.notifyDataSetChanged();
-            FeelsBookPreferencesManager.saveSharedPreferencesFeelList(getApplicationContext(), mFeelQueue);
+            onEditFeelActivityResult(intent);
         }
+    }
+
+    /**
+     * After getting the results from an EditFeelActivity modify the {@code mFeelQueue} to
+     * represent the changes made to the selected feel.
+     *
+     * @param intent {@code Intent}
+     */
+    private void onEditFeelActivityResult(Intent intent){
+        Date date;
+        try {
+            date = dateFormat.parse(intent.getStringExtra("date"));
+        } catch (ParseException e) {
+            // this should never happen unless someone is mucking about in the source code
+            Log.e(TAG, "Failed to parse date string: " + intent.getStringExtra("date"), e);
+            // Throw a RuntimeException because if we use this invalid date data we can potentially
+            // corrupt the FeelQueue and state of FeelsBook
+            throw new RuntimeException(e);
+        }
+        Feel.Feelings feeling = Feel.Feelings.valueOf(intent.getStringExtra("feeling"));
+        String comment = intent.getStringExtra("comment");
+        final int position = intent.getIntExtra("position", 0);
+
+        Feel feel = (Feel) mFeelQueue.toArray()[position];
+        mFeelQueue.remove(feel);
+
+        feel.setFeeling(feeling);
+        feel.setComment(comment);
+        feel.setDate(date);
+        mFeelQueue.add(feel);
+
+        mAdapter.notifyDataSetChanged();
+        FeelsBookPreferencesManager.saveSharedPreferencesFeelList(getApplicationContext(), mFeelQueue);
     }
 
     @Override

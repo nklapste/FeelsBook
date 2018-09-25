@@ -147,6 +147,8 @@ public class EditFeelActivity extends AppCompatActivity {
             showDateTimePicker(dateFormat.parse(date));
         } catch (ParseException e) {
             Log.e(TAG, "Failed to parse date string: " + date, e);
+            // Throw a RuntimeException because if we use this invalid date data we can potentially
+            // corrupt the FeelQueue and state of FeelsBook
             throw new RuntimeException(e);
         }
     }
@@ -159,18 +161,20 @@ public class EditFeelActivity extends AppCompatActivity {
      */
     public void onSaveButtonClick(final int position) {
         final String comment = commentEditText.getText().toString();
-        final String feeling = feelSpinner.getSelectedItem().toString();
+        final Feel.Feelings feeling = Feel.Feelings.valueOf(feelSpinner.getSelectedItem().toString());
         String date = dateEditText.getText().toString();
         try {
             date = dateFormat.format(dateFormat.parse(date));
         } catch (ParseException e) {
             Log.e(TAG, "Failed to parse date string: " + date, e);
+            // Throw a RuntimeException because if we use this invalid date data we can potentially
+            // corrupt the FeelQueue and state of FeelsBook
             throw new RuntimeException(e);
         }
 
         Intent data = new Intent();
         data.putExtra("date", date);
-        data.putExtra("feeling", feeling);
+        data.putExtra("feeling", feeling.toString());
         data.putExtra("comment", comment);
         data.putExtra("position", position);
         setResult(RESULT_OK, data);
