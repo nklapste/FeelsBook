@@ -157,6 +157,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             } catch (ParseException e) {
                 // this should never happen unless someone is mucking about in the source code
                 Log.e(TAG, "Failed to parse date string: " + intent.getStringExtra("date"), e);
+                throw new RuntimeException(e);
             }
             Feel.Feelings feeling = Feel.Feelings.valueOf(intent.getStringExtra("feeling"));
             String comment = intent.getStringExtra("comment");

@@ -147,6 +147,7 @@ public class EditFeelActivity extends AppCompatActivity {
             showDateTimePicker(dateFormat.parse(date));
         } catch (ParseException e) {
             Log.e(TAG, "Failed to parse date string: " + date, e);
+            throw new RuntimeException(e);
         }
     }
 
@@ -164,8 +165,7 @@ public class EditFeelActivity extends AppCompatActivity {
             date = dateFormat.format(dateFormat.parse(date));
         } catch (ParseException e) {
             Log.e(TAG, "Failed to parse date string: " + date, e);
-            // TODO: error handling
-            return;
+            throw new RuntimeException(e);
         }
 
         Intent data = new Intent();
