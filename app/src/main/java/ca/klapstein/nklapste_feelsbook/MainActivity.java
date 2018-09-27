@@ -26,8 +26,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private static final String TAG = "MainActivity";
 
     private static final int EDIT_COMMENT_REQUEST_CODE = 1;
-    private FeelAdapter mAdapter;
+    private FeelAdapter mFeelAdapter;
     private FeelQueue mFeelQueue;
+    private RecyclerView mFeelsRecyclerView;
 
     /**
      * Save the MainActivity's {@code FeelQueue} on closing.
@@ -43,15 +44,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         super.onCreate(savedInstanceState);
         setContentView(R.layout.listview_layout);
 
-        mFeelQueue = FeelsBookPreferencesManager.loadSharedPreferencesFeelList(getApplicationContext());
-
-        RecyclerView mFeelsRecyclerView = findViewById(R.id.feels_recycler_view);
+        mFeelsRecyclerView = findViewById(R.id.feels_recycler_view);
         mFeelsRecyclerView.setHasFixedSize(true);
-
-        RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(this);
-        mFeelsRecyclerView.setLayoutManager(mLayoutManager);
-        mAdapter = new FeelAdapter(mFeelQueue);
-        mFeelsRecyclerView.setAdapter(mAdapter);
+        mFeelsRecyclerView.setLayoutManager(new LinearLayoutManager(this));
 
         // set the onClick and onLongClick functions for the RecycleView
         mFeelsRecyclerView.addOnItemTouchListener(new RecyclerTouchListener(getApplicationContext(), mFeelsRecyclerView, new RecyclerTouchListener.ClickListener() {
@@ -117,8 +112,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 switch (item.getItemId()) {
                     case R.id.button_delete:
                         mFeelQueue.remove(feel);
-                        mAdapter.notifyItemRemoved(position);
-                        mAdapter.notifyItemRangeChanged(position, mFeelQueue.size());
+                        mFeelAdapter.notifyItemRemoved(position);
+                        mFeelAdapter.notifyItemRangeChanged(position, mFeelQueue.size());
                         return true;
                     case R.id.button_edit_feeling:
                         Intent intent = new Intent(getApplicationContext(), EditFeelActivity.class);
@@ -187,7 +182,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         feel.setDate(date);
         mFeelQueue.add(feel);
 
-        mAdapter.notifyDataSetChanged();
+        mFeelAdapter.notifyDataSetChanged();
         FeelsBookPreferencesManager.saveSharedPreferencesFeelList(getApplicationContext(), mFeelQueue);
     }
 
@@ -224,7 +219,18 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 return;
         }
         mFeelQueue.add(new Feel(feeling));
-        mAdapter.notifyDataSetChanged();
+        mFeelAdapter.notifyDataSetChanged();
         FeelsBookPreferencesManager.saveSharedPreferencesFeelList(getApplicationContext(), mFeelQueue);
+    }
+
+    /**
+     * On Activity start load the FeelQueue from the Android SharedPreferences.
+     */
+    @Override
+    public void onStart() {
+        super.onStart();
+        mFeelQueue = FeelsBookPreferencesManager.loadSharedPreferencesFeelList(getApplicationContext());
+        mFeelAdapter = new FeelAdapter(mFeelQueue);
+        mFeelsRecyclerView.setAdapter(mFeelAdapter);
     }
 }
