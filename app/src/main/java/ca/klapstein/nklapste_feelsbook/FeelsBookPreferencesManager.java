@@ -39,6 +39,7 @@ public class FeelsBookPreferencesManager {
      * Load the FeelsList using Android's SharedPreferences.
      *
      * @param context {@code Context}
+     * @return {@code FeelQueue}
      */
     public static FeelQueue loadSharedPreferencesFeelList(Context context) {
         FeelQueue feelQueue;
