@@ -16,10 +16,10 @@ import static ca.klapstein.nklapste_feelsbook.Feel.dateFormat;
 class FeelAdapter extends RecyclerView.Adapter<FeelAdapter.FeelViewHolder> {
     private static final String TAG = "FeelAdapter";
 
-    private FeelQueue feelsList;
+    private FeelQueue feelQueue;
 
     FeelAdapter(FeelQueue feelQueue) {
-        this.feelsList = feelQueue;
+        this.feelQueue = feelQueue;
     }
 
     @NonNull
@@ -38,7 +38,7 @@ class FeelAdapter extends RecyclerView.Adapter<FeelAdapter.FeelViewHolder> {
      */
     @Override
     public void onBindViewHolder(@NonNull FeelViewHolder holder, final int position) {
-        Feel feel = (Feel) feelsList.toArray()[position];
+        Feel feel = (Feel) feelQueue.toArray()[position];
         holder.date.setText(dateFormat.format(feel.getDate()));
         holder.title.setText(feel.getFeeling().toString());
         holder.comment.setText(feel.getComment());
@@ -46,7 +46,7 @@ class FeelAdapter extends RecyclerView.Adapter<FeelAdapter.FeelViewHolder> {
 
     @Override
     public int getItemCount() {
-        return feelsList.size();
+        return feelQueue.size();
     }
 
     /**
