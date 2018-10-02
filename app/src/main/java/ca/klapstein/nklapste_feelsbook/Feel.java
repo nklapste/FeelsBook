@@ -68,10 +68,10 @@ public class Feel implements Comparable<Feel> {
 
     public enum Feeling {
         Anger,
+        Fear,
+        Joy,
+        Love,
         Sadness,
         Surprise,
-        Joy,
-        Fear,
-        Love,
     }
 }
