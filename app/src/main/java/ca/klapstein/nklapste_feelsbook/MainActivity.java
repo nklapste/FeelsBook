@@ -22,20 +22,40 @@ public class MainActivity extends AppCompatActivity implements EditFeelingDialog
         tabLayout.setupWithViewPager(mViewPager);
     }
 
+    /**
+     * Get the active FeelingsTab from the MainActivities ViewPager.
+     *
+     * @return {@code FeelingsTab}
+     */
     private FeelingsTab getFeelingsTab() {
         int index = mViewPager.getCurrentItem();
         SampleFragmentPagerAdapter adapter = ((SampleFragmentPagerAdapter) mViewPager.getAdapter());
         return (FeelingsTab) adapter.getFragment(index);
     }
 
+    /**
+     * Interface hooks to pass the result from EditFeelingDialog back to the FeelingsTab.
+     * <p>
+     * This allows for inter-DialogFragment communication.
+     *
+     * @param feel {@code Feel}
+     */
     @Override
     public void onSaveButtonClick(Feel feel) {
         FeelingsTab feelingsTab = getFeelingsTab();
         feelingsTab.addFeeling(feel);
     }
 
+    /**
+     * Interface hooks to pass the result from EditFeelingDialog back to the FeelingsTab.
+     * <p>
+     * This allows for inter-DialogFragment communication.
+     *
+     * @param feel     {@code Feel}
+     * @param position {@code int}
+     */
     @Override
-    public void onSaveButtonClick(Feel feel, int position) {
+    public void onSaveButtonClick(Feel feel, final int position) {
         FeelingsTab feelingsTab = getFeelingsTab();
         feelingsTab.editFeeling(feel, position);
     }

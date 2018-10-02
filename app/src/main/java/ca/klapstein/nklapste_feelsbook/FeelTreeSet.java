@@ -6,28 +6,28 @@ import java.util.TreeSet;
 
 /**
  * A PriorityQueue subclass that only accepts {@code Feel}s.
- *
+ * <p>
  * Since a PriorityQueue is inherently sorted it provides an easy way to implement the feelings
  * list while retaining order by date.
- *
+ * <p>
  * Additionally running tallies of each feeling are kept for quick statistics generation.
  */
 public class FeelTreeSet extends TreeSet<Feel> {
     private static final String TAG = "FeelTreeSet";
 
-    private HashMap<Feel.Feelings, Integer> feelingTallies;
+    private HashMap<Feel.Feeling, Integer> feelingTallies;
 
     FeelTreeSet() {
         feelingTallies = new HashMap<>();
         // initialize a HashMap of the feeling tallies all at 0
-        for (Feel.Feelings feel : Feel.Feelings.values()) {
+        for (Feel.Feeling feel : Feel.Feeling.values()) {
             feelingTallies.put(feel, 0);
         }
     }
 
     /**
      * Attempt to remove an object from the FeelTreeSet.
-     *
+     * <p>
      * If it is successfully removed decrement the tally of feel removed.
      *
      * @param o {@code Object}
@@ -47,7 +47,7 @@ public class FeelTreeSet extends TreeSet<Feel> {
 
     /**
      * Inserts the specified {@code Feel} into this FeelTreeSet.
-     *
+     * <p>
      * If it is successfully inserted increment the tally of the feel inserted.
      *
      * @param feel {@code Feel}
@@ -64,7 +64,7 @@ public class FeelTreeSet extends TreeSet<Feel> {
         return offerResult;
     }
 
-    public HashMap<Feel.Feelings, Integer> getFeelingTallies() {
+    public HashMap<Feel.Feeling, Integer> getFeelingTallies() {
         return feelingTallies;
     }
 }

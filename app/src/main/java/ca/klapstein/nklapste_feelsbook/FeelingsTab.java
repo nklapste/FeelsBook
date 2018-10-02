@@ -62,16 +62,32 @@ public class FeelingsTab extends Fragment {
                     ft.remove(prev);
                 }
                 ft.addToBackStack(null);
-                DialogFragment newFeelingDialog = new EditFeelingDialog();
-                Bundle args = new Bundle();
-                args.putInt("position", -1);
-                args.putString("feeling", "");
-                args.putString("comment", "");
-                args.putString("date", dateFormat.format(new Date()));
-                newFeelingDialog.setArguments(args);
-                newFeelingDialog.show(ft, "newFeelingDialog");
+                DialogFragment addFeelDialog = createAddFeelDialog();
+                addFeelDialog.show(ft, "addFeelDialog");
             }
         });
+    }
+
+    public DialogFragment createAddFeelDialog() {
+        DialogFragment newFeelingDialog = new EditFeelingDialog();
+        Bundle args = new Bundle();
+        args.putInt("position", -1);
+        args.putString("feeling", "");
+        args.putString("comment", "");
+        args.putString("date", dateFormat.format(new Date()));
+        newFeelingDialog.setArguments(args);
+        return newFeelingDialog;
+    }
+
+    public DialogFragment createEditFeelDialog(Feel feel, int position) {
+        DialogFragment newFeelingDialog = new EditFeelingDialog();
+        Bundle args = new Bundle();
+        args.putInt("position", position);
+        args.putString("feeling", feel.getFeeling().toString());
+        args.putString("comment", feel.getComment());
+        args.putString("date", dateFormat.format(feel.getDate()));
+        newFeelingDialog.setArguments(args);
+        return newFeelingDialog;
     }
 
     /**
@@ -108,14 +124,8 @@ public class FeelingsTab extends Fragment {
                             ft.remove(prev);
                         }
                         ft.addToBackStack(null);
-                        DialogFragment newFeelingDialog = new EditFeelingDialog();
-                        Bundle args = new Bundle();
-                        args.putInt("position", position);
-                        args.putString("feeling", feel.getFeeling().toString());
-                        args.putString("comment", feel.getComment());
-                        args.putString("date", dateFormat.format(feel.getDate()));
-                        newFeelingDialog.setArguments(args);
-                        newFeelingDialog.show(ft, "newFeelingDialog");
+                        DialogFragment editFeelDialog = createEditFeelDialog(feel, position);
+                        editFeelDialog.show(ft, "newFeelingDialog");
                         return true;
                     default:
                         return false;
@@ -126,7 +136,7 @@ public class FeelingsTab extends Fragment {
     }
 
     /**
-     * TODO
+     * Add a feel into the mFeelTreeSet.
      *
      * @param feel {@code Feel}
      */
@@ -137,8 +147,11 @@ public class FeelingsTab extends Fragment {
     }
 
     /**
-     * TODO
+     * Edit a feel within the mFeelTreeSet.
+     * <p>
+     * Remove the original feel from the FeelTreeSet and replace it with the new feel.
      *
+     * @param newFeel  {@code Feel}
      * @param position {@code int}
      */
     void editFeeling(Feel newFeel, final int position) {

@@ -1,6 +1,5 @@
 package ca.klapstein.nklapste_feelsbook;
 
-import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -8,8 +7,6 @@ import android.support.v4.app.FragmentPagerAdapter;
 import android.util.Log;
 import android.util.SparseArray;
 import android.view.ViewGroup;
-
-import java.util.HashMap;
 
 public class SampleFragmentPagerAdapter extends FragmentPagerAdapter {
     private static final String TAG = "SampleFragmentPagerAdapter";

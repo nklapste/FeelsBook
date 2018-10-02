@@ -34,15 +34,24 @@ public class StatsTab extends Fragment {
         return String.format(Locale.getDefault(), "%d", tally);
     }
 
+    /**
+     * If the stats Fragment is visible on the screen redraw the feelings stats table and
+     * repopulate it with the most updated tally of all feelings.
+     *
+     * @param isVisibleToUser {@code boolean}
+     */
     @Override
     public void setUserVisibleHint(boolean isVisibleToUser) {
         super.setUserVisibleHint(isVisibleToUser);
         if (isVisibleToUser) {
+            // get the current mFeelTreeSet from Android's SharedPreferences
             FeelTreeSet mFeelTreeSet = FeelsBookPreferencesManager.loadSharedPreferencesFeelList(getContext().getApplicationContext());
+
+            // dynamically recreate and populate the table for all Feeling tallies.
             int table_index = 0;
             stats_table.removeAllViews();
-            for (Feel.Feelings feel : Feel.Feelings.values()) {
-                TableRow row= new TableRow(getContext());
+            for (Feel.Feeling feel : Feel.Feeling.values()) {
+                TableRow row = new TableRow(getContext());
                 TableRow.LayoutParams lp = new TableRow.LayoutParams(TableRow.LayoutParams.WRAP_CONTENT);
                 row.setLayoutParams(lp);
                 TextView title = (TextView) new TextView(getContext());

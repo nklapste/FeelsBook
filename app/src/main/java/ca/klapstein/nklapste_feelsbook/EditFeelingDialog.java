@@ -56,7 +56,7 @@ public class EditFeelingDialog extends DialogFragment {
         Bundle mArgs = getArguments();
         final String feelingStr = mArgs.getString("feeling");
         if (!feelingStr.equals("")) {
-            Feel.Feelings feeling = Feel.Feelings.valueOf(feelingStr);
+            Feel.Feeling feeling = Feel.Feeling.valueOf(feelingStr);
             setFeelSpinnerDefault(feeling);
         }
 
@@ -81,7 +81,7 @@ public class EditFeelingDialog extends DialogFragment {
         builder.setView(view);
         int title;
         int save;
-        if (position >= 0){
+        if (position >= 0) {
             title = R.string.edit_feeling;
             save = R.string.edit;
         } else {
@@ -92,7 +92,7 @@ public class EditFeelingDialog extends DialogFragment {
         builder.setPositiveButton(getResources().getString(save), new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int id) {
                 final String comment = commentEditText.getText().toString();
-                final Feel.Feelings feeling = Feel.Feelings.valueOf(feelSpinner.getSelectedItem().toString());
+                final Feel.Feeling feeling = Feel.Feeling.valueOf(feelSpinner.getSelectedItem().toString());
                 String dateStr = dateEditText.getText().toString();
                 Date date;
                 try {
@@ -159,7 +159,7 @@ public class EditFeelingDialog extends DialogFragment {
      *
      * @param feeling {@code String}
      */
-    public void setFeelSpinnerDefault(Feel.Feelings feeling) {
+    public void setFeelSpinnerDefault(Feel.Feeling feeling) {
         int selection = 0;
         switch (feeling) {
             case Anger:
@@ -211,6 +211,7 @@ public class EditFeelingDialog extends DialogFragment {
 
     public interface OnSaveButtonClickListener {
         void onSaveButtonClick(Feel feel);
+
         void onSaveButtonClick(Feel feel, int position);
     }
 }
