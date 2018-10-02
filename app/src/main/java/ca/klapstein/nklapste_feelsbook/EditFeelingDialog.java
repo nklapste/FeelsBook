@@ -54,7 +54,7 @@ public class EditFeelingDialog extends DialogFragment {
 
         feelSpinner = (Spinner) view.findViewById(R.id.feelSpinner);
         Bundle mArgs = getArguments();
-        String feelingStr = mArgs.getString("feeling");
+        final String feelingStr = mArgs.getString("feeling");
         if (!feelingStr.equals("")) {
             Feel.Feelings feeling = Feel.Feelings.valueOf(feelingStr);
             setFeelSpinnerDefault(feeling);
