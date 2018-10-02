@@ -2,6 +2,7 @@ package ca.klapstein.nklapste_feelsbook;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 
@@ -20,6 +21,12 @@ public class AddFeelDialog extends ModifyFeelDialog {
     AlertDialog buildDialog(View view) {
         dateEditText.setText(dateFormat.format(new Date()));
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+
+        final Bundle mArgs = getArguments();
+        Feel.Feeling feeling = Feel.Feeling.valueOf(mArgs.getString("feeling"));
+        // Set the feelSpinners default selection to the original feel's feel
+        feelSpinner.setSelection(feeling.ordinal());
+
         builder.setView(view);
         builder.setTitle(R.string.add_feeling);
         builder.setPositiveButton(getResources().getString(R.string.add), new DialogInterface.OnClickListener() {

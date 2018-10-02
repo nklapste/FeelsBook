@@ -8,12 +8,19 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.FrameLayout;
+import android.widget.LinearLayout;
 import android.widget.PopupMenu;
+import android.widget.TextView;
 
+import static android.view.Gravity.BOTTOM;
+import static android.view.Gravity.CENTER;
+import static android.view.Gravity.END;
 import static ca.klapstein.nklapste_feelsbook.Feel.dateFormat;
 
 public class FeelingsTab extends Fragment {
@@ -50,25 +57,56 @@ public class FeelingsTab extends Fragment {
             }
         }));
 
-        // Define the FloatingActionButton for adding new feels
-        final FloatingActionButton add_feeling_button = (FloatingActionButton) view.findViewById(R.id.addFeelingButton);
-        add_feeling_button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                FragmentTransaction ft = getFragmentManager().beginTransaction();
-                Fragment prev = getFragmentManager().findFragmentByTag("dialog");
-                if (prev != null) {
-                    ft.remove(prev);
-                }
-                ft.addToBackStack(null);
+        // dynamically create a FloatingActionButton for each feel
+        LinearLayout verticalLinearLayout = new LinearLayout(getContext());
+        verticalLinearLayout.setOrientation(LinearLayout.VERTICAL);
+        LinearLayout.LayoutParams verticalLinearLayoutParams = new LinearLayout.LayoutParams(FrameLayout.LayoutParams.WRAP_CONTENT, FrameLayout.LayoutParams.WRAP_CONTENT);
+        verticalLinearLayoutParams.bottomMargin = 15;
+        verticalLinearLayoutParams.gravity = BOTTOM | END;
 
-                // create and show the AddFeelDialog
-                AddFeelDialog addFeelDialog = new AddFeelDialog();
-                Bundle args = new Bundle();
-                addFeelDialog.setArguments(args);
-                addFeelDialog.show(ft, AddFeelDialog.TAG);
-            }
-        });
+        for (final Feel.Feeling feel : Feel.Feeling.values()) {
+            LinearLayout horizontalLinearLayout = new LinearLayout(getContext());
+            horizontalLinearLayout.setOrientation(LinearLayout.HORIZONTAL);
+
+            LinearLayout.LayoutParams labelHorizontalLinearLayoutParams = new LinearLayout.LayoutParams(FrameLayout.LayoutParams.WRAP_CONTENT, FrameLayout.LayoutParams.WRAP_CONTENT);
+            labelHorizontalLinearLayoutParams.gravity = CENTER;
+            labelHorizontalLinearLayoutParams.rightMargin = 5;
+            TextView feelButtonLabel = new TextView(getContext());
+            feelButtonLabel.setText(feel.toString());
+            horizontalLinearLayout.addView(feelButtonLabel, labelHorizontalLinearLayoutParams);
+
+            LinearLayout.LayoutParams buttonHorizontalLinearLayoutParams = new LinearLayout.LayoutParams(FrameLayout.LayoutParams.WRAP_CONTENT, FrameLayout.LayoutParams.WRAP_CONTENT);
+            FloatingActionButton addFeelFloatingActionButton = new FloatingActionButton(getContext());
+            addFeelFloatingActionButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    FragmentTransaction ft = getFragmentManager().beginTransaction();
+                    Fragment prev = getFragmentManager().findFragmentByTag("dialog");
+                    if (prev != null) {
+                        ft.remove(prev);
+                    }
+                    ft.addToBackStack(null);
+
+                    // create and show the AddFeelDialog
+                    AddFeelDialog addFeelDialog = new AddFeelDialog();
+                    Bundle args = new Bundle();
+                    addFeelDialog.setArguments(args);
+                    args.putString("feeling", feel.toString());
+                    addFeelDialog.show(ft, AddFeelDialog.TAG);
+                }
+            });
+            horizontalLinearLayout.addView(addFeelFloatingActionButton, buttonHorizontalLinearLayoutParams);
+
+            verticalLinearLayout.addView(horizontalLinearLayout, verticalLinearLayoutParams);
+        }
+
+        FrameLayout.LayoutParams frameLayoutParams = new FrameLayout.LayoutParams(FrameLayout.LayoutParams.WRAP_CONTENT, FrameLayout.LayoutParams.WRAP_CONTENT);
+        frameLayoutParams.gravity = Gravity.BOTTOM | Gravity.END;
+        frameLayoutParams.bottomMargin = 15;
+        frameLayoutParams.rightMargin = 15;
+
+        FrameLayout frameLayout = (FrameLayout) view.findViewById(R.id.feelFrameLayout);
+        frameLayout.addView(verticalLinearLayout, frameLayoutParams);
     }
 
     /**
