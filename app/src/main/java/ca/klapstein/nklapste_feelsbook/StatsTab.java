@@ -54,8 +54,10 @@ public class StatsTab extends Fragment {
                 TableRow row = new TableRow(getContext());
                 TableRow.LayoutParams lp = new TableRow.LayoutParams(TableRow.LayoutParams.WRAP_CONTENT);
                 row.setLayoutParams(lp);
+                row.setPadding(15,15,15,0);
                 TextView title = (TextView) new TextView(getContext());
-                title.setText(feel.toString());
+                title.setText(String.format("%s:", feel.toString()));
+                title.setPadding(0,0,15,0);
                 row.addView(title);
                 TextView tally = (TextView) new TextView(getContext());
                 tally.setText(stringifyTally(mFeelTreeSet.getFeelingTallies().get(feel)));
