@@ -74,6 +74,6 @@ public class Feel implements Comparable<Feel>{
      */
     @Override
     public int compareTo(@NonNull Feel feel) {
-        return this.getDate().compareTo(feel.getDate());
+        return -this.getDate().compareTo(feel.getDate());
     }
 }
