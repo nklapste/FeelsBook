@@ -10,8 +10,8 @@ import android.view.ViewGroup;
 
 public class SampleFragmentPagerAdapter extends FragmentPagerAdapter {
     private static final String TAG = "SampleFragmentPagerAdapter";
-    final int PAGE_COUNT = 2;
-    SparseArray<Fragment> mPageReferenceMap = new SparseArray<>();
+    private final int PAGE_COUNT = 2;
+    private SparseArray<Fragment> mPageReferenceMap = new SparseArray<>();
     private String tabTitles[] = new String[]{"Feelings", "Stats"};
 
     SampleFragmentPagerAdapter(FragmentManager fm) {
