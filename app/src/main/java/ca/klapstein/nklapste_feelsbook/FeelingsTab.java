@@ -17,6 +17,8 @@ import android.widget.PopupMenu;
 
 import java.util.Date;
 
+import static ca.klapstein.nklapste_feelsbook.EditFeelingDialog.addFeelDialogTag;
+import static ca.klapstein.nklapste_feelsbook.EditFeelingDialog.editFeelDialogTag;
 import static ca.klapstein.nklapste_feelsbook.Feel.dateFormat;
 
 public class FeelingsTab extends Fragment {
@@ -24,7 +26,6 @@ public class FeelingsTab extends Fragment {
 
     private FeelAdapter mFeelAdapter;
     private FeelTreeSet mFeelTreeSet;
-    private RecyclerView mFeelsRecyclerView;
 
     @Nullable
     @Override
@@ -36,7 +37,9 @@ public class FeelingsTab extends Fragment {
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         mFeelTreeSet = FeelsBookPreferencesManager.loadSharedPreferencesFeelList(getContext().getApplicationContext());
         mFeelAdapter = new FeelAdapter(mFeelTreeSet);
-        mFeelsRecyclerView = view.findViewById(R.id.feels_recycler_view);
+
+        // define the RecyclerView listing Feels
+        RecyclerView mFeelsRecyclerView = view.findViewById(R.id.feels_recycler_view);
         mFeelsRecyclerView.setHasFixedSize(true);
         mFeelsRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         mFeelsRecyclerView.setAdapter(mFeelAdapter);
@@ -52,6 +55,7 @@ public class FeelingsTab extends Fragment {
             }
         }));
 
+        // Define the FloatingActionButton for adding new feels
         final FloatingActionButton add_feeling_button = (FloatingActionButton) view.findViewById(R.id.addFeelingButton);
         add_feeling_button.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -63,7 +67,7 @@ public class FeelingsTab extends Fragment {
                 }
                 ft.addToBackStack(null);
                 DialogFragment addFeelDialog = createAddFeelDialog();
-                addFeelDialog.show(ft, "addFeelDialog");
+                addFeelDialog.show(ft, addFeelDialogTag);
             }
         });
     }
@@ -71,10 +75,6 @@ public class FeelingsTab extends Fragment {
     public DialogFragment createAddFeelDialog() {
         DialogFragment newFeelingDialog = new EditFeelingDialog();
         Bundle args = new Bundle();
-        args.putInt("position", -1);
-        args.putString("feeling", "");
-        args.putString("comment", "");
-        args.putString("date", dateFormat.format(new Date()));
         newFeelingDialog.setArguments(args);
         return newFeelingDialog;
     }
@@ -82,6 +82,7 @@ public class FeelingsTab extends Fragment {
     public DialogFragment createEditFeelDialog(Feel feel, int position) {
         DialogFragment newFeelingDialog = new EditFeelingDialog();
         Bundle args = new Bundle();
+        // editFeelDialog requires some extra arguments noting the Feel to be edited
         args.putInt("position", position);
         args.putString("feeling", feel.getFeeling().toString());
         args.putString("comment", feel.getComment());
@@ -125,7 +126,7 @@ public class FeelingsTab extends Fragment {
                         }
                         ft.addToBackStack(null);
                         DialogFragment editFeelDialog = createEditFeelDialog(feel, position);
-                        editFeelDialog.show(ft, "newFeelingDialog");
+                        editFeelDialog.show(ft, editFeelDialogTag);
                         return true;
                     default:
                         return false;

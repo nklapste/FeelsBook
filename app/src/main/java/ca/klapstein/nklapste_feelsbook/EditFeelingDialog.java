@@ -7,6 +7,7 @@ import android.app.TimePickerDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.DialogFragment;
 import android.util.Log;
@@ -26,6 +27,10 @@ import static ca.klapstein.nklapste_feelsbook.Feel.dateFormat;
 
 public class EditFeelingDialog extends DialogFragment {
     private static final String TAG = "EditFeelingDialog";
+
+    public static final String addFeelDialogTag = "addFeelDialog";
+    public static final String editFeelDialogTag = "editFeelDialog";
+
     private Spinner feelSpinner;
     private TextView dateEditText;
     private EditText commentEditText;
@@ -45,6 +50,7 @@ public class EditFeelingDialog extends DialogFragment {
         super.onCreate(savedInstanceState);
     }
 
+    @NonNull
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         // Use the Builder class for convenient dialog construction
@@ -53,41 +59,48 @@ public class EditFeelingDialog extends DialogFragment {
         View view = inflater.inflate(R.layout.add_edit_feel_dialog, null);
 
         feelSpinner = (Spinner) view.findViewById(R.id.feelSpinner);
-        Bundle mArgs = getArguments();
-        final String feelingStr = mArgs.getString("feeling");
-        if (!feelingStr.equals("")) {
-            Feel.Feeling feeling = Feel.Feeling.valueOf(feelingStr);
-            setFeelSpinnerDefault(feeling);
-        }
+        final Bundle mArgs = getArguments();
 
-        final String date = mArgs.getString("date");
         dateEditText = (TextView) view.findViewById(R.id.dateEditText);
-        dateEditText.setText(date);
         dateEditText.setOnClickListener(
                 new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        onDateEditTextClick(date);
+                        onDateEditTextClick();
                     }
                 }
         );
 
-        final String comment = mArgs.getString("comment");
         commentEditText = (EditText) view.findViewById(R.id.commentEditText);
-        commentEditText.setText(comment);
-
-        final int position = mArgs.getInt("position");
 
         builder.setView(view);
         int title;
         int save;
-        if (position >= 0) {
-            title = R.string.edit_feeling;
-            save = R.string.edit;
-        } else {
-            title = R.string.add_feeling;
-            save = R.string.add;
+
+        switch (getTag()) {
+            case addFeelDialogTag:
+                Log.i(TAG, "add feel dialog initialized");
+                dateEditText.setText(dateFormat.format(new Date()));
+                title = R.string.add_feeling;
+                save = R.string.add;
+                break;
+            case editFeelDialogTag:
+                Log.i(TAG, "edit feel dialog initialized");
+                title = R.string.edit_feeling;
+                save = R.string.edit;
+
+                final String date = mArgs.getString("date");
+                dateEditText.setText(date);
+
+                Feel.Feeling feeling = Feel.Feeling.valueOf(mArgs.getString("feeling"));
+                setFeelSpinnerDefault(feeling);
+                final String comment = mArgs.getString("comment");
+                commentEditText.setText(comment);
+                break;
+            default:
+                throw new RuntimeException("unknown FeelDialog tag given:" + getTag() + " unable to proceed");
         }
+
         builder.setTitle(title);
         builder.setPositiveButton(getResources().getString(save), new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int id) {
@@ -104,11 +117,17 @@ public class EditFeelingDialog extends DialogFragment {
                     throw new RuntimeException(e);
                 }
                 Feel feel = new Feel(feeling, comment, date);
-                if (position >= 0) {
-                    mOnSaveButtonClickListener.onSaveButtonClick(feel, position);
-                } else {
-                    mOnSaveButtonClickListener.onSaveButtonClick(feel);
+                switch (getTag()) {
+                    case addFeelDialogTag:
+                        mOnSaveButtonClickListener.onSaveButtonClick(feel);
+                        break;
+                    case editFeelDialogTag:
+                        mOnSaveButtonClickListener.onSaveButtonClick(feel, mArgs.getInt("position"));
+                        break;
+                    default:
+                        throw new RuntimeException("unknown FeelDialog tag given:" + getTag() + " unable to proceed");
                 }
+
                 dialog.dismiss();
             }
         });
@@ -187,6 +206,7 @@ public class EditFeelingDialog extends DialogFragment {
                 break;
 
             default:
+                Log.w(TAG, "Unsupported Feeling: "+ feeling.toString() +"given unable to set feelSpinner");
                 break;
         }
         feelSpinner.setSelection(selection);
@@ -195,10 +215,9 @@ public class EditFeelingDialog extends DialogFragment {
     /**
      * On clicking the Date edit text parse the containing text into a {@code Date} and display
      * a date time picker to modify the feel's date.
-     *
-     * @param date {String}
      */
-    public void onDateEditTextClick(String date) {
+    public void onDateEditTextClick() {
+        String date = dateEditText.getText().toString();
         try {
             showDateTimePicker(dateFormat.parse(date));
         } catch (ParseException e) {
