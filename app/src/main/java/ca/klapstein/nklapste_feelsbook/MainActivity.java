@@ -5,7 +5,7 @@ import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 
-public class MainActivity extends AppCompatActivity implements EditFeelingDialog.OnSaveButtonClickListener {
+public class MainActivity extends AppCompatActivity implements ModifyFeelDialog.OnSaveButtonClickListener {
     private static final String TAG = "MainActivity";
     private ViewPager mViewPager;
 
@@ -34,7 +34,7 @@ public class MainActivity extends AppCompatActivity implements EditFeelingDialog
     }
 
     /**
-     * Interface hooks to pass the result from EditFeelingDialog back to the FeelingsTab.
+     * Interface hooks to pass the result from ModifyFeelDialog back to the FeelingsTab.
      * <p>
      * This allows for inter-DialogFragment communication.
      *
@@ -47,7 +47,7 @@ public class MainActivity extends AppCompatActivity implements EditFeelingDialog
     }
 
     /**
-     * Interface hooks to pass the result from EditFeelingDialog back to the FeelingsTab.
+     * Interface hooks to pass the result from ModifyFeelDialog back to the FeelingsTab.
      * <p>
      * This allows for inter-DialogFragment communication.
      *

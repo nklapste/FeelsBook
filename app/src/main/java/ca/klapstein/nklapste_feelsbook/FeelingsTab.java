@@ -4,7 +4,6 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
-import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.LinearLayoutManager;
@@ -15,10 +14,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.PopupMenu;
 
-import java.util.Date;
-
-import static ca.klapstein.nklapste_feelsbook.EditFeelingDialog.addFeelDialogTag;
-import static ca.klapstein.nklapste_feelsbook.EditFeelingDialog.editFeelDialogTag;
 import static ca.klapstein.nklapste_feelsbook.Feel.dateFormat;
 
 public class FeelingsTab extends Fragment {
@@ -66,29 +61,14 @@ public class FeelingsTab extends Fragment {
                     ft.remove(prev);
                 }
                 ft.addToBackStack(null);
-                DialogFragment addFeelDialog = createAddFeelDialog();
-                addFeelDialog.show(ft, addFeelDialogTag);
+
+                // create and show the AddFeelDialog
+                AddFeelDialog addFeelDialog = new AddFeelDialog();
+                Bundle args = new Bundle();
+                addFeelDialog.setArguments(args);
+                addFeelDialog.show(ft, AddFeelDialog.TAG);
             }
         });
-    }
-
-    public DialogFragment createAddFeelDialog() {
-        DialogFragment newFeelingDialog = new EditFeelingDialog();
-        Bundle args = new Bundle();
-        newFeelingDialog.setArguments(args);
-        return newFeelingDialog;
-    }
-
-    public DialogFragment createEditFeelDialog(Feel feel, int position) {
-        DialogFragment newFeelingDialog = new EditFeelingDialog();
-        Bundle args = new Bundle();
-        // editFeelDialog requires some extra arguments noting the Feel to be edited
-        args.putInt("position", position);
-        args.putString("feeling", feel.getFeeling().toString());
-        args.putString("comment", feel.getComment());
-        args.putString("date", dateFormat.format(feel.getDate()));
-        newFeelingDialog.setArguments(args);
-        return newFeelingDialog;
     }
 
     /**
@@ -125,8 +105,17 @@ public class FeelingsTab extends Fragment {
                             ft.remove(prev);
                         }
                         ft.addToBackStack(null);
-                        DialogFragment editFeelDialog = createEditFeelDialog(feel, position);
-                        editFeelDialog.show(ft, editFeelDialogTag);
+
+                        // create and show the EditFeelDialog
+                        EditFeelDialog editFeelDialog = new EditFeelDialog();
+                        Bundle args = new Bundle();
+                        // editFeelDialog requires some extra arguments noting the Feel to be edited
+                        args.putInt("position", position);
+                        args.putString("feeling", feel.getFeeling().toString());
+                        args.putString("comment", feel.getComment());
+                        args.putString("date", dateFormat.format(feel.getDate()));
+                        editFeelDialog.setArguments(args);
+                        editFeelDialog.show(ft, EditFeelDialog.TAG);
                         return true;
                     default:
                         return false;
