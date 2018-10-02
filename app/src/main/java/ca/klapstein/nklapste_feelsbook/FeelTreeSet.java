@@ -15,14 +15,11 @@ import java.util.TreeSet;
 public class FeelTreeSet extends TreeSet<Feel> {
     private static final String TAG = "FeelTreeSet";
 
-    public HashMap<Feel.Feelings, Integer> getFeelingTallies() {
-        return feelingTallies;
-    }
-
     private HashMap<Feel.Feelings, Integer> feelingTallies;
 
     FeelTreeSet() {
         feelingTallies = new HashMap<>();
+        // initialize a HashMap of the feeling tallies all at 0
         for (Feel.Feelings feel : Feel.Feelings.values()) {
             feelingTallies.put(feel, 0);
         }
@@ -65,5 +62,9 @@ public class FeelTreeSet extends TreeSet<Feel> {
             feelingTallies.put(feel.getFeeling(), feelingTally);
         }
         return offerResult;
+    }
+
+    public HashMap<Feel.Feelings, Integer> getFeelingTallies() {
+        return feelingTallies;
     }
 }
