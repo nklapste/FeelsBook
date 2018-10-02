@@ -17,8 +17,8 @@ import java.lang.reflect.Type;
 class FeelsBookPreferencesManager {
     private static final String TAG = "FeelsBookPreferencesManager";
 
-    private static final String FEELS_QUEUE_PREF_NAME = "mFeelsQueue";
-    private static final String FEELS_QUEUE_PREF_JSON_KEY = "mFeelQueueJson";
+    private static final String FEELS_TREESET_PREF_NAME = "mFeelsTreeSet";
+    private static final String FEELS_TREESET_PREF_JSON_KEY = "mFeelTreeSetJson";
 
     /**
      * Save a FeelTreeSet using Android's SharedPreferences.
@@ -27,11 +27,11 @@ class FeelsBookPreferencesManager {
      * @param feelTreeSet {@code FeelTreeSet}
      */
     public static void saveSharedPreferencesFeelList(Context context, FeelTreeSet feelTreeSet) {
-        SharedPreferences mPrefs = context.getSharedPreferences(FEELS_QUEUE_PREF_NAME, Context.MODE_PRIVATE);
+        SharedPreferences mPrefs = context.getSharedPreferences(FEELS_TREESET_PREF_NAME, Context.MODE_PRIVATE);
         SharedPreferences.Editor prefsEditor = mPrefs.edit();
         Gson gson = new Gson();
         String json = gson.toJson(feelTreeSet);
-        prefsEditor.putString(FEELS_QUEUE_PREF_JSON_KEY, json);
+        prefsEditor.putString(FEELS_TREESET_PREF_JSON_KEY, json);
         prefsEditor.apply();
     }
 
@@ -43,9 +43,9 @@ class FeelsBookPreferencesManager {
      */
     public static FeelTreeSet loadSharedPreferencesFeelList(Context context) {
         FeelTreeSet feelTreeSet;
-        SharedPreferences mPrefs = context.getSharedPreferences(FEELS_QUEUE_PREF_NAME, Context.MODE_PRIVATE);
+        SharedPreferences mPrefs = context.getSharedPreferences(FEELS_TREESET_PREF_NAME, Context.MODE_PRIVATE);
         Gson gson = new Gson();
-        String json = mPrefs.getString(FEELS_QUEUE_PREF_JSON_KEY, "");
+        String json = mPrefs.getString(FEELS_TREESET_PREF_JSON_KEY, "");
         if (json.isEmpty()) {
             feelTreeSet = new FeelTreeSet();
         } else {
