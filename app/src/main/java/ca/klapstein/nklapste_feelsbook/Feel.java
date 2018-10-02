@@ -16,7 +16,7 @@ import java.util.Locale;
  * Philadelphia, PA: Psychology Press.
  */
 public class Feel implements Comparable<Feel>{
-    private static final String TAG = "Feel";
+   private static final String TAG = "Feel";
 
    public enum Feelings {
         Anger,
@@ -33,10 +33,10 @@ public class Feel implements Comparable<Feel>{
     private Feelings feeling;
     private Date date;
 
-    Feel(Feelings feeling) {
+    Feel(Feelings feeling, String comment, Date date) {
         this.feeling = feeling;
-        this.comment = "";
-        this.date = new Date();
+        this.comment = comment;
+        this.date = date;
     }
 
     public String getComment() {
