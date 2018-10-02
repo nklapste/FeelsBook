@@ -79,8 +79,17 @@ public class EditFeelingDialog extends DialogFragment {
         final int position = mArgs.getInt("position");
 
         builder.setView(view);
-        builder.setTitle(R.string.add_a_feeling);
-        builder.setPositiveButton(getResources().getString(R.string.add), new DialogInterface.OnClickListener() {
+        int title;
+        int save;
+        if (position >= 0){
+            title = R.string.edit_feeling;
+            save = R.string.edit;
+        } else {
+            title = R.string.add_feeling;
+            save = R.string.add;
+        }
+        builder.setTitle(title);
+        builder.setPositiveButton(getResources().getString(save), new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int id) {
                 final String comment = commentEditText.getText().toString();
                 final Feel.Feelings feeling = Feel.Feelings.valueOf(feelSpinner.getSelectedItem().toString());
