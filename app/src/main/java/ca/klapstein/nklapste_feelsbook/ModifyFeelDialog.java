@@ -12,6 +12,7 @@ import android.support.v4.app.DialogFragment;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Spinner;
@@ -76,6 +77,9 @@ abstract public class ModifyFeelDialog extends DialogFragment {
         );
         commentEditText = (EditText) view.findViewById(R.id.commentEditText);
         feelSpinner = (Spinner) view.findViewById(R.id.feelSpinner);
+
+        // programmatically set the contents of the feelSpinner from all values of Feel.Feeling
+        feelSpinner.setAdapter(new ArrayAdapter<Feel.Feeling>(getContext().getApplicationContext(), android.R.layout.simple_spinner_dropdown_item, Feel.Feeling.values()));
 
         return buildDialog(view);
     }

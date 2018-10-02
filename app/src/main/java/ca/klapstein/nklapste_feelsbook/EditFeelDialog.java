@@ -14,48 +14,6 @@ import static ca.klapstein.nklapste_feelsbook.Feel.dateFormat;
 public class EditFeelDialog extends ModifyFeelDialog {
     public static final String TAG = "EditFeelDialog";
 
-    /**
-     * Convert a string representation of a feel into the relevant selection number for the
-     * feelSpinner.
-     * <p>
-     * Set the feelSpinners selection to the found selection number.
-     *
-     * @param feeling {@code String}
-     */
-    public void setFeelSpinnerDefault(Feel.Feeling feeling) {
-        int selection = 0;
-        switch (feeling) {
-            case Anger:
-                selection = 0;
-                break;
-
-            case Fear:
-                selection = 1;
-                break;
-
-            case Joy:
-                selection = 2;
-                break;
-
-            case Love:
-                selection = 3;
-                break;
-
-            case Sadness:
-                selection = 4;
-                break;
-
-            case Surprise:
-                selection = 5;
-                break;
-
-            default:
-                Log.w(TAG, "Unsupported Feeling: " + feeling.toString() + "given unable to set feelSpinner");
-                break;
-        }
-        feelSpinner.setSelection(selection);
-    }
-
     @Override
     AlertDialog buildDialog(View view) {
         // grab the arguments for Editing a Feel
@@ -66,7 +24,8 @@ public class EditFeelDialog extends ModifyFeelDialog {
         final String comment = mArgs.getString("comment");
 
         dateEditText.setText(date);
-        setFeelSpinnerDefault(feeling);
+        // Set the feelSpinners default selection to the original feel's feel
+        feelSpinner.setSelection(feeling.ordinal());
         commentEditText.setText(comment);
 
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
