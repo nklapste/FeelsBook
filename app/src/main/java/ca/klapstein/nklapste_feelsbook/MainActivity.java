@@ -15,7 +15,7 @@ public class MainActivity extends AppCompatActivity implements ModifyFeelDialog.
         setContentView(R.layout.main_activity);
 
         mViewPager = (ViewPager) findViewById(R.id.viewpager);
-        mViewPager.setAdapter(new SampleFragmentPagerAdapter(getSupportFragmentManager()));
+        mViewPager.setAdapter(new FeelsBookFragmentPagerAdapter(getSupportFragmentManager()));
 
         // Give the TabLayout the ViewPager
         TabLayout tabLayout = (TabLayout) findViewById(R.id.sliding_tabs);
@@ -29,7 +29,7 @@ public class MainActivity extends AppCompatActivity implements ModifyFeelDialog.
      */
     private FeelingsTab getFeelingsTab() {
         int index = mViewPager.getCurrentItem();
-        SampleFragmentPagerAdapter adapter = ((SampleFragmentPagerAdapter) mViewPager.getAdapter());
+        FeelsBookFragmentPagerAdapter adapter = ((FeelsBookFragmentPagerAdapter) mViewPager.getAdapter());
         return (FeelingsTab) adapter.getFragment(index);
     }
 

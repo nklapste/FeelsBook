@@ -8,13 +8,13 @@ import android.util.Log;
 import android.util.SparseArray;
 import android.view.ViewGroup;
 
-public class SampleFragmentPagerAdapter extends FragmentPagerAdapter {
-    private static final String TAG = "SampleFragmentPagerAdapter";
+public class FeelsBookFragmentPagerAdapter extends FragmentPagerAdapter {
+    private static final String TAG = "FeelsBookFragmentPagerAdapter";
     private final int PAGE_COUNT = 2;
     private SparseArray<Fragment> mPageReferenceMap = new SparseArray<>();
     private String tabTitles[] = new String[]{"Feelings", "Stats"};
 
-    SampleFragmentPagerAdapter(FragmentManager fm) {
+    FeelsBookFragmentPagerAdapter(FragmentManager fm) {
         super(fm);
     }
 
