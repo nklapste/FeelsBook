@@ -11,7 +11,7 @@ import java.lang.reflect.Type;
 /**
  * Helper Class for accessing the  Android's SharedPreferences for use in FeelsBook.
  *
- * Use {@code Gson} to serialize/deserialize FeelQueue to/from a JSON string for saving/loading
+ * Use {@code Gson} to serialize/deserialize FeelTreeSet to/from a JSON string for saving/loading
  * in Android's SharedPreferences.
  */
 public class FeelsBookPreferencesManager {
@@ -21,38 +21,38 @@ public class FeelsBookPreferencesManager {
     private static final String FEELS_QUEUE_PREF_JSON_KEY = "mFeelQueueJson";
 
     /**
-     * Save a FeelsList using Android's SharedPreferences.
+     * Save a FeelTreeSet using Android's SharedPreferences.
      *
      * @param context  {@code Context}
-     * @param feelQueue {@code FeelQueue}
+     * @param feelTreeSet {@code FeelTreeSet}
      */
-    public static void saveSharedPreferencesFeelList(Context context, FeelQueue feelQueue) {
+    public static void saveSharedPreferencesFeelList(Context context, FeelTreeSet feelTreeSet) {
         SharedPreferences mPrefs = context.getSharedPreferences(FEELS_QUEUE_PREF_NAME, Context.MODE_PRIVATE);
         SharedPreferences.Editor prefsEditor = mPrefs.edit();
         Gson gson = new Gson();
-        String json = gson.toJson(feelQueue);
+        String json = gson.toJson(feelTreeSet);
         prefsEditor.putString(FEELS_QUEUE_PREF_JSON_KEY, json);
         prefsEditor.apply();
     }
 
     /**
-     * Load the FeelsList using Android's SharedPreferences.
+     * Load the FeelTreeSet using Android's SharedPreferences.
      *
      * @param context {@code Context}
-     * @return {@code FeelQueue}
+     * @return {@code FeelTreeSet}
      */
-    public static FeelQueue loadSharedPreferencesFeelList(Context context) {
-        FeelQueue feelQueue;
+    public static FeelTreeSet loadSharedPreferencesFeelList(Context context) {
+        FeelTreeSet feelTreeSet;
         SharedPreferences mPrefs = context.getSharedPreferences(FEELS_QUEUE_PREF_NAME, Context.MODE_PRIVATE);
         Gson gson = new Gson();
         String json = mPrefs.getString(FEELS_QUEUE_PREF_JSON_KEY, "");
         if (json.isEmpty()) {
-            feelQueue = new FeelQueue();
+            feelTreeSet = new FeelTreeSet();
         } else {
-            Type type = new TypeToken<FeelQueue>() {
+            Type type = new TypeToken<FeelTreeSet>() {
             }.getType();
-            feelQueue = gson.fromJson(json, type);
+            feelTreeSet = gson.fromJson(json, type);
         }
-        return feelQueue;
+        return feelTreeSet;
     }
 }

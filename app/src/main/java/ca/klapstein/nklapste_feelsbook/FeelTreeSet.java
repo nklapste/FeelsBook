@@ -2,7 +2,9 @@ package ca.klapstein.nklapste_feelsbook;
 
 import android.util.Log;
 
+import java.util.ArrayList;
 import java.util.PriorityQueue;
+import java.util.TreeSet;
 
 import static ca.klapstein.nklapste_feelsbook.Feel.Feelings.Anger;
 import static ca.klapstein.nklapste_feelsbook.Feel.Feelings.Fear;
@@ -19,8 +21,8 @@ import static ca.klapstein.nklapste_feelsbook.Feel.Feelings.Surprise;
  *
  * Additionally running tallies of each feeling are kept for quick statistics generation.
  */
-public class FeelQueue extends PriorityQueue<Feel> {
-    private static final String TAG = "FeelQueue";
+public class FeelTreeSet extends TreeSet<Feel> {
+    private static final String TAG = "FeelTreeSet";
 
     private Integer angerTally;
     private Integer fearTally;
@@ -29,7 +31,7 @@ public class FeelQueue extends PriorityQueue<Feel> {
     private Integer sadnessTally;
     private Integer surpriseTally;
 
-    FeelQueue() {
+    FeelTreeSet() {
         this.angerTally = 0;
         this.fearTally = 0;
         this.angerTally = 0;
@@ -40,7 +42,7 @@ public class FeelQueue extends PriorityQueue<Feel> {
     }
 
     /**
-     * Attempt to remove an object from the FeelQueue.
+     * Attempt to remove an object from the FeelTreeSet.
      *
      * If it is successfully removed decrement the tally of feel removed.
      *
@@ -87,7 +89,7 @@ public class FeelQueue extends PriorityQueue<Feel> {
     }
 
     /**
-     * Inserts the specified {@code Feel} into this FeelQueue.
+     * Inserts the specified {@code Feel} into this FeelTreeSet.
      *
      * If it is successfully inserted increment the tally of the feel inserted.
      *
@@ -95,8 +97,8 @@ public class FeelQueue extends PriorityQueue<Feel> {
      * @return {@code boolean}
      */
     @Override
-    public boolean offer(Feel feel) {
-        boolean offerResult = super.offer(feel);
+    public boolean add(Feel feel) {
+        boolean offerResult = super.add(feel);
         if (offerResult) {
             switch (feel.getFeeling()) {
                 case Anger:

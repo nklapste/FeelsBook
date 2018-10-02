@@ -67,7 +67,7 @@ public class Feel implements Comparable<Feel>{
      * Compare to {@code Feel}s.
      *
      * Only compare them by their date. Having a later date be considered larger.
-     * This compareTo method is utilised for the automatic sorting of {@code FeelQueue}.
+     * This compareTo method is utilised for the automatic sorting of {@code FeelTreeSet}.
      *
      * @param feel {@code Feel}
      * @return {@code int}

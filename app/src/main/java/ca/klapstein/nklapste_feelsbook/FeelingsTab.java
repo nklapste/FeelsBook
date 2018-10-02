@@ -23,7 +23,7 @@ public class FeelingsTab extends Fragment {
     private static final String TAG = "FeelingsTab";
 
     private FeelAdapter mFeelAdapter;
-    private FeelQueue mFeelQueue;
+    private FeelTreeSet mFeelTreeSet;
     private RecyclerView mFeelsRecyclerView;
 
     @Nullable
@@ -34,8 +34,8 @@ public class FeelingsTab extends Fragment {
 
     @Override
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
-        mFeelQueue = FeelsBookPreferencesManager.loadSharedPreferencesFeelList(getContext().getApplicationContext());
-        mFeelAdapter = new FeelAdapter(mFeelQueue);
+        mFeelTreeSet = FeelsBookPreferencesManager.loadSharedPreferencesFeelList(getContext().getApplicationContext());
+        mFeelAdapter = new FeelAdapter(mFeelTreeSet);
         mFeelsRecyclerView = view.findViewById(R.id.feels_recycler_view);
         mFeelsRecyclerView.setHasFixedSize(true);
         mFeelsRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
@@ -88,7 +88,7 @@ public class FeelingsTab extends Fragment {
         //creating a popup menu
         PopupMenu popup = new PopupMenu(getContext(), view);
 
-        final Feel feel = (Feel) mFeelQueue.toArray()[position];
+        final Feel feel = (Feel) mFeelTreeSet.toArray()[position];
         //inflating menu from xml resource
         popup.inflate(R.menu.feel_options_menu);
         //adding click listener
@@ -97,9 +97,9 @@ public class FeelingsTab extends Fragment {
             public boolean onMenuItemClick(MenuItem item) {
                 switch (item.getItemId()) {
                     case R.id.button_delete:
-                        mFeelQueue.remove(feel);
+                        mFeelTreeSet.remove(feel);
                         mFeelAdapter.notifyItemRemoved(position);
-                        mFeelAdapter.notifyItemRangeChanged(position, mFeelQueue.size());
+                        mFeelAdapter.notifyItemRangeChanged(position, mFeelTreeSet.size());
                         return true;
                     case R.id.button_edit_feeling:
                         FragmentTransaction ft = getFragmentManager().beginTransaction();
@@ -131,9 +131,9 @@ public class FeelingsTab extends Fragment {
      * @param feel {@code Feel}
      */
     void addFeeling(Feel feel) {
-        mFeelQueue.add(feel);
+        mFeelTreeSet.add(feel);
         mFeelAdapter.notifyDataSetChanged();
-        FeelsBookPreferencesManager.saveSharedPreferencesFeelList(getContext().getApplicationContext(), mFeelQueue);
+        FeelsBookPreferencesManager.saveSharedPreferencesFeelList(getContext().getApplicationContext(), mFeelTreeSet);
     }
 
     /**
@@ -142,10 +142,10 @@ public class FeelingsTab extends Fragment {
      * @param position {@code int}
      */
     void editFeeling(Feel newFeel, final int position) {
-        Feel oldFeel = (Feel) mFeelQueue.toArray()[position];
-        mFeelQueue.remove(oldFeel);
-        mFeelQueue.add(newFeel);
+        Feel oldFeel = (Feel) mFeelTreeSet.toArray()[position];
+        mFeelTreeSet.remove(oldFeel);
+        mFeelTreeSet.add(newFeel);
         mFeelAdapter.notifyDataSetChanged();
-        FeelsBookPreferencesManager.saveSharedPreferencesFeelList(getContext().getApplicationContext(), mFeelQueue);
+        FeelsBookPreferencesManager.saveSharedPreferencesFeelList(getContext().getApplicationContext(), mFeelTreeSet);
     }
 }

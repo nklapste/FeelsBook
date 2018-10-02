@@ -91,7 +91,7 @@ public class EditFeelingDialog extends DialogFragment {
                 } catch (ParseException e) {
                     Log.e(TAG, "Failed to parse date string", e);
                     // Throw a RuntimeException because if we use this invalid date data we can potentially
-                    // corrupt the FeelQueue and state of FeelsBook
+                    // corrupt the FeelTreeSet and state of FeelsBook
                     throw new RuntimeException(e);
                 }
                 Feel feel = new Feel(feeling, comment, date);
@@ -195,7 +195,7 @@ public class EditFeelingDialog extends DialogFragment {
         } catch (ParseException e) {
             Log.e(TAG, "Failed to parse date string: " + date, e);
             // Throw a RuntimeException because if we use this invalid date data we can potentially
-            // corrupt the FeelQueue and state of FeelsBook
+            // corrupt the FeelTreeSet and state of FeelsBook
             throw new RuntimeException(e);
         }
     }

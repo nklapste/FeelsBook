@@ -42,13 +42,13 @@ public class StatsTab extends Fragment {
     public void setUserVisibleHint(boolean isVisibleToUser) {
         super.setUserVisibleHint(isVisibleToUser);
         if (isVisibleToUser) {
-            FeelQueue mFeelQueue = FeelsBookPreferencesManager.loadSharedPreferencesFeelList(getContext().getApplicationContext());
-            angerTextViewNumber.setText(stringifyTally(mFeelQueue.getAngerTally()));
-            fearTextViewNumber.setText(stringifyTally(mFeelQueue.getFearTally()));
-            joyTextViewNumber.setText(stringifyTally(mFeelQueue.getJoyTally()));
-            loveTextViewNumber.setText(stringifyTally(mFeelQueue.getLoveTally()));
-            sadnessTextViewNumber.setText(stringifyTally(mFeelQueue.getSadnessTally()));
-            surpriseTextViewNumber.setText(stringifyTally(mFeelQueue.getSurpriseTally()));
+            FeelTreeSet mFeelTreeSet = FeelsBookPreferencesManager.loadSharedPreferencesFeelList(getContext().getApplicationContext());
+            angerTextViewNumber.setText(stringifyTally(mFeelTreeSet.getAngerTally()));
+            fearTextViewNumber.setText(stringifyTally(mFeelTreeSet.getFearTally()));
+            joyTextViewNumber.setText(stringifyTally(mFeelTreeSet.getJoyTally()));
+            loveTextViewNumber.setText(stringifyTally(mFeelTreeSet.getLoveTally()));
+            sadnessTextViewNumber.setText(stringifyTally(mFeelTreeSet.getSadnessTally()));
+            surpriseTextViewNumber.setText(stringifyTally(mFeelTreeSet.getSurpriseTally()));
         } else {
             Log.d(TAG, "Fragment is not visible.");
         }
