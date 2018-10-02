@@ -133,6 +133,12 @@ abstract public class ModifyFeelDialog extends DialogFragment {
         }
     }
 
+    /**
+     * Interface to provide inter-Fragment communication.
+     *
+     * This is implemented in MainActivity to provide inter-Fragment communication between
+     * AddFeelDialog and/or EditFeelDialog to FeelingsTab.
+     */
     public interface OnSaveButtonClickListener {
         void onSaveButtonClick(Feel feel);
 

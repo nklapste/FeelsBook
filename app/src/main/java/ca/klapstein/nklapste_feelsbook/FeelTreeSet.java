@@ -5,12 +5,15 @@ import java.util.TreeSet;
 
 
 /**
- * A PriorityQueue subclass that only accepts {@code Feel}s.
+ * A TreeSet subclass that only accepts {@code Feel}s.
  * <p>
- * Since a PriorityQueue is inherently sorted it provides an easy way to implement the feelings
+ * Since a TreeSet is inherently sorted it provides an easy way to implement the feelings
  * list while retaining order by date.
  * <p>
  * Additionally running tallies of each feeling are kept for quick statistics generation.
+ *
+ * One limitation of using a TreeSet however is that no two feels can have the exact same date.
+ * I deemed this as a reasonable sacrifice.
  */
 public class FeelTreeSet extends TreeSet<Feel> {
     private static final String TAG = "FeelTreeSet";

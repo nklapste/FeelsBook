@@ -11,6 +11,9 @@ import java.util.Date;
 
 import static ca.klapstein.nklapste_feelsbook.Feel.dateFormat;
 
+/**
+ * Subclass of ModifyFeelDialog to manage editing an existing Feel within FeelsBook.
+ */
 public class EditFeelDialog extends ModifyFeelDialog {
     public static final String TAG = "EditFeelDialog";
 
