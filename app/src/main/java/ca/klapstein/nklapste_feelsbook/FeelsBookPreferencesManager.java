@@ -14,7 +14,7 @@ import java.lang.reflect.Type;
  * Use {@code Gson} to serialize/deserialize FeelTreeSet to/from a JSON string for saving/loading
  * in Android's SharedPreferences.
  */
-public class FeelsBookPreferencesManager {
+class FeelsBookPreferencesManager {
     private static final String TAG = "FeelsBookPreferencesManager";
 
     private static final String FEELS_QUEUE_PREF_NAME = "mFeelsQueue";
