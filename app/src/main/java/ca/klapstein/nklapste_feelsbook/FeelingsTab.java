@@ -1,5 +1,6 @@
 package ca.klapstein.nklapste_feelsbook;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -57,7 +58,13 @@ public class FeelingsTab extends Fragment {
             }
         }));
 
-        // dynamically create a FloatingActionButton for each feel
+        createAddFeelButtons(view);
+    }
+
+    /**
+     * dynamically create a FloatingActionButton for each feel
+     */
+    private void createAddFeelButtons(View view){
         LinearLayout verticalLinearLayout = new LinearLayout(getContext());
         verticalLinearLayout.setOrientation(LinearLayout.VERTICAL);
         LinearLayout.LayoutParams verticalLinearLayoutParams = new LinearLayout.LayoutParams(FrameLayout.LayoutParams.WRAP_CONTENT, FrameLayout.LayoutParams.WRAP_CONTENT);
@@ -70,9 +77,12 @@ public class FeelingsTab extends Fragment {
 
             LinearLayout.LayoutParams labelHorizontalLinearLayoutParams = new LinearLayout.LayoutParams(FrameLayout.LayoutParams.WRAP_CONTENT, FrameLayout.LayoutParams.WRAP_CONTENT);
             labelHorizontalLinearLayoutParams.gravity = CENTER;
-            labelHorizontalLinearLayoutParams.rightMargin = 5;
+            labelHorizontalLinearLayoutParams.rightMargin = 10;
             TextView feelButtonLabel = new TextView(getContext());
             feelButtonLabel.setText(feel.toString());
+            feelButtonLabel.setElevation(16);
+            feelButtonLabel.setPadding(4,4,4,4);
+            feelButtonLabel.setBackgroundColor(Color.WHITE);
             horizontalLinearLayout.addView(feelButtonLabel, labelHorizontalLinearLayoutParams);
 
             LinearLayout.LayoutParams buttonHorizontalLinearLayoutParams = new LinearLayout.LayoutParams(FrameLayout.LayoutParams.WRAP_CONTENT, FrameLayout.LayoutParams.WRAP_CONTENT);
@@ -95,6 +105,7 @@ public class FeelingsTab extends Fragment {
                     addFeelDialog.show(ft, AddFeelDialog.TAG);
                 }
             });
+            addFeelFloatingActionButton.setImageDrawable(getResources().getDrawable(R.drawable.ic_add_white_24dp, getContext().getTheme()));
             horizontalLinearLayout.addView(addFeelFloatingActionButton, buttonHorizontalLinearLayoutParams);
 
             verticalLinearLayout.addView(horizontalLinearLayout, verticalLinearLayoutParams);
@@ -102,8 +113,7 @@ public class FeelingsTab extends Fragment {
 
         FrameLayout.LayoutParams frameLayoutParams = new FrameLayout.LayoutParams(FrameLayout.LayoutParams.WRAP_CONTENT, FrameLayout.LayoutParams.WRAP_CONTENT);
         frameLayoutParams.gravity = Gravity.BOTTOM | Gravity.END;
-        frameLayoutParams.bottomMargin = 15;
-        frameLayoutParams.rightMargin = 15;
+        frameLayoutParams.rightMargin = 50;
 
         FrameLayout frameLayout = (FrameLayout) view.findViewById(R.id.feelFrameLayout);
         frameLayout.addView(verticalLinearLayout, frameLayoutParams);
