@@ -4,10 +4,11 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TableLayout;
+import android.widget.TableRow;
 import android.widget.TextView;
 
 import java.util.Locale;
@@ -15,12 +16,7 @@ import java.util.Locale;
 public class StatsTab extends Fragment {
     private static final String TAG = "StatsTab";
 
-    private TextView angerTextViewNumber;
-    private TextView fearTextViewNumber;
-    private TextView joyTextViewNumber;
-    private TextView loveTextViewNumber;
-    private TextView sadnessTextViewNumber;
-    private TextView surpriseTextViewNumber;
+    private TableLayout stats_table;
 
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         return inflater.inflate(R.layout.stats_tab, container, false);
@@ -43,25 +39,27 @@ public class StatsTab extends Fragment {
         super.setUserVisibleHint(isVisibleToUser);
         if (isVisibleToUser) {
             FeelTreeSet mFeelTreeSet = FeelsBookPreferencesManager.loadSharedPreferencesFeelList(getContext().getApplicationContext());
-            angerTextViewNumber.setText(stringifyTally(mFeelTreeSet.getAngerTally()));
-            fearTextViewNumber.setText(stringifyTally(mFeelTreeSet.getFearTally()));
-            joyTextViewNumber.setText(stringifyTally(mFeelTreeSet.getJoyTally()));
-            loveTextViewNumber.setText(stringifyTally(mFeelTreeSet.getLoveTally()));
-            sadnessTextViewNumber.setText(stringifyTally(mFeelTreeSet.getSadnessTally()));
-            surpriseTextViewNumber.setText(stringifyTally(mFeelTreeSet.getSurpriseTally()));
-        } else {
-            Log.d(TAG, "Fragment is not visible.");
+            int table_index = 0;
+            stats_table.removeAllViews();
+            for (Feel.Feelings feel : Feel.Feelings.values()) {
+                TableRow row= new TableRow(getContext());
+                TableRow.LayoutParams lp = new TableRow.LayoutParams(TableRow.LayoutParams.WRAP_CONTENT);
+                row.setLayoutParams(lp);
+                TextView title = (TextView) new TextView(getContext());
+                title.setText(feel.toString());
+                row.addView(title);
+                TextView tally = (TextView) new TextView(getContext());
+                tally.setText(stringifyTally(mFeelTreeSet.getFeelingTallies().get(feel)));
+                row.addView(tally);
+                stats_table.addView(row, table_index);
+                table_index++;
+            }
         }
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        surpriseTextViewNumber = (TextView) view.findViewById(R.id.surpriseTextViewNumber);
-        sadnessTextViewNumber = (TextView) view.findViewById(R.id.sadnessTextViewNumber);
-        loveTextViewNumber = (TextView) view.findViewById(R.id.loveTextViewNumber);
-        joyTextViewNumber = (TextView) view.findViewById(R.id.joyTextViewNumber);
-        fearTextViewNumber = (TextView) view.findViewById(R.id.fearTextViewNumber);
-        angerTextViewNumber = (TextView) view.findViewById(R.id.angerTextViewNumber);
+        stats_table = (TableLayout) view.findViewById(R.id.stats_table);
     }
 }

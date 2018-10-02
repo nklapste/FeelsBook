@@ -1,17 +1,8 @@
 package ca.klapstein.nklapste_feelsbook;
 
-import android.util.Log;
-
-import java.util.ArrayList;
-import java.util.PriorityQueue;
+import java.util.HashMap;
 import java.util.TreeSet;
 
-import static ca.klapstein.nklapste_feelsbook.Feel.Feelings.Anger;
-import static ca.klapstein.nklapste_feelsbook.Feel.Feelings.Fear;
-import static ca.klapstein.nklapste_feelsbook.Feel.Feelings.Joy;
-import static ca.klapstein.nklapste_feelsbook.Feel.Feelings.Love;
-import static ca.klapstein.nklapste_feelsbook.Feel.Feelings.Sadness;
-import static ca.klapstein.nklapste_feelsbook.Feel.Feelings.Surprise;
 
 /**
  * A PriorityQueue subclass that only accepts {@code Feel}s.
@@ -24,21 +15,17 @@ import static ca.klapstein.nklapste_feelsbook.Feel.Feelings.Surprise;
 public class FeelTreeSet extends TreeSet<Feel> {
     private static final String TAG = "FeelTreeSet";
 
-    private Integer angerTally;
-    private Integer fearTally;
-    private Integer joyTally;
-    private Integer loveTally;
-    private Integer sadnessTally;
-    private Integer surpriseTally;
+    public HashMap<Feel.Feelings, Integer> getFeelingTallies() {
+        return feelingTallies;
+    }
+
+    private HashMap<Feel.Feelings, Integer> feelingTallies;
 
     FeelTreeSet() {
-        this.angerTally = 0;
-        this.fearTally = 0;
-        this.angerTally = 0;
-        this.joyTally = 0;
-        this.loveTally = 0;
-        this.sadnessTally = 0;
-        this.surpriseTally = 0;
+        feelingTallies = new HashMap<>();
+        for (Feel.Feelings feel : Feel.Feelings.values()) {
+            feelingTallies.put(feel, 0);
+        }
     }
 
     /**
@@ -54,36 +41,9 @@ public class FeelTreeSet extends TreeSet<Feel> {
         boolean removeResult = super.remove(o);
         if (removeResult && o.getClass().equals(Feel.class)) {
             Feel feel = (Feel) o;
-
-            switch (feel.getFeeling()) {
-                case Anger:
-                    angerTally -= 1;
-                    break;
-
-                case Fear:
-                    fearTally -= 1;
-                    break;
-
-                case Joy:
-                    joyTally -= 1;
-                    break;
-
-                case Love:
-                    loveTally -= 1;
-                    break;
-
-                case Sadness:
-                    sadnessTally -= 1;
-                    break;
-
-                case Surprise:
-                    surpriseTally -= 1;
-                    break;
-
-                default:
-                    Log.e(TAG, "Unsupported feeling attempted to be tallied: " + feel.getFeeling());
-                    break;
-            }
+            Integer feelingTally = feelingTallies.get(feel.getFeeling());
+            feelingTally = feelingTally - 1;
+            feelingTallies.put(feel.getFeeling(), feelingTally);
         }
         return removeResult;
     }
@@ -100,60 +60,10 @@ public class FeelTreeSet extends TreeSet<Feel> {
     public boolean add(Feel feel) {
         boolean offerResult = super.add(feel);
         if (offerResult) {
-            switch (feel.getFeeling()) {
-                case Anger:
-                    angerTally += 1;
-                    break;
-
-                case Fear:
-                    fearTally += 1;
-                    break;
-
-                case Joy:
-                    joyTally += 1;
-                    break;
-
-                case Love:
-                    loveTally += 1;
-                    break;
-
-                case Sadness:
-                    sadnessTally += 1;
-                    break;
-
-                case Surprise:
-                    surpriseTally += 1;
-                    break;
-
-                default:
-                    Log.e(TAG, "Unsupported feeling attempted to be tallied: " + feel.getFeeling());
-                    break;
-            }
+            Integer feelingTally = feelingTallies.get(feel.getFeeling());
+            feelingTally = feelingTally + 1;
+            feelingTallies.put(feel.getFeeling(), feelingTally);
         }
         return offerResult;
-    }
-
-    public Integer getLoveTally() {
-        return loveTally;
-    }
-
-    public Integer getSadnessTally() {
-        return sadnessTally;
-    }
-
-    public Integer getSurpriseTally() {
-        return surpriseTally;
-    }
-
-    public Integer getAngerTally() {
-        return angerTally;
-    }
-
-    public Integer getFearTally() {
-        return fearTally;
-    }
-
-    public Integer getJoyTally() {
-        return joyTally;
     }
 }
