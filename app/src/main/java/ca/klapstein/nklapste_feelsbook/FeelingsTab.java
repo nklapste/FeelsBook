@@ -94,9 +94,7 @@ public class FeelingsTab extends Fragment {
             public boolean onMenuItemClick(MenuItem item) {
                 switch (item.getItemId()) {
                     case R.id.button_delete:
-                        mFeelTreeSet.remove(feel);
-                        mFeelAdapter.notifyItemRemoved(position);
-                        mFeelAdapter.notifyItemRangeChanged(position, mFeelTreeSet.size());
+                        deleteFeel(feel);
                         return true;
                     case R.id.button_edit_feeling:
                         FragmentTransaction ft = getFragmentManager().beginTransaction();
@@ -126,11 +124,22 @@ public class FeelingsTab extends Fragment {
     }
 
     /**
+     * Delete a feel from the mFeelTreeSet
+     *
+     * @param feel {@code Feel}
+     */
+    void deleteFeel(Feel feel) {
+        mFeelTreeSet.remove(feel);
+        mFeelAdapter.notifyDataSetChanged();
+        FeelsBookPreferencesManager.saveSharedPreferencesFeelList(getContext().getApplicationContext(), mFeelTreeSet);
+    }
+
+    /**
      * Add a feel into the mFeelTreeSet.
      *
      * @param feel {@code Feel}
      */
-    void addFeeling(Feel feel) {
+    void addFeel(Feel feel) {
         mFeelTreeSet.add(feel);
         mFeelAdapter.notifyDataSetChanged();
         FeelsBookPreferencesManager.saveSharedPreferencesFeelList(getContext().getApplicationContext(), mFeelTreeSet);
@@ -144,7 +153,7 @@ public class FeelingsTab extends Fragment {
      * @param newFeel  {@code Feel}
      * @param position {@code int}
      */
-    void editFeeling(Feel newFeel, final int position) {
+    void editFeel(Feel newFeel, final int position) {
         Feel oldFeel = (Feel) mFeelTreeSet.toArray()[position];
         mFeelTreeSet.remove(oldFeel);
         mFeelTreeSet.add(newFeel);

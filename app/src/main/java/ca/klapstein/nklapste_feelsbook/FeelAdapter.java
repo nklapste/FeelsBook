@@ -44,6 +44,11 @@ class FeelAdapter extends RecyclerView.Adapter<FeelAdapter.FeelViewHolder> {
         holder.comment.setText(feel.getComment());
     }
 
+    /**
+     * Get the total number of items within the feelTreeSet.
+     *
+     * @return {@code int}
+     */
     @Override
     public int getItemCount() {
         return feelTreeSet.size();

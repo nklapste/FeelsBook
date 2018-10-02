@@ -43,7 +43,7 @@ public class MainActivity extends AppCompatActivity implements ModifyFeelDialog.
     @Override
     public void onSaveButtonClick(Feel feel) {
         FeelingsTab feelingsTab = getFeelingsTab();
-        feelingsTab.addFeeling(feel);
+        feelingsTab.addFeel(feel);
     }
 
     /**
@@ -57,6 +57,6 @@ public class MainActivity extends AppCompatActivity implements ModifyFeelDialog.
     @Override
     public void onSaveButtonClick(Feel feel, final int position) {
         FeelingsTab feelingsTab = getFeelingsTab();
-        feelingsTab.editFeeling(feel, position);
+        feelingsTab.editFeel(feel, position);
     }
 }

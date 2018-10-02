@@ -16,7 +16,9 @@ public class EditFeelDialog extends ModifyFeelDialog {
 
     /**
      * Convert a string representation of a feel into the relevant selection number for the
-     * EditFeelActivity feelSpinner.
+     * feelSpinner.
+     * <p>
+     * Set the feelSpinners selection to the found selection number.
      *
      * @param feeling {@code String}
      */

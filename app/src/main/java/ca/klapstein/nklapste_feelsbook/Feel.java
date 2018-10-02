@@ -21,6 +21,7 @@ public class Feel implements Comparable<Feel> {
     private String comment;
     private Feeling feeling;
     private Date date;
+
     Feel(Feeling feeling, String comment, Date date) {
         this.feeling = feeling;
         this.comment = comment;
