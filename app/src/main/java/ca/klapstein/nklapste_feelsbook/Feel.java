@@ -71,6 +71,24 @@ public class Feel implements Comparable<Feel> {
         }
     }
 
+    /**
+     * Notes on implementation:
+     *
+     * Instead of using subclassing I define all supported feels by this enumerator.
+     * Thus, all string values that are permitted to be a ``feeling`` are controlled.
+     *
+     * This also allows me to generically create other resources within FeelsBook such as the
+     * stats page, tallies of all feelings, and add feeling buttons. This could be done with
+     * subclassing, but, it could get quickly messy onto how to define the domain of all valid
+     * feelings.
+     *
+     * If I add another Feeling enumeration value the rest of FeelsBook should properly accommodate
+     * it.
+     *
+     * The only issue with this implementation is that adding additional ``feeling`` specific data
+     * other than the string name value of the ``feeling`` is difficult. However, since this
+     * app doesn't require such components I didn't figure this extensibility was a priority.
+     */
     public enum Feeling {
         Anger,
         Fear,
