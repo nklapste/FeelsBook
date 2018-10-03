@@ -3,7 +3,6 @@ package ca.klapstein.nklapste_feelsbook;
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
-import android.app.TimePickerDialog;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -17,7 +16,8 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.TimePicker;
+
+import com.ikovac.timepickerwithseconds.MyTimePickerDialog;
 
 import java.text.ParseException;
 import java.util.Calendar;
@@ -87,9 +87,12 @@ abstract public class ModifyFeelDialog extends DialogFragment {
     /**
      * showDateTimePicker is based of a code solution provided by:
      * <p>
-     * Abhishek
+     * Abhishek:
      * https://stackoverflow.com/users/5242161/abhishek
      * https://stackoverflow.com/questions/2055509/datetime-picker-in-android-application
+     *
+     * Uses TimePickerWithSeconds by IvanKovac:
+     * https://github.com/IvanKovac/TimePickerWithSeconds
      *
      * @param date {@code Date} The initial date to start the time pickers at.
      */
@@ -103,18 +106,18 @@ abstract public class ModifyFeelDialog extends DialogFragment {
             @Override
             public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
                 newDate.set(year, monthOfYear, dayOfMonth);
-                new TimePickerDialog(context, new TimePickerDialog.OnTimeSetListener() {
+                new MyTimePickerDialog(context, new MyTimePickerDialog.OnTimeSetListener(){
                     @Override
-                    public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
+                    public void onTimeSet(com.ikovac.timepickerwithseconds.TimePicker view, int hourOfDay, int minute, int seconds) {
                         newDate.set(Calendar.HOUR_OF_DAY, hourOfDay);
                         newDate.set(Calendar.MINUTE, minute);
-
+                        newDate.set(Calendar.SECOND, seconds);
                         Log.d(TAG, "Setting new date: " + dateFormat.format(newDate.getTime()));
                         dateEditText.setText(dateFormat.format(newDate.getTime()));
                     }
-                }, currentDate.get(Calendar.HOUR_OF_DAY), currentDate.get(Calendar.MINUTE), false).show();
+                },  currentDate.get(Calendar.HOUR_OF_DAY), currentDate.get(Calendar.MINUTE), currentDate.get(Calendar.SECOND), true).show();
             }
-        }, currentDate.get(Calendar.YEAR), currentDate.get(Calendar.MONTH), currentDate.get(Calendar.DATE)).show();
+        }, currentDate.get(Calendar.YEAR), currentDate.get(Calendar.MONTH), currentDate.get(Calendar.DAY_OF_MONTH)).show();
     }
 
     /**
