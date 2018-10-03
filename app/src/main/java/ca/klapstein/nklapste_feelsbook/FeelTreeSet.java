@@ -11,19 +11,19 @@ import java.util.TreeSet;
  * list while retaining order by date.
  * <p>
  * Additionally running tallies of each feeling are kept for quick statistics generation.
- *
+ * <p>
  * One limitation of using a TreeSet however is that no two feels can have the exact same date.
  * I deemed this as a reasonable sacrifice.
  */
 public class FeelTreeSet extends TreeSet<Feel> {
     private static final String TAG = "FeelTreeSet";
 
-    private HashMap<Feel.Feeling, Integer> feelingTallies;
+    private HashMap<Feeling, Integer> feelingTallies;
 
     FeelTreeSet() {
         feelingTallies = new HashMap<>();
         // initialize a HashMap of the feeling tallies all at 0
-        for (Feel.Feeling feel : Feel.Feeling.values()) {
+        for (Feeling feel : Feeling.values()) {
             feelingTallies.put(feel, 0);
         }
     }
@@ -41,9 +41,7 @@ public class FeelTreeSet extends TreeSet<Feel> {
         boolean removeResult = super.remove(obj);
         if (removeResult && obj.getClass().equals(Feel.class)) {
             Feel feel = (Feel) obj;
-            Integer feelingTally = feelingTallies.get(feel.getFeeling());
-            feelingTally = feelingTally - 1;
-            feelingTallies.put(feel.getFeeling(), feelingTally);
+            feelingTallies.put(feel.getFeeling(), feelingTallies.get(feel.getFeeling()) - 1);
         }
         return removeResult;
     }
@@ -60,14 +58,12 @@ public class FeelTreeSet extends TreeSet<Feel> {
     public boolean add(Feel feel) {
         boolean offerResult = super.add(feel);
         if (offerResult) {
-            Integer feelingTally = feelingTallies.get(feel.getFeeling());
-            feelingTally = feelingTally + 1;
-            feelingTallies.put(feel.getFeeling(), feelingTally);
+            feelingTallies.put(feel.getFeeling(), feelingTallies.get(feel.getFeeling()) + 1);
         }
         return offerResult;
     }
 
-    public HashMap<Feel.Feeling, Integer> getFeelingTallies() {
+    public HashMap<Feeling, Integer> getFeelingTallies() {
         return feelingTallies;
     }
 }

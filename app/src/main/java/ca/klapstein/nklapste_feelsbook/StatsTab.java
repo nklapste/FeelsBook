@@ -8,9 +8,7 @@ import android.support.v7.widget.CardView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.LinearLayout;
 import android.widget.TableLayout;
-import android.widget.TableRow;
 import android.widget.TextView;
 
 import java.util.Locale;
@@ -52,7 +50,7 @@ public class StatsTab extends Fragment {
             // dynamically recreate and populate the table for all Feeling tallies.
             int table_index = 0;
             stats_table.removeAllViews();
-            for (Feel.Feeling feel : Feel.Feeling.values()) {
+            for (Feeling feel : Feeling.values()) {
                 CardView row = (CardView) getActivity().getLayoutInflater().inflate(R.layout.stats_tally_row, null, false);
                 TextView tallyLabel = row.findViewById(R.id.tallyLabel);
                 TextView tallyValue = row.findViewById(R.id.tallyValue);

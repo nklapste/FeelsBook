@@ -17,13 +17,24 @@ import static ca.klapstein.nklapste_feelsbook.Feel.dateFormat;
 public class EditFeelDialog extends ModifyFeelDialog {
     public static final String TAG = "EditFeelDialog";
 
+    /**
+     * Builds the EditFeelDialog.
+     * <p>
+     * The past feel's ``feeling`` ``date`` and ``comment`` are needed to be specified from the
+     * bundled arguments for creating a EditFeelDialog.
+     * <p>
+     * These bundled arguments are accessed through {@code getArguments}.
+     *
+     * @param view {@code View}
+     * @return {@code AlertDialog}
+     */
     @Override
-    AlertDialog buildDialog(View view) {
+    protected AlertDialog buildDialog(View view) {
         // grab the arguments for Editing a Feel
         // get the Feel's date, feeling and comment
         final Bundle mArgs = getArguments();
         final String date = mArgs.getString("date");
-        Feel.Feeling feeling = Feel.Feeling.valueOf(mArgs.getString("feeling"));
+        Feeling feeling = Feeling.valueOf(mArgs.getString("feeling"));
         final String comment = mArgs.getString("comment");
 
         dateEditText.setText(date);
@@ -37,7 +48,7 @@ public class EditFeelDialog extends ModifyFeelDialog {
         builder.setPositiveButton(getResources().getString(R.string.edit), new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int id) {
                 final String comment = commentEditText.getText().toString();
-                final Feel.Feeling feeling = Feel.Feeling.valueOf(feelSpinner.getSelectedItem().toString());
+                final Feeling feeling = Feeling.valueOf(feelSpinner.getSelectedItem().toString());
                 String dateStr = dateEditText.getText().toString();
                 Date date;
                 try {

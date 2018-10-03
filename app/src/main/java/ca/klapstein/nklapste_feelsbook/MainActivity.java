@@ -23,18 +23,18 @@ public class MainActivity extends AppCompatActivity implements ModifyFeelDialog.
     }
 
     /**
-     * Get the active FeelingsTab from the MainActivities ViewPager.
+     * Get the active FeelTab from the MainActivities ViewPager.
      *
-     * @return {@code FeelingsTab}
+     * @return {@code FeelTab}
      */
-    private FeelingsTab getFeelingsTab() {
+    private FeelTab getFeelingsTab() {
         int index = mViewPager.getCurrentItem();
         FeelsBookFragmentPagerAdapter adapter = ((FeelsBookFragmentPagerAdapter) mViewPager.getAdapter());
-        return (FeelingsTab) adapter.getFragment(index);
+        return (FeelTab) adapter.getFragment(index);
     }
 
     /**
-     * Interface hooks to pass the result from ModifyFeelDialog back to the FeelingsTab.
+     * Interface hooks to pass the result from ModifyFeelDialog back to the FeelTab.
      * <p>
      * This allows for inter-DialogFragment communication.
      *
@@ -42,12 +42,12 @@ public class MainActivity extends AppCompatActivity implements ModifyFeelDialog.
      */
     @Override
     public void onSaveButtonClick(Feel feel) {
-        FeelingsTab feelingsTab = getFeelingsTab();
-        feelingsTab.addFeel(feel);
+        FeelTab feelTab = getFeelingsTab();
+        feelTab.addFeel(feel);
     }
 
     /**
-     * Interface hooks to pass the result from ModifyFeelDialog back to the FeelingsTab.
+     * Interface hooks to pass the result from ModifyFeelDialog back to the FeelTab.
      * <p>
      * This allows for inter-DialogFragment communication.
      *
@@ -56,7 +56,7 @@ public class MainActivity extends AppCompatActivity implements ModifyFeelDialog.
      */
     @Override
     public void onSaveButtonClick(Feel feel, final int position) {
-        FeelingsTab feelingsTab = getFeelingsTab();
-        feelingsTab.editFeel(feel, position);
+        FeelTab feelTab = getFeelingsTab();
+        feelTab.editFeel(feel, position);
     }
 }

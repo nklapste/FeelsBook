@@ -25,8 +25,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_weight="1"
-        android:elevation="4dp"
         android:clickable="true"
+        android:elevation="4dp"
         android:focusable="true"
         app:srcCompat="@drawable/ic_add_white_24dp" />
 </LinearLayout>

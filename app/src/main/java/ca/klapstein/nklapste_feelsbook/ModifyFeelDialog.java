@@ -51,7 +51,7 @@ abstract public class ModifyFeelDialog extends DialogFragment {
      * @param view {@code View}
      * @return {@code AlertDialog}
      */
-    abstract AlertDialog buildDialog(View view);
+    protected abstract AlertDialog buildDialog(View view);
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -79,7 +79,7 @@ abstract public class ModifyFeelDialog extends DialogFragment {
         feelSpinner = (Spinner) view.findViewById(R.id.feelSpinner);
 
         // programmatically set the contents of the feelSpinner from all values of Feel.Feeling
-        feelSpinner.setAdapter(new ArrayAdapter<Feel.Feeling>(getContext().getApplicationContext(), android.R.layout.simple_spinner_dropdown_item, Feel.Feeling.values()));
+        feelSpinner.setAdapter(new ArrayAdapter<Feeling>(getContext().getApplicationContext(), android.R.layout.simple_spinner_dropdown_item, Feeling.values()));
 
         return buildDialog(view);
     }
@@ -90,7 +90,7 @@ abstract public class ModifyFeelDialog extends DialogFragment {
      * Abhishek:
      * https://stackoverflow.com/users/5242161/abhishek
      * https://stackoverflow.com/questions/2055509/datetime-picker-in-android-application
-     *
+     * <p>
      * Uses TimePickerWithSeconds by IvanKovac:
      * https://github.com/IvanKovac/TimePickerWithSeconds
      *
@@ -106,7 +106,7 @@ abstract public class ModifyFeelDialog extends DialogFragment {
             @Override
             public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
                 newDate.set(year, monthOfYear, dayOfMonth);
-                new MyTimePickerDialog(context, new MyTimePickerDialog.OnTimeSetListener(){
+                new MyTimePickerDialog(context, new MyTimePickerDialog.OnTimeSetListener() {
                     @Override
                     public void onTimeSet(com.ikovac.timepickerwithseconds.TimePicker view, int hourOfDay, int minute, int seconds) {
                         newDate.set(Calendar.HOUR_OF_DAY, hourOfDay);
@@ -115,7 +115,7 @@ abstract public class ModifyFeelDialog extends DialogFragment {
                         Log.d(TAG, "Setting new date: " + dateFormat.format(newDate.getTime()));
                         dateEditText.setText(dateFormat.format(newDate.getTime()));
                     }
-                },  currentDate.get(Calendar.HOUR_OF_DAY), currentDate.get(Calendar.MINUTE), currentDate.get(Calendar.SECOND), true).show();
+                }, currentDate.get(Calendar.HOUR_OF_DAY), currentDate.get(Calendar.MINUTE), currentDate.get(Calendar.SECOND), true).show();
             }
         }, currentDate.get(Calendar.YEAR), currentDate.get(Calendar.MONTH), currentDate.get(Calendar.DAY_OF_MONTH)).show();
     }
@@ -138,9 +138,9 @@ abstract public class ModifyFeelDialog extends DialogFragment {
 
     /**
      * Interface to provide inter-Fragment communication.
-     *
+     * <p>
      * This is implemented in MainActivity to provide inter-Fragment communication between
-     * AddFeelDialog and/or EditFeelDialog to FeelingsTab.
+     * AddFeelDialog and/or EditFeelDialog to FeelTab.
      */
     public interface OnSaveButtonClickListener {
         void onSaveButtonClick(Feel feel);

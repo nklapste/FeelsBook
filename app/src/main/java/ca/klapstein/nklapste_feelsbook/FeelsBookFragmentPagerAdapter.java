@@ -28,7 +28,7 @@ public class FeelsBookFragmentPagerAdapter extends FragmentPagerAdapter {
         Log.d(TAG, "tab selected position: " + String.valueOf(position));
         switch (position) {
             case 0:
-                return new FeelingsTab();
+                return new FeelTab();
             case 1:
                 return new StatsTab();
             default:

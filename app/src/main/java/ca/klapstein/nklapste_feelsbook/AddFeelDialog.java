@@ -17,13 +17,24 @@ import static ca.klapstein.nklapste_feelsbook.Feel.dateFormat;
 public class AddFeelDialog extends ModifyFeelDialog {
     public static final String TAG = "AddFeelDialog";
 
+    /**
+     * Builds the AddFeelDialog.
+     * <p>
+     * Only the default ``feeling`` (this is decided from earlier button logic) is needed from
+     * the bundled arguments for creating a AddFeelDialog.
+     * <p>
+     * These bundled arguements are accessed through {@code getArguments}.
+     *
+     * @param view {@code View}
+     * @return {@code AlertDialog}
+     */
     @Override
-    AlertDialog buildDialog(View view) {
+    protected AlertDialog buildDialog(View view) {
         dateEditText.setText(dateFormat.format(new Date()));
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
 
         final Bundle mArgs = getArguments();
-        Feel.Feeling feeling = Feel.Feeling.valueOf(mArgs.getString("feeling"));
+        Feeling feeling = Feeling.valueOf(mArgs.getString("feeling"));
         // Set the feelSpinners default selection to the original feel's feel
         feelSpinner.setSelection(feeling.ordinal());
 
@@ -32,7 +43,7 @@ public class AddFeelDialog extends ModifyFeelDialog {
         builder.setPositiveButton(getResources().getString(R.string.add), new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int id) {
                 final String comment = commentEditText.getText().toString();
-                final Feel.Feeling feeling = Feel.Feeling.valueOf(feelSpinner.getSelectedItem().toString());
+                final Feeling feeling = Feeling.valueOf(feelSpinner.getSelectedItem().toString());
                 String dateStr = dateEditText.getText().toString();
                 Date date;
                 try {

@@ -5,7 +5,6 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.Gravity;
@@ -22,11 +21,12 @@ import static android.view.Gravity.BOTTOM;
 import static android.view.Gravity.END;
 import static ca.klapstein.nklapste_feelsbook.Feel.dateFormat;
 
-public class FeelingsTab extends Fragment {
-    private static final String TAG = "FeelingsTab";
+public class FeelTab extends Fragment {
+    private static final String TAG = "FeelTab";
 
     private FeelAdapter mFeelAdapter;
     private FeelTreeSet mFeelTreeSet;
+    private RecyclerView mFeelsRecyclerView;
 
     @Nullable
     @Override
@@ -40,7 +40,7 @@ public class FeelingsTab extends Fragment {
         mFeelAdapter = new FeelAdapter(mFeelTreeSet);
 
         // define the RecyclerView listing Feels
-        RecyclerView mFeelsRecyclerView = view.findViewById(R.id.feels_recycler_view);
+        mFeelsRecyclerView = view.findViewById(R.id.feels_recycler_view);
         mFeelsRecyclerView.setHasFixedSize(true);
         mFeelsRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         mFeelsRecyclerView.setAdapter(mFeelAdapter);
@@ -48,6 +48,7 @@ public class FeelingsTab extends Fragment {
         mFeelsRecyclerView.addOnItemTouchListener(new RecyclerTouchListener(getContext(), mFeelsRecyclerView, new RecyclerTouchListener.ClickListener() {
             @Override
             public void onClick(View view, int position) {
+                onFeelListItemClick(view, position);
             }
 
             @Override
@@ -56,28 +57,31 @@ public class FeelingsTab extends Fragment {
             }
         }));
 
+        // create the buttons to add a feel of each feeling
         createAddFeelButtons(view);
     }
 
     /**
-     * dynamically create a FloatingActionButton for each feel
+     * Dynamically create a FloatingActionButton for creating a feel with a default feeling.
+     * <p>
+     * This will generate as many buttons as their are enum values in feel.feelings.
      */
-    private void createAddFeelButtons(View view){
+    private void createAddFeelButtons(View view) {
         LinearLayout verticalLinearLayout = new LinearLayout(getContext());
         verticalLinearLayout.setOrientation(LinearLayout.VERTICAL);
         LinearLayout.LayoutParams verticalLinearLayoutParams = new LinearLayout.LayoutParams(FrameLayout.LayoutParams.WRAP_CONTENT, FrameLayout.LayoutParams.WRAP_CONTENT);
         verticalLinearLayoutParams.gravity = BOTTOM | END;
 
-        for (final Feel.Feeling feel : Feel.Feeling.values()) {
+        for (final Feeling feel : Feeling.values()) {
             // load a template for a Feel add button and it's label and create off of that
             LinearLayout horizontalLinearLayout = (LinearLayout) getActivity().getLayoutInflater().inflate(R.layout.add_feel_button, null, false);
-            TextView feelButtonLabel  = horizontalLinearLayout.findViewById(R.id.addFeelButtonLabel);
+            TextView feelButtonLabel = horizontalLinearLayout.findViewById(R.id.addFeelButtonLabel);
             feelButtonLabel.setText(feel.toString());
             FloatingActionButton addFeelFloatingActionButton = horizontalLinearLayout.findViewById(R.id.addFeelButton);
             addFeelFloatingActionButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                     // create and show the AddFeelDialog
+                    // create and show the AddFeelDialog
                     AddFeelDialog addFeelDialog = new AddFeelDialog();
                     Bundle args = new Bundle();
                     addFeelDialog.setArguments(args);
@@ -120,13 +124,6 @@ public class FeelingsTab extends Fragment {
                         deleteFeel(feel);
                         return true;
                     case R.id.button_edit_feeling:
-                        FragmentTransaction ft = getFragmentManager().beginTransaction();
-                        Fragment prev = getFragmentManager().findFragmentByTag("dialog");
-                        if (prev != null) {
-                            ft.remove(prev);
-                        }
-                        ft.addToBackStack(null);
-
                         // create and show the EditFeelDialog
                         EditFeelDialog editFeelDialog = new EditFeelDialog();
                         Bundle args = new Bundle();
@@ -136,7 +133,7 @@ public class FeelingsTab extends Fragment {
                         args.putString("comment", feel.getComment());
                         args.putString("date", dateFormat.format(feel.getDate()));
                         editFeelDialog.setArguments(args);
-                        editFeelDialog.show(ft, EditFeelDialog.TAG);
+                        editFeelDialog.show(getFragmentManager(), EditFeelDialog.TAG);
                         return true;
                     default:
                         return false;
@@ -148,7 +145,7 @@ public class FeelingsTab extends Fragment {
 
     /**
      * Delete a feel from the mFeelTreeSet
-     *
+     * <p>
      * Also do an update call with the {@code FeelAdapter} and save the changes
      * with {@code FeelsBookPreferencesManager}
      *
@@ -162,7 +159,7 @@ public class FeelingsTab extends Fragment {
 
     /**
      * Add a feel into the mFeelTreeSet.
-     *
+     * <p>
      * Also do an update call with the {@code FeelAdapter} and save the changes
      * with {@code FeelsBookPreferencesManager}
      *
@@ -178,7 +175,7 @@ public class FeelingsTab extends Fragment {
      * Edit a feel within the mFeelTreeSet.
      * <p>
      * Remove the original feel from the FeelTreeSet and replace it with the new feel.
-     *
+     * <p>
      * Also do an update call with the {@code FeelAdapter} and save the changes
      * with {@code FeelsBookPreferencesManager}
      *
