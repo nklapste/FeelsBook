@@ -56,7 +56,7 @@ public class StatsTab extends Fragment {
                 CardView row = (CardView) getActivity().getLayoutInflater().inflate(R.layout.stats_tally_row, null, false);
                 TextView tallyLabel = row.findViewById(R.id.tallyLabel);
                 TextView tallyValue = row.findViewById(R.id.tallyValue);
-                tallyLabel.setText(String.format("%s:", feel.toString()));
+                tallyLabel.setText(feel.toString());
                 tallyValue.setText(stringifyTally(mFeelTreeSet.getFeelingTallies().get(feel)));
                 stats_table.addView(row, table_index);
                 table_index++;
