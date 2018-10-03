@@ -1,6 +1,5 @@
 package ca.klapstein.nklapste_feelsbook;
 
-import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -20,7 +19,6 @@ import android.widget.PopupMenu;
 import android.widget.TextView;
 
 import static android.view.Gravity.BOTTOM;
-import static android.view.Gravity.CENTER;
 import static android.view.Gravity.END;
 import static ca.klapstein.nklapste_feelsbook.Feel.dateFormat;
 
@@ -68,53 +66,30 @@ public class FeelingsTab extends Fragment {
         LinearLayout verticalLinearLayout = new LinearLayout(getContext());
         verticalLinearLayout.setOrientation(LinearLayout.VERTICAL);
         LinearLayout.LayoutParams verticalLinearLayoutParams = new LinearLayout.LayoutParams(FrameLayout.LayoutParams.WRAP_CONTENT, FrameLayout.LayoutParams.WRAP_CONTENT);
-        verticalLinearLayoutParams.bottomMargin = 15;
         verticalLinearLayoutParams.gravity = BOTTOM | END;
 
         for (final Feel.Feeling feel : Feel.Feeling.values()) {
-            LinearLayout horizontalLinearLayout = new LinearLayout(getContext());
-            horizontalLinearLayout.setOrientation(LinearLayout.HORIZONTAL);
-
-            LinearLayout.LayoutParams labelHorizontalLinearLayoutParams = new LinearLayout.LayoutParams(FrameLayout.LayoutParams.WRAP_CONTENT, FrameLayout.LayoutParams.WRAP_CONTENT);
-            labelHorizontalLinearLayoutParams.gravity = CENTER;
-            labelHorizontalLinearLayoutParams.rightMargin = 10;
-            TextView feelButtonLabel = new TextView(getContext());
+            // load a template for a Feel add button and it's label and create off of that
+            LinearLayout horizontalLinearLayout = (LinearLayout) getActivity().getLayoutInflater().inflate(R.layout.add_feel_button, null, false);
+            TextView feelButtonLabel  = horizontalLinearLayout.findViewById(R.id.addFeelButtonLabel);
             feelButtonLabel.setText(feel.toString());
-            feelButtonLabel.setElevation(16);
-            feelButtonLabel.setPadding(4,4,4,4);
-            feelButtonLabel.setBackgroundColor(Color.WHITE);
-            horizontalLinearLayout.addView(feelButtonLabel, labelHorizontalLinearLayoutParams);
-
-            LinearLayout.LayoutParams buttonHorizontalLinearLayoutParams = new LinearLayout.LayoutParams(FrameLayout.LayoutParams.WRAP_CONTENT, FrameLayout.LayoutParams.WRAP_CONTENT);
-            FloatingActionButton addFeelFloatingActionButton = new FloatingActionButton(getContext());
+            FloatingActionButton addFeelFloatingActionButton = horizontalLinearLayout.findViewById(R.id.addFeelButton);
             addFeelFloatingActionButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    FragmentTransaction ft = getFragmentManager().beginTransaction();
-                    Fragment prev = getFragmentManager().findFragmentByTag("dialog");
-                    if (prev != null) {
-                        ft.remove(prev);
-                    }
-                    ft.addToBackStack(null);
-
-                    // create and show the AddFeelDialog
+                     // create and show the AddFeelDialog
                     AddFeelDialog addFeelDialog = new AddFeelDialog();
                     Bundle args = new Bundle();
                     addFeelDialog.setArguments(args);
                     args.putString("feeling", feel.toString());
-                    addFeelDialog.show(ft, AddFeelDialog.TAG);
+                    addFeelDialog.show(getFragmentManager(), AddFeelDialog.TAG);
                 }
             });
-            addFeelFloatingActionButton.setImageDrawable(getResources().getDrawable(R.drawable.ic_add_white_24dp, getContext().getTheme()));
-            horizontalLinearLayout.addView(addFeelFloatingActionButton, buttonHorizontalLinearLayoutParams);
-
             verticalLinearLayout.addView(horizontalLinearLayout, verticalLinearLayoutParams);
         }
 
         FrameLayout.LayoutParams frameLayoutParams = new FrameLayout.LayoutParams(FrameLayout.LayoutParams.WRAP_CONTENT, FrameLayout.LayoutParams.WRAP_CONTENT);
         frameLayoutParams.gravity = Gravity.BOTTOM | Gravity.END;
-        frameLayoutParams.rightMargin = 50;
-
         FrameLayout frameLayout = (FrameLayout) view.findViewById(R.id.feelFrameLayout);
         frameLayout.addView(verticalLinearLayout, frameLayoutParams);
     }
@@ -174,6 +149,9 @@ public class FeelingsTab extends Fragment {
     /**
      * Delete a feel from the mFeelTreeSet
      *
+     * Also do an update call with the {@code FeelAdapter} and save the changes
+     * with {@code FeelsBookPreferencesManager}
+     *
      * @param feel {@code Feel}
      */
     void deleteFeel(Feel feel) {
@@ -184,6 +162,9 @@ public class FeelingsTab extends Fragment {
 
     /**
      * Add a feel into the mFeelTreeSet.
+     *
+     * Also do an update call with the {@code FeelAdapter} and save the changes
+     * with {@code FeelsBookPreferencesManager}
      *
      * @param feel {@code Feel}
      */
@@ -197,6 +178,9 @@ public class FeelingsTab extends Fragment {
      * Edit a feel within the mFeelTreeSet.
      * <p>
      * Remove the original feel from the FeelTreeSet and replace it with the new feel.
+     *
+     * Also do an update call with the {@code FeelAdapter} and save the changes
+     * with {@code FeelsBookPreferencesManager}
      *
      * @param newFeel  {@code Feel}
      * @param position {@code int}
