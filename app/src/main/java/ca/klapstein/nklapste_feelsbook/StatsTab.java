@@ -4,9 +4,11 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.CardView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
@@ -51,17 +53,11 @@ public class StatsTab extends Fragment {
             int table_index = 0;
             stats_table.removeAllViews();
             for (Feel.Feeling feel : Feel.Feeling.values()) {
-                TableRow row = new TableRow(getContext());
-                TableRow.LayoutParams lp = new TableRow.LayoutParams(TableRow.LayoutParams.WRAP_CONTENT);
-                row.setLayoutParams(lp);
-                row.setPadding(15,15,15,0);
-                TextView title = (TextView) new TextView(getContext());
-                title.setText(String.format("%s:", feel.toString()));
-                title.setPadding(0,0,15,0);
-                row.addView(title);
-                TextView tally = (TextView) new TextView(getContext());
-                tally.setText(stringifyTally(mFeelTreeSet.getFeelingTallies().get(feel)));
-                row.addView(tally);
+                CardView row = (CardView) getActivity().getLayoutInflater().inflate(R.layout.stats_tally_row, null, false);
+                TextView tallyLabel = row.findViewById(R.id.tallyLabel);
+                TextView tallyValue = row.findViewById(R.id.tallyValue);
+                tallyLabel.setText(String.format("%s:", feel.toString()));
+                tallyValue.setText(stringifyTally(mFeelTreeSet.getFeelingTallies().get(feel)));
                 stats_table.addView(row, table_index);
                 table_index++;
             }
