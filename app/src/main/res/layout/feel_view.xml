@@ -26,8 +26,7 @@
                     android:id="@+id/feel_date"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textSize="16dp"
-                    android:textStyle="bold"
+                    android:textAppearance="@android:style/TextAppearance.Material.Title"
                     tools:text="date" />
 
                 <TextView
@@ -35,6 +34,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
+                    android:textAppearance="@android:style/TextAppearance.Material.Subhead"
                     tools:text="name" />
 
                 <TextView
@@ -42,6 +42,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
+                    android:textAppearance="@android:style/TextAppearance.Material.Small"
                     tools:text="comment" />
 
         </LinearLayout>
