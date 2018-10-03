@@ -33,14 +33,14 @@ public class FeelTreeSet extends TreeSet<Feel> {
      * <p>
      * If it is successfully removed decrement the tally of feel removed.
      *
-     * @param o {@code Object}
+     * @param obj {@code Object}
      * @return {@code boolean}
      */
     @Override
-    public boolean remove(Object o) {
-        boolean removeResult = super.remove(o);
-        if (removeResult && o.getClass().equals(Feel.class)) {
-            Feel feel = (Feel) o;
+    public boolean remove(Object obj) {
+        boolean removeResult = super.remove(obj);
+        if (removeResult && obj.getClass().equals(Feel.class)) {
+            Feel feel = (Feel) obj;
             Integer feelingTally = feelingTallies.get(feel.getFeeling());
             feelingTally = feelingTally - 1;
             feelingTallies.put(feel.getFeeling(), feelingTally);
