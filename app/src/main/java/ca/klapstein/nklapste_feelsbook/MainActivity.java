@@ -5,7 +5,15 @@ import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 
-public class MainActivity extends AppCompatActivity implements ModifyFeelDialog.OnSaveButtonClickListener {
+
+/**
+ * MainActivity for FeelsBook.
+ * <p>
+ * Start a {@code FeelsBookFragmentPagerAdapter} and begin displaying the internal fragments
+ * such as {@code FeelTab} and {@code StatsTab}. As such MainActivity acts more as a glue class
+ * tying the various Fragments together.
+ */
+public class MainActivity extends AppCompatActivity implements ModifyFeelDialog.OnPositiveButtonClickListener {
     private static final String TAG = "MainActivity";
     private ViewPager mViewPager;
 
@@ -41,7 +49,7 @@ public class MainActivity extends AppCompatActivity implements ModifyFeelDialog.
      * @param feel {@code Feel}
      */
     @Override
-    public void onSaveButtonClick(Feel feel) {
+    public void onAddButtonClick(Feel feel) {
         FeelTab feelTab = getFeelingsTab();
         feelTab.addFeel(feel);
     }
@@ -55,7 +63,7 @@ public class MainActivity extends AppCompatActivity implements ModifyFeelDialog.
      * @param position {@code int}
      */
     @Override
-    public void onSaveButtonClick(Feel feel, final int position) {
+    public void onEditButtonClick(Feel feel, final int position) {
         FeelTab feelTab = getFeelingsTab();
         feelTab.editFeel(feel, position);
     }

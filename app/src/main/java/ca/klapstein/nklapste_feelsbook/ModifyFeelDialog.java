@@ -4,6 +4,7 @@ import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -25,48 +26,80 @@ import java.util.Date;
 
 import static ca.klapstein.nklapste_feelsbook.Feel.dateFormat;
 
+
 /**
- * Abstract class defining the boilerplate for adding/editing a Feel within FeelsBook.
+ * Abstract class defining the boilerplate for adding/editing a {@code Feel} within FeelsBook.
  */
 abstract public class ModifyFeelDialog extends DialogFragment {
     private static final String TAG = "ModifyFeelDialog";
 
-    protected Spinner feelSpinner;
-    protected TextView dateEditText;
-    protected EditText commentEditText;
-    protected OnSaveButtonClickListener mOnSaveButtonClickListener;
+    private Spinner feelSpinner;
+    private TextView dateEditText;
+    private EditText commentEditText;
+    private OnPositiveButtonClickListener mOnPositiveButtonClickListener;
+    private Feel feel;
+
+    @Nullable
+    private Integer position;
 
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-
-        if (context instanceof OnSaveButtonClickListener) {
-            mOnSaveButtonClickListener = (OnSaveButtonClickListener) context;
+        if (context instanceof OnPositiveButtonClickListener) {
+            mOnPositiveButtonClickListener = (OnPositiveButtonClickListener) context;
         }
     }
 
     /**
-     * Build the AlertDialog for the specific Feel modification.
+     * Get the Title to be set in {@code onCreateDialog}'s {@code AlertDialog.Builder}.
      *
-     * @param view {@code View}
-     * @return {@code AlertDialog}
+     * @return {@code CharSequence}
      */
-    protected abstract AlertDialog buildDialog(View view);
+    protected abstract CharSequence getDialogTitle();
 
-    @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+    /**
+     * Get the positive text to be set in {@code onCreateDialog}'s {@code AlertDialog.Builder}.
+     *
+     * @return {@code CharSequence}
+     */
+    protected abstract CharSequence getDialogPositiveText();
+
+    /**
+     * Get the negative text to be set in {@code onCreateDialog}'s {@code AlertDialog.Builder}.
+     *
+     * @return {@code CharSequence}
+     */
+    private CharSequence getDialogNegativeText() {
+        return getResources().getString(R.string.cancel);
     }
+
+    /**
+     * Obtain or construct the {@code Feel} to be modified within this dialog.
+     *
+     * @param args {@code Bundle}
+     * @return {@code Feel} to be modified within this dialog.
+     */
+    protected abstract Feel getDefaultFeel(@Nullable Bundle args);
+
+    /**
+     * Return the position of the Feel within FeelsBook {@code FeelTreeSet}.
+     *
+     * @param args {@code Bundle}
+     * @return {@code Integer} the position of the Feel within FeelsBook {@code FeelTreeSet}.
+     */
+    protected abstract Integer getDefaultPosition(@Nullable Bundle args);
 
     @NonNull
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         // Use the Builder class for convenient dialog construction
-        LayoutInflater inflater = getActivity().getLayoutInflater();
-        View view = inflater.inflate(R.layout.add_edit_feel_dialog, null);
+        View view = LayoutInflater.from(getContext()).inflate(R.layout.add_edit_feel_dialog, null);
 
         // get the default input Views
         dateEditText = (TextView) view.findViewById(R.id.dateEditText);
+        feelSpinner = (Spinner) view.findViewById(R.id.feelSpinner);
+        commentEditText = (EditText) view.findViewById(R.id.commentEditText);
+
         dateEditText.setOnClickListener(
                 new View.OnClickListener() {
                     @Override
@@ -75,13 +108,48 @@ abstract public class ModifyFeelDialog extends DialogFragment {
                     }
                 }
         );
-        commentEditText = (EditText) view.findViewById(R.id.commentEditText);
-        feelSpinner = (Spinner) view.findViewById(R.id.feelSpinner);
+
 
         // programmatically set the contents of the feelSpinner from all values of Feel.Feeling
-        feelSpinner.setAdapter(new ArrayAdapter<Feeling>(getContext().getApplicationContext(), android.R.layout.simple_spinner_dropdown_item, Feeling.values()));
+        feelSpinner.setAdapter(new ArrayAdapter<>(getContext().getApplicationContext(), android.R.layout.simple_spinner_dropdown_item, Feeling.values()));
 
-        return buildDialog(view);
+        feel = getDefaultFeel(getArguments());
+        position = getDefaultPosition(getArguments());
+
+        dateEditText.setText(dateFormat.format(feel.getDate()));
+        feelSpinner.setSelection(feel.getFeeling().ordinal());
+        commentEditText.setText(feel.getComment());
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+        builder.setView(view);
+        builder.setTitle(getDialogTitle());
+        builder.setPositiveButton(getDialogPositiveText(), new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {
+                try {
+                    feel.setDate(dateFormat.parse(dateEditText.getText().toString()));
+                } catch (ParseException e) {
+                    Log.e(TAG, "Failed to parse date string", e);
+                    // Throw a RuntimeException because if we use this invalid date data we can potentially
+                    // corrupt the FeelTreeSet and state of FeelsBook
+                    throw new RuntimeException(e);
+                }
+                feel.setFeeling(Feeling.valueOf(feelSpinner.getSelectedItem().toString()));
+                feel.setComment(commentEditText.getText().toString());
+                if (position != null) {
+                    mOnPositiveButtonClickListener.onEditButtonClick(feel, position);
+                } else {
+                    mOnPositiveButtonClickListener.onAddButtonClick(feel);
+                }
+                dialog.dismiss();
+            }
+        });
+        builder.setNegativeButton(getDialogNegativeText(), new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {
+                dialog.dismiss();
+            }
+        });
+        // Create the AlertDialog object and return it
+        return builder.create();
     }
 
     /**
@@ -94,13 +162,13 @@ abstract public class ModifyFeelDialog extends DialogFragment {
      * Uses TimePickerWithSeconds by IvanKovac:
      * https://github.com/IvanKovac/TimePickerWithSeconds
      *
-     * @param date {@code Date} The initial date to start the time pickers at.
+     * @param date    {@code Date} The initial date to start the time pickers at.
+     * @param context {@code Context}
      */
-    public void showDateTimePicker(Date date) {
+    private void showDateTimePicker(Date date, final Context context) {
         final Calendar currentDate = Calendar.getInstance();
         currentDate.setTime(date);
         final Calendar newDate = Calendar.getInstance();
-        final Context context = getContext();
         newDate.setTime(date);
         new DatePickerDialog(context, new DatePickerDialog.OnDateSetListener() {
             @Override
@@ -123,11 +191,14 @@ abstract public class ModifyFeelDialog extends DialogFragment {
     /**
      * On clicking the Date edit text parse the containing text into a {@code Date} and display
      * a date time picker to modify the feel's date.
+     *
+     * @throws RuntimeException if the date contained in {@code dateEditText} fails to be parsed
+     *                          into {@code dateFormat}.
      */
-    public void onDateEditTextClick() {
+    private void onDateEditTextClick() {
         String date = dateEditText.getText().toString();
         try {
-            showDateTimePicker(dateFormat.parse(date));
+            showDateTimePicker(dateFormat.parse(date), getContext());
         } catch (ParseException e) {
             Log.e(TAG, "Failed to parse date string: " + date, e);
             // Throw a RuntimeException because if we use this invalid date data we can potentially
@@ -142,9 +213,9 @@ abstract public class ModifyFeelDialog extends DialogFragment {
      * This is implemented in MainActivity to provide inter-Fragment communication between
      * AddFeelDialog and/or EditFeelDialog to FeelTab.
      */
-    public interface OnSaveButtonClickListener {
-        void onSaveButtonClick(Feel feel);
+    public interface OnPositiveButtonClickListener {
+        void onAddButtonClick(Feel feel);
 
-        void onSaveButtonClick(Feel feel, int position);
+        void onEditButtonClick(Feel feel, int position);
     }
 }

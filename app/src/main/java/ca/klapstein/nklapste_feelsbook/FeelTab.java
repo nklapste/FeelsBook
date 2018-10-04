@@ -21,12 +21,18 @@ import static android.view.Gravity.BOTTOM;
 import static android.view.Gravity.END;
 import static ca.klapstein.nklapste_feelsbook.Feel.dateFormat;
 
+
+/**
+ * Fragment that displays the history of all {@code Feel}s added as well as providing buttons
+ * to add new {@code Feel}s.
+ * <p>
+ * This acts as the "main" screen for FeelsBook.
+ */
 public class FeelTab extends Fragment {
     private static final String TAG = "FeelTab";
 
     private FeelAdapter mFeelAdapter;
     private FeelTreeSet mFeelTreeSet;
-    private RecyclerView mFeelsRecyclerView;
 
     @Nullable
     @Override
@@ -40,7 +46,7 @@ public class FeelTab extends Fragment {
         mFeelAdapter = new FeelAdapter(mFeelTreeSet);
 
         // define the RecyclerView listing Feels
-        mFeelsRecyclerView = view.findViewById(R.id.feels_recycler_view);
+        RecyclerView mFeelsRecyclerView = view.findViewById(R.id.feels_recycler_view);
         mFeelsRecyclerView.setHasFixedSize(true);
         mFeelsRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         mFeelsRecyclerView.setAdapter(mFeelAdapter);
@@ -57,14 +63,17 @@ public class FeelTab extends Fragment {
             }
         }));
 
-        // create the buttons to add a feel of each feeling
+        // create the buttons to add a feel of each Feeling
         createAddFeelButtons(view);
     }
 
     /**
-     * Dynamically create a FloatingActionButton for creating a feel with a default feeling.
+     * Dynamically create a FloatingActionButton for creating a {@code Feel} with a
+     * default {@code Feeling}.
      * <p>
-     * This will generate as many buttons as their are enum values in feel.feelings.
+     * This will generate as many buttons as their are enum values in {@code Feeling}.
+     *
+     * @see Feeling
      */
     private void createAddFeelButtons(View view) {
         LinearLayout verticalLinearLayout = new LinearLayout(getContext());
@@ -144,45 +153,46 @@ public class FeelTab extends Fragment {
     }
 
     /**
-     * Delete a feel from the mFeelTreeSet
+     * Delete a {@code Feel} from the {@code mFeelTreeSet}.
      * <p>
      * Also do an update call with the {@code FeelAdapter} and save the changes
-     * with {@code FeelsBookPreferencesManager}
+     * with {@code FeelsBookPreferencesManager}.
      *
      * @param feel {@code Feel}
      */
-    void deleteFeel(Feel feel) {
+    public void deleteFeel(Feel feel) {
         mFeelTreeSet.remove(feel);
         mFeelAdapter.notifyDataSetChanged();
         FeelsBookPreferencesManager.saveSharedPreferencesFeelList(getContext().getApplicationContext(), mFeelTreeSet);
     }
 
     /**
-     * Add a feel into the mFeelTreeSet.
+     * Add a {@code Feel} into the {@code mFeelTreeSet}.
      * <p>
      * Also do an update call with the {@code FeelAdapter} and save the changes
-     * with {@code FeelsBookPreferencesManager}
+     * with {@code FeelsBookPreferencesManager}.
      *
      * @param feel {@code Feel}
      */
-    void addFeel(Feel feel) {
+    public void addFeel(Feel feel) {
         mFeelTreeSet.add(feel);
         mFeelAdapter.notifyDataSetChanged();
         FeelsBookPreferencesManager.saveSharedPreferencesFeelList(getContext().getApplicationContext(), mFeelTreeSet);
     }
 
     /**
-     * Edit a feel within the mFeelTreeSet.
+     * Edit a Feel within the {@code mFeelTreeSet}.
      * <p>
-     * Remove the original feel from the FeelTreeSet and replace it with the new feel.
+     * Remove the original {@code Feel} from the {@code mFeelTreeSet} and replace it
+     * with the new {@code Feel}.
      * <p>
      * Also do an update call with the {@code FeelAdapter} and save the changes
-     * with {@code FeelsBookPreferencesManager}
+     * with {@code FeelsBookPreferencesManager}.
      *
      * @param newFeel  {@code Feel}
-     * @param position {@code int}
+     * @param position {@code int} position the {@code Feel} is within the {@code mFeelTreeSet}.
      */
-    void editFeel(Feel newFeel, final int position) {
+    public void editFeel(Feel newFeel, final int position) {
         Feel oldFeel = (Feel) mFeelTreeSet.toArray()[position];
         mFeelTreeSet.remove(oldFeel);
         mFeelTreeSet.add(newFeel);

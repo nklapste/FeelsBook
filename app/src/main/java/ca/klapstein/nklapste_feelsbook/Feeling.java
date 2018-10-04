@@ -1,5 +1,6 @@
 package ca.klapstein.nklapste_feelsbook;
 
+
 /**
  * Enum noting all the valid names of feelings that could exist in the Feel class.
  * <p>

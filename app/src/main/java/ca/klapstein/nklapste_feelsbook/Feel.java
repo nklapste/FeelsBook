@@ -6,6 +6,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
 
+
 /**
  * Object Class defining a Feel. It contains a {@code Date} and {@code Feeling} and can
  * potentially contain an additional {@code String} comment.
@@ -17,6 +18,37 @@ public class Feel implements Comparable<Feel> {
     private Feeling feeling;
     private Date date;
 
+    /**
+     * Construct a {@code Feel} an effective container for {@code Feel}.
+     *
+     * @param feeling {@code Feeling} the feeling felt.
+     */
+    Feel(Feeling feeling) {
+        this.feeling = feeling;
+        this.comment = "";
+        this.date = new Date();
+    }
+
+
+    /**
+     * Construct a {@code Feel} an effective container for {@code Feel}.
+     *
+     * @param feeling {@code Feeling} the feeling felt.
+     * @param date {@code} the date the feel was felt.
+     */
+    Feel(Feeling feeling, Date date) {
+        this.feeling = feeling;
+        this.comment = "";
+        this.date = date;
+    }
+
+    /**
+     * Construct a {@code Feel} an effective container for {@code Feel}.
+     *
+     * @param feeling {@code Feeling} the feeling felt.
+     * @param comment {@code String} an optional comment to be added to the feeling.
+     * @param date {@code} the date the feel was felt.
+     */
     Feel(Feeling feeling, String comment, Date date) {
         this.feeling = feeling;
         this.comment = comment;
@@ -48,9 +80,11 @@ public class Feel implements Comparable<Feel> {
     }
 
     /**
-     * Compare to {@code Feel}s.
+     * Compare two {@code Feel}s.
      * <p>
-     * Only compare them by their date. Having a later date be considered larger.
+     * Compare them by their date, feeling, then comment in that priority.
+     * A later date is considered larger.
+     * <p>
      * This compareTo method is utilised for the automatic sorting of {@code FeelTreeSet}.
      *
      * @param feel {@code Feel}
@@ -59,11 +93,15 @@ public class Feel implements Comparable<Feel> {
     @Override
     public int compareTo(@NonNull Feel feel) {
         int dateComparison = -this.getDate().compareTo(feel.getDate());
-        if (dateComparison == 0) {
-            return this.getFeeling().compareTo(feel.getFeeling());
-        } else {
+        if (dateComparison != 0) {
             return dateComparison;
         }
-    }
 
+        int feelComparison = this.getFeeling().compareTo(feel.getFeeling());
+        if (feelComparison != 0) {
+            return feelComparison;
+        }
+
+        return this.getComment().compareTo(feel.getComment());
+    }
 }

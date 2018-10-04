@@ -16,7 +16,7 @@ import static ca.klapstein.nklapste_feelsbook.Feel.dateFormat;
 public class FeelAdapter extends RecyclerView.Adapter<FeelAdapter.FeelViewHolder> {
     private static final String TAG = "FeelAdapter";
 
-    private FeelTreeSet feelTreeSet;
+    private final FeelTreeSet feelTreeSet;
 
     FeelAdapter(FeelTreeSet feelTreeSet) {
         this.feelTreeSet = feelTreeSet;
@@ -34,7 +34,7 @@ public class FeelAdapter extends RecyclerView.Adapter<FeelAdapter.FeelViewHolder
      * Replace the contents of a view (invoked by the layout manager)
      *
      * @param holder   {@code FeelViewHolder}
-     * @param position {@code int} position of the entity within the RecyclerView
+     * @param position {@code int} position of the entity within the RecyclerView.
      */
     @Override
     public void onBindViewHolder(@NonNull FeelViewHolder holder, final int position) {
@@ -45,9 +45,9 @@ public class FeelAdapter extends RecyclerView.Adapter<FeelAdapter.FeelViewHolder
     }
 
     /**
-     * Get the total number of items within the feelTreeSet.
+     * Get the total number of items within the {@code FeelTreeSet}.
      *
-     * @return {@code int}
+     * @return {@code int} the total number of items within the {@code FeelTreeSet}.
      */
     @Override
     public int getItemCount() {
@@ -55,11 +55,12 @@ public class FeelAdapter extends RecyclerView.Adapter<FeelAdapter.FeelViewHolder
     }
 
     /**
-     * Provide a reference to the views for each data item. Complex data items may need more than
-     * one view per item, and you provide access to all the views for a data item in a view holder
+     * Provide a reference to the views for each data item.
      */
-    public static class FeelViewHolder extends RecyclerView.ViewHolder {
-        public TextView title, comment, date, button;
+    static class FeelViewHolder extends RecyclerView.ViewHolder {
+        final TextView title;
+        final TextView comment;
+        final TextView date;
 
         FeelViewHolder(View view) {
             super(view);

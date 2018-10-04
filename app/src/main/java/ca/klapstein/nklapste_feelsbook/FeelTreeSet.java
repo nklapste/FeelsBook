@@ -18,7 +18,7 @@ import java.util.TreeSet;
 public class FeelTreeSet extends TreeSet<Feel> {
     private static final String TAG = "FeelTreeSet";
 
-    private HashMap<Feeling, Integer> feelingTallies;
+    private final HashMap<Feeling, Integer> feelingTallies;
 
     FeelTreeSet() {
         feelingTallies = new HashMap<>();
@@ -31,7 +31,8 @@ public class FeelTreeSet extends TreeSet<Feel> {
     /**
      * Attempt to remove an object from the FeelTreeSet.
      * <p>
-     * If it is successfully removed decrement the tally of feel removed.
+     * If it is successfully removed decrement the tally of the removed {@code Feel}'s
+     * {@code Feeling}.
      *
      * @param obj {@code Object}
      * @return {@code boolean}
@@ -49,7 +50,8 @@ public class FeelTreeSet extends TreeSet<Feel> {
     /**
      * Inserts the specified {@code Feel} into this FeelTreeSet.
      * <p>
-     * If it is successfully inserted increment the tally of the feel inserted.
+     * If it is successfully inserted increment the tally of the
+     * inserted {@code Feel}'s {@code Feeling}.
      *
      * @param feel {@code Feel}
      * @return {@code boolean}

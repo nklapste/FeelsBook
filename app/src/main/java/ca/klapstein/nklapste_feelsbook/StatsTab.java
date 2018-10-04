@@ -13,6 +13,12 @@ import android.widget.TextView;
 
 import java.util.Locale;
 
+
+/**
+ * Fragment that displays statistics on all currently added {@code Feel}s within FeelsBook.
+ * <p>
+ * Provides simple sum statistics of the count of each {@code Feeling}.
+ */
 public class StatsTab extends Fragment {
     private static final String TAG = "StatsTab";
 
@@ -48,16 +54,14 @@ public class StatsTab extends Fragment {
             FeelTreeSet mFeelTreeSet = FeelsBookPreferencesManager.loadSharedPreferencesFeelList(getContext().getApplicationContext());
 
             // dynamically recreate and populate the table for all Feeling tallies.
-            int table_index = 0;
             stats_table.removeAllViews();
             for (Feeling feel : Feeling.values()) {
-                CardView row = (CardView) getActivity().getLayoutInflater().inflate(R.layout.stats_tally_row, null, false);
+                CardView row = (CardView) LayoutInflater.from(getContext()).inflate(R.layout.stats_tally_row, null, false);
                 TextView tallyLabel = row.findViewById(R.id.tallyLabel);
                 TextView tallyValue = row.findViewById(R.id.tallyValue);
                 tallyLabel.setText(feel.toString());
                 tallyValue.setText(stringifyTally(mFeelTreeSet.getFeelingTallies().get(feel)));
-                stats_table.addView(row, table_index);
-                table_index++;
+                stats_table.addView(row);
             }
         }
     }

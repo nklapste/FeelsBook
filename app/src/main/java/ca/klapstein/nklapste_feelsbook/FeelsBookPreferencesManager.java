@@ -8,6 +8,7 @@ import com.google.gson.reflect.TypeToken;
 
 import java.lang.reflect.Type;
 
+
 /**
  * Helper Class for accessing the  Android's SharedPreferences for use in FeelsBook.
  * <p>
@@ -21,7 +22,7 @@ class FeelsBookPreferencesManager {
     private static final String FEELS_TREESET_PREF_JSON_KEY = "mFeelTreeSetJson";
 
     /**
-     * Save a FeelTreeSet using Android's SharedPreferences.
+     * Save a {@code FeelTreeSet} using Android's SharedPreferences.
      *
      * @param context     {@code Context}
      * @param feelTreeSet {@code FeelTreeSet}
@@ -36,7 +37,7 @@ class FeelsBookPreferencesManager {
     }
 
     /**
-     * Load the FeelTreeSet using Android's SharedPreferences.
+     * Load the {@code FeelTreeSet} using Android's SharedPreferences.
      *
      * @param context {@code Context}
      * @return {@code FeelTreeSet}

@@ -7,6 +7,7 @@ import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.view.View;
 
+
 /**
  * RecyclerTouchListener is based off code provided at:
  * <p>
@@ -15,11 +16,11 @@ import android.view.View;
  * Provides a {@code ClickListener} interface that then provides stubs for a {@code onClick} and
  * {@code onLongClick} methods for RecyclerViews.
  */
-public class RecyclerTouchListener implements RecyclerView.OnItemTouchListener {
+class RecyclerTouchListener implements RecyclerView.OnItemTouchListener {
     private static final String TAG = "RecyclerTouchListener";
 
-    private GestureDetector gestureDetector;
-    private ClickListener clickListener;
+    private final GestureDetector gestureDetector;
+    private final ClickListener clickListener;
 
     RecyclerTouchListener(Context context, final RecyclerView recyclerView, final ClickListener clickListener) {
         this.clickListener = clickListener;
@@ -41,7 +42,6 @@ public class RecyclerTouchListener implements RecyclerView.OnItemTouchListener {
 
     @Override
     public boolean onInterceptTouchEvent(@NonNull RecyclerView view, @NonNull MotionEvent event) {
-
         View child = view.findChildViewUnder(event.getX(), event.getY());
         if (child != null && clickListener != null && gestureDetector.onTouchEvent(event)) {
             clickListener.onClick(child, view.getChildAdapterPosition(child));

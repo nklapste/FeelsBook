@@ -4,15 +4,21 @@ import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
-import android.util.Log;
 import android.util.SparseArray;
 import android.view.ViewGroup;
 
-public class FeelsBookFragmentPagerAdapter extends FragmentPagerAdapter {
+
+/**
+ * Manages the TabLayout for FeelsBook navigating between the {@code FeelTab} and {@code StatsTab}.
+ *
+ * @see FeelTab
+ * @see StatsTab
+ */
+class FeelsBookFragmentPagerAdapter extends FragmentPagerAdapter {
     private static final String TAG = "FeelsBookFragmentPagerAdapter";
     private final int PAGE_COUNT = 2;
-    private SparseArray<Fragment> mPageReferenceMap = new SparseArray<>();
-    private String tabTitles[] = new String[]{"Feelings", "Stats"};
+    private final SparseArray<Fragment> mPageReferenceMap = new SparseArray<>();
+    private final String[] tabTitles = new String[]{"Feelings", "Stats"};
 
     FeelsBookFragmentPagerAdapter(FragmentManager fm) {
         super(fm);
@@ -25,7 +31,6 @@ public class FeelsBookFragmentPagerAdapter extends FragmentPagerAdapter {
 
     @Override
     public Fragment getItem(int position) {
-        Log.d(TAG, "tab selected position: " + String.valueOf(position));
         switch (position) {
             case 0:
                 return new FeelTab();

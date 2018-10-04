@@ -1,74 +1,69 @@
 package ca.klapstein.nklapste_feelsbook;
 
-import android.app.AlertDialog;
-import android.content.DialogInterface;
+
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.util.Log;
-import android.view.View;
 
 import java.text.ParseException;
 import java.util.Date;
 
 import static ca.klapstein.nklapste_feelsbook.Feel.dateFormat;
 
+
 /**
  * Subclass of ModifyFeelDialog to manage editing an existing Feel within FeelsBook.
+ *
+ * @see ca.klapstein.nklapste_feelsbook.ModifyFeelDialog
  */
 public class EditFeelDialog extends ModifyFeelDialog {
     public static final String TAG = "EditFeelDialog";
 
+    @Override
+    protected CharSequence getDialogTitle() {
+        return getResources().getString(R.string.edit_feeling);
+    }
+
+    @Override
+    protected CharSequence getDialogPositiveText() {
+        return getResources().getString(R.string.edit);
+    }
+
     /**
-     * Builds the EditFeelDialog.
-     * <p>
-     * The past feel's ``feeling`` ``date`` and ``comment`` are needed to be specified from the
-     * bundled arguments for creating a EditFeelDialog.
-     * <p>
-     * These bundled arguments are accessed through {@code getArguments}.
+     * Reconstruct the {@code Feel} that is being modified within the FeelsBook {@code FeelTreeSet}.
      *
-     * @param view {@code View}
-     * @return {@code AlertDialog}
+     * @param args {@code Bundle}
+     * @return {@code Feel} to be modified within this dialog
      */
     @Override
-    protected AlertDialog buildDialog(View view) {
-        // grab the arguments for Editing a Feel
-        // get the Feel's date, feeling and comment
-        final Bundle mArgs = getArguments();
-        final String date = mArgs.getString("date");
-        Feeling feeling = Feeling.valueOf(mArgs.getString("feeling"));
-        final String comment = mArgs.getString("comment");
+    protected Feel getDefaultFeel(@Nullable Bundle args) {
+        assert args != null;
+        Feeling feeling = Feeling.valueOf(args.getString("feeling"));
+        Date date;
+        try {
+            date = dateFormat.parse(args.getString("date"));
+        } catch (ParseException e) {
+            Log.e(TAG, "Failed to parse date string", e);
+            // Throw a RuntimeException because if we use this invalid date data we can potentially
+            // corrupt the FeelTreeSet and state of FeelsBook
+            throw new RuntimeException(e);
+        }
+        String comment = args.getString("comment");
+        return new Feel(feeling, comment, date);
+    }
 
-        dateEditText.setText(date);
-        // Set the feelSpinners default selection to the original feel's feel
-        feelSpinner.setSelection(feeling.ordinal());
-        commentEditText.setText(comment);
-
-        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-        builder.setView(view);
-        builder.setTitle(R.string.edit_feeling);
-        builder.setPositiveButton(getResources().getString(R.string.edit), new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface dialog, int id) {
-                final String comment = commentEditText.getText().toString();
-                final Feeling feeling = Feeling.valueOf(feelSpinner.getSelectedItem().toString());
-                String dateStr = dateEditText.getText().toString();
-                Date date;
-                try {
-                    date = dateFormat.parse(dateStr);
-                } catch (ParseException e) {
-                    Log.e(TAG, "Failed to parse date string", e);
-                    // Throw a RuntimeException because if we use this invalid date data we can potentially
-                    // corrupt the FeelTreeSet and state of FeelsBook
-                    throw new RuntimeException(e);
-                }
-                Feel feel = new Feel(feeling, comment, date);
-                mOnSaveButtonClickListener.onSaveButtonClick(feel, mArgs.getInt("position"));
-                dialog.dismiss();
-            }
-        });
-        builder.setNegativeButton(getResources().getString(R.string.cancel), new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface dialog, int id) {
-            }
-        });
-        // Create the AlertDialog object and return it
-        return builder.create();
+    /**
+     * Return the position of the Feel being modified within the FeelsBook {@code FeelTreeSet}.
+     *
+     * Since this is editing an existing {@code Feel} within FeelsBook it **must** have a position
+     * within FeelsBook's {@code FeelTreeSet}.
+     *
+     * @param args {@code Bundle}
+     * @return {@code Integer} the position of the Feel within FeelsBook {@code FeelTreeSet}.
+     */
+    @Override
+    protected Integer getDefaultPosition(@Nullable Bundle args) {
+        assert args != null;
+        return args.getInt("position");
     }
 }
