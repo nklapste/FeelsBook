@@ -13,7 +13,7 @@ import static ca.klapstein.nklapste_feelsbook.Feel.dateFormat;
 /**
  * RecyclerView adapter for integrating a {@code FeelTreeSet}.
  */
-class FeelAdapter extends RecyclerView.Adapter<FeelAdapter.FeelViewHolder> {
+public class FeelAdapter extends RecyclerView.Adapter<FeelAdapter.FeelViewHolder> {
     private static final String TAG = "FeelAdapter";
 
     private FeelTreeSet feelTreeSet;
