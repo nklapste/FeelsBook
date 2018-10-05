@@ -33,7 +33,7 @@ public class Feel implements Comparable<Feel> {
      * Construct a {@code Feel} an effective container for {@code Feel}.
      *
      * @param feeling {@code Feeling} the feeling felt.
-     * @param date {@code} the date the feel was felt.
+     * @param date    {@code} the date the feel was felt.
      */
     Feel(Feeling feeling, Date date) {
         this.feeling = feeling;
@@ -46,7 +46,7 @@ public class Feel implements Comparable<Feel> {
      *
      * @param feeling {@code Feeling} the feeling felt.
      * @param comment {@code String} an optional comment to be added to the feeling.
-     * @param date {@code} the date the feel was felt.
+     * @param date    {@code} the date the feel was felt.
      */
     Feel(Feeling feeling, String comment, Date date) {
         this.feeling = feeling;

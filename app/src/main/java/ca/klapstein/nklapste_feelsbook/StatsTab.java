@@ -69,6 +69,6 @@ public class StatsTab extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        stats_table = (TableLayout) view.findViewById(R.id.stats_table);
+        stats_table = view.findViewById(R.id.stats_table);
     }
 }

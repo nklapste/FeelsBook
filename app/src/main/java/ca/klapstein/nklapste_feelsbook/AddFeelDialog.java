@@ -40,7 +40,7 @@ public class AddFeelDialog extends ModifyFeelDialog {
 
     /**
      * Return the position of the {@code Feel} within FeelsBook {@code FeelTreeSet}.
-     *
+     * <p>
      * Since this is adding a new {@code Feel} to FeelsBook it is not within {@code FeelTreeSet}.
      * Thus, return the position as {@code null} to indicate this.
      *

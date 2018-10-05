@@ -7,11 +7,7 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.view.Gravity;
-import android.view.LayoutInflater;
-import android.view.MenuItem;
-import android.view.View;
-import android.view.ViewGroup;
+import android.view.*;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.PopupMenu;
@@ -104,7 +100,7 @@ public class FeelTab extends Fragment {
 
         FrameLayout.LayoutParams frameLayoutParams = new FrameLayout.LayoutParams(FrameLayout.LayoutParams.WRAP_CONTENT, FrameLayout.LayoutParams.WRAP_CONTENT);
         frameLayoutParams.gravity = Gravity.BOTTOM | Gravity.END;
-        FrameLayout frameLayout = (FrameLayout) view.findViewById(R.id.feelFrameLayout);
+        FrameLayout frameLayout = view.findViewById(R.id.feelFrameLayout);
         frameLayout.addView(verticalLinearLayout, frameLayoutParams);
     }
 
@@ -115,10 +111,9 @@ public class FeelTab extends Fragment {
      * 1. Edit the {@code Feel}.
      * 2. Delete the {@code Feel}.
      *
-     * @see EditFeelDialog
-     *
      * @param view     {@code View}
      * @param position {@code int}
+     * @see EditFeelDialog
      */
     private void onFeelListItemClick(View view, final int position) {
         //creating a popup menu

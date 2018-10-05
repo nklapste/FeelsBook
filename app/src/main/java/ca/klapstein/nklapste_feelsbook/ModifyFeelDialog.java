@@ -91,9 +91,9 @@ abstract class ModifyFeelDialog extends DialogFragment {
         View view = LayoutInflater.from(getContext()).inflate(R.layout.add_edit_feel_dialog, null);
 
         // get the default input Views
-        dateEditText = (TextView) view.findViewById(R.id.dateEditText);
-        feelSpinner = (Spinner) view.findViewById(R.id.feelSpinner);
-        commentEditText = (EditText) view.findViewById(R.id.commentEditText);
+        dateEditText = view.findViewById(R.id.dateEditText);
+        feelSpinner = view.findViewById(R.id.feelSpinner);
+        commentEditText = view.findViewById(R.id.commentEditText);
 
         dateEditText.setOnClickListener(
                 new View.OnClickListener() {

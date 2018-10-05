@@ -22,11 +22,11 @@ public class MainActivity extends AppCompatActivity implements ModifyFeelDialog.
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main_activity);
 
-        mViewPager = (ViewPager) findViewById(R.id.viewpager);
+        mViewPager = findViewById(R.id.viewpager);
         mViewPager.setAdapter(new FeelsBookFragmentPagerAdapter(getSupportFragmentManager()));
 
         // Give the TabLayout the ViewPager
-        TabLayout tabLayout = (TabLayout) findViewById(R.id.sliding_tabs);
+        TabLayout tabLayout = findViewById(R.id.sliding_tabs);
         tabLayout.setupWithViewPager(mViewPager);
     }
 
@@ -46,9 +46,8 @@ public class MainActivity extends AppCompatActivity implements ModifyFeelDialog.
      * <p>
      * This allows for inter-DialogFragment communication.
      *
-     * @see AddFeelDialog
-     *
      * @param feel {@code Feel}
+     * @see AddFeelDialog
      */
     @Override
     public void onAddButtonClick(Feel feel) {
@@ -61,10 +60,9 @@ public class MainActivity extends AppCompatActivity implements ModifyFeelDialog.
      * <p>
      * This allows for inter-DialogFragment communication.
      *
-     * @see EditFeelDialog
-     *
      * @param feel     {@code Feel}
      * @param position {@code int}
+     * @see EditFeelDialog
      */
     @Override
     public void onEditButtonClick(Feel feel, final int position) {
