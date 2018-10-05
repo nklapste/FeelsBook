@@ -19,12 +19,14 @@
         android:id="@+id/dateEditText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="?attr/editTextBackground"
         android:ems="10"
         android:gravity="center_vertical"
         android:inputType=""
         android:textAppearance="?android:attr/textAppearanceMediumInverse"
+        android:textColor="?attr/editTextColor"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/dateEditTextTitle" />
+        app:layout_constraintTop_toBottomOf="@+id/dateEditTextTitle"/>
 
     <TextView
         android:id="@+id/feelEditTextTitle"
