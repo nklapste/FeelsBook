@@ -30,7 +30,7 @@ import static ca.klapstein.nklapste_feelsbook.Feel.dateFormat;
 /**
  * Abstract class defining the boilerplate for adding/editing a {@code Feel} within FeelsBook.
  */
-abstract public class ModifyFeelDialog extends DialogFragment {
+abstract class ModifyFeelDialog extends DialogFragment {
     private static final String TAG = "ModifyFeelDialog";
 
     private Spinner feelSpinner;
