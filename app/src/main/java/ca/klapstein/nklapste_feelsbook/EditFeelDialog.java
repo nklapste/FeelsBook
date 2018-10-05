@@ -13,7 +13,7 @@ import static ca.klapstein.nklapste_feelsbook.Feel.dateFormat;
 /**
  * Subclass of ModifyFeelDialog to manage editing an existing Feel within FeelsBook.
  *
- * @see ca.klapstein.nklapste_feelsbook.ModifyFeelDialog
+ * @see ModifyFeelDialog
  */
 public class EditFeelDialog extends ModifyFeelDialog {
     public static final String TAG = "EditFeelDialog";
@@ -37,7 +37,9 @@ public class EditFeelDialog extends ModifyFeelDialog {
      * Reconstruct the {@code Feel} that is being modified within the FeelsBook {@code FeelTreeSet}.
      *
      * @param args {@code Bundle}
-     * @return {@code Feel} to be modified within this dialog
+     * @return {@code Feel} to be modified within this dialog.
+     * @throws RuntimeException if the date string from the date argument fails to be parsed into
+     *                          the {@code dateFormat}.
      */
     @Override
     protected Feel getDefaultFeel(@Nullable Bundle args) {
@@ -58,7 +60,7 @@ public class EditFeelDialog extends ModifyFeelDialog {
 
     /**
      * Return the position of the Feel being modified within the FeelsBook {@code FeelTreeSet}.
-     *
+     * <p>
      * Since this is editing an existing {@code Feel} within FeelsBook it **must** have a position
      * within FeelsBook's {@code FeelTreeSet}.
      *

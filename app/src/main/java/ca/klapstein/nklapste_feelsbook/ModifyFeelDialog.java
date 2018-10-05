@@ -189,7 +189,7 @@ abstract public class ModifyFeelDialog extends DialogFragment {
     }
 
     /**
-     * On clicking the Date edit text parse the containing text into a {@code Date} and display
+     * On clicking the dateEditText parse the containing text into a {@code Date} and display
      * a date time picker to modify the feel's date.
      *
      * @throws RuntimeException if the date contained in {@code dateEditText} fails to be parsed

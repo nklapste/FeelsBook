@@ -42,9 +42,11 @@ public class MainActivity extends AppCompatActivity implements ModifyFeelDialog.
     }
 
     /**
-     * Interface hooks to pass the result from ModifyFeelDialog back to the FeelTab.
+     * Interface hooks to pass the result from AddFeelDialog back to the FeelTab.
      * <p>
      * This allows for inter-DialogFragment communication.
+     *
+     * @see AddFeelDialog
      *
      * @param feel {@code Feel}
      */
@@ -55,9 +57,11 @@ public class MainActivity extends AppCompatActivity implements ModifyFeelDialog.
     }
 
     /**
-     * Interface hooks to pass the result from ModifyFeelDialog back to the FeelTab.
+     * Interface hooks to pass the result from EditFeelDialog back to the FeelTab.
      * <p>
      * This allows for inter-DialogFragment communication.
+     *
+     * @see EditFeelDialog
      *
      * @param feel     {@code Feel}
      * @param position {@code int}

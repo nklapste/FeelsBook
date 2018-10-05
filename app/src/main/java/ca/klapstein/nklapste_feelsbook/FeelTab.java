@@ -74,6 +74,7 @@ public class FeelTab extends Fragment {
      * This will generate as many buttons as their are enum values in {@code Feeling}.
      *
      * @see Feeling
+     * @see AddFeelDialog
      */
     private void createAddFeelButtons(View view) {
         LinearLayout verticalLinearLayout = new LinearLayout(getContext());
@@ -113,6 +114,8 @@ public class FeelTab extends Fragment {
      * This menu provides two options:
      * 1. Edit the {@code Feel}.
      * 2. Delete the {@code Feel}.
+     *
+     * @see EditFeelDialog
      *
      * @param view     {@code View}
      * @param position {@code int}

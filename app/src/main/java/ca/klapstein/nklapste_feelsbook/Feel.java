@@ -29,7 +29,6 @@ public class Feel implements Comparable<Feel> {
         this.date = new Date();
     }
 
-
     /**
      * Construct a {@code Feel} an effective container for {@code Feel}.
      *
