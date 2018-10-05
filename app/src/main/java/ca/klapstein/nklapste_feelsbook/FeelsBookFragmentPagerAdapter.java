@@ -53,9 +53,14 @@ class FeelsBookFragmentPagerAdapter extends FragmentPagerAdapter {
         return mPageReferenceMap.get(key);
     }
 
+    /**
+     * Get the pages Title based on the item's position.
+     *
+     * @param position {@code int}
+     * @return {@code CharSequence}
+     */
     @Override
     public CharSequence getPageTitle(int position) {
-        // Generate title based on item position
         return tabTitles[position];
     }
 }
