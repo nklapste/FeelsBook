@@ -5,15 +5,15 @@ import java.util.TreeSet;
 
 
 /**
- * A TreeSet subclass that only accepts {@code Feel}s.
+ * A {@code TreeSet} subclass that only accepts {@code Feel}s.
  * <p>
- * Since a TreeSet is inherently sorted it provides an easy way to implement the feelings
+ * Since a {@code TreeSet} is inherently sorted it provides an easy way to implement the feelings
  * list while retaining order by date.
  * <p>
  * Additionally running tallies of each feeling are kept for quick statistics generation.
  * <p>
- * One limitation of using a TreeSet however is that no two feels can have the exact same date.
- * I deemed this as a reasonable sacrifice.
+ * One limitation of using a {@code TreeSet} however is that no two feels can have the exact
+ * same date, feeling, and comment. I deemed this as a reasonable sacrifice.
  */
 public class FeelTreeSet extends TreeSet<Feel> {
     private static final String TAG = "FeelTreeSet";
@@ -29,7 +29,7 @@ public class FeelTreeSet extends TreeSet<Feel> {
     }
 
     /**
-     * Attempt to remove an object from the FeelTreeSet.
+     * Attempt to remove an object from the {@code FeelTreeSet}.
      * <p>
      * If it is successfully removed decrement the tally of the removed {@code Feel}'s
      * {@code Feeling}.
@@ -48,7 +48,7 @@ public class FeelTreeSet extends TreeSet<Feel> {
     }
 
     /**
-     * Inserts the specified {@code Feel} into this FeelTreeSet.
+     * Inserts the specified {@code Feel} into this {@code FeelTreeSet}.
      * <p>
      * If it is successfully inserted increment the tally of the
      * inserted {@code Feel}'s {@code Feeling}.
