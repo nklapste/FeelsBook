@@ -16,7 +16,6 @@ import android.view.ViewGroup;
  */
 class FeelsBookFragmentPagerAdapter extends FragmentPagerAdapter {
     private static final String TAG = "FeelsBookFragmentPagerAdapter";
-    private final int PAGE_COUNT = 2;
     private final SparseArray<Fragment> mPageReferenceMap = new SparseArray<>();
     private final String[] tabTitles = new String[]{"Feelings", "Stats"};
 
@@ -26,7 +25,7 @@ class FeelsBookFragmentPagerAdapter extends FragmentPagerAdapter {
 
     @Override
     public int getCount() {
-        return PAGE_COUNT;
+        return 2;
     }
 
     @Override
