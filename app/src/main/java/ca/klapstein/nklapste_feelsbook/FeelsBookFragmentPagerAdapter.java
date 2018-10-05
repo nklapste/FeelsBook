@@ -49,7 +49,7 @@ class FeelsBookFragmentPagerAdapter extends FragmentPagerAdapter {
         return fragment;
     }
 
-    public Fragment getFragment(int key) {
+    Fragment getFragment(int key) {
         return mPageReferenceMap.get(key);
     }
 
