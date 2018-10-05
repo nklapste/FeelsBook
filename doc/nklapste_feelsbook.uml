@@ -1,0 +1,293 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Diagram>
+  <ID>JAVA</ID>
+  <OriginalElement>ca.klapstein.nklapste_feelsbook</OriginalElement>
+  <nodes>
+    <node x="396.8102678571429" y="1074.5">ca.klapstein.nklapste_feelsbook.RecyclerTouchListener</node>
+    <node x="651.021840659341" y="0.0">ca.klapstein.nklapste_feelsbook.Feeling</node>
+    <node x="105.81026785714289" y="1053.0">ca.klapstein.nklapste_feelsbook.EditFeelDialog</node>
+    <node x="1515.6958333333332" y="721.0">ca.klapstein.nklapste_feelsbook.FeelTreeSet</node>
+    <node x="0.0" y="2168.0">ca.klapstein.nklapste_feelsbook.BuildConfig</node>
+    <node x="1574.4378548534798" y="1961.0">ca.klapstein.nklapste_feelsbook.MainActivity</node>
+    <node x="1578.1102678571428" y="1097.0">ca.klapstein.nklapste_feelsbook.FeelsBookPreferencesManager</node>
+    <node x="1788.5638621794876" y="1414.5">ca.klapstein.nklapste_feelsbook.StatsTab</node>
+    <node x="1232.6968406593412" y="341.5">ca.klapstein.nklapste_feelsbook.R</node>
+    <node x="1207.1102678571428" y="1085.0">ca.klapstein.nklapste_feelsbook.FeelAdapter</node>
+    <node x="806.8102678571429" y="1086.0">ca.klapstein.nklapste_feelsbook.AddFeelDialog</node>
+    <node x="762.7295215201465" y="1371.0">ca.klapstein.nklapste_feelsbook.FeelTab</node>
+    <node x="1702.5638621794876" y="1671.0">ca.klapstein.nklapste_feelsbook.FeelsBookFragmentPagerAdapter</node>
+    <node x="423.1602678571428" y="241.0">ca.klapstein.nklapste_feelsbook.Feel</node>
+    <node x="396.72952152014636" y="601.0">ca.klapstein.nklapste_feelsbook.ModifyFeelDialog</node>
+  </nodes>
+  <notes />
+  <edges>
+    <edge source="ca.klapstein.nklapste_feelsbook.FeelTreeSet" target="ca.klapstein.nklapste_feelsbook.Feel">
+      <point x="-91.66666666666674" y="-71.0" />
+      <point x="1561.5291666666667" y="511.0" />
+      <point x="643.5602678571427" y="511.0" />
+      <point x="104.39999999999986" y="115.0" />
+    </edge>
+    <edge source="ca.klapstein.nklapste_feelsbook.FeelsBookFragmentPagerAdapter" target="ca.klapstein.nklapste_feelsbook.FeelTab">
+      <point x="-88.5" y="-115.0" />
+      <point x="1791.0638621794876" y="1646.0" />
+      <point x="1031.9795215201466" y="1646.0" />
+      <point x="89.75" y="125.0" />
+    </edge>
+    <edge source="ca.klapstein.nklapste_feelsbook.StatsTab" target="ca.klapstein.nklapste_feelsbook.FeelsBookPreferencesManager">
+      <point x="-134.625" y="-81.5" />
+      <point x="1833.4388621794876" y="1351.0" />
+      <point x="1858.6102678571428" y="1351.0" />
+      <point x="93.5" y="70.0" />
+    </edge>
+    <edge source="ca.klapstein.nklapste_feelsbook.EditFeelDialog" target="ca.klapstein.nklapste_feelsbook.Feeling">
+      <point x="-108.39999999999998" y="-114.0" />
+      <point x="132.9102678571429" y="1033.0" />
+      <point x="110.02916666666647" y="1033.0" />
+      <point x="110.02916666666647" y="201.0" />
+      <point x="665.521840659341" y="201.0" />
+      <point x="-29.0" y="80.5" />
+    </edge>
+    <edge source="ca.klapstein.nklapste_feelsbook.FeelAdapter" target="ca.klapstein.nklapste_feelsbook.FeelTreeSet">
+      <point x="43.75" y="-82.0" />
+      <point x="1425.8602678571428" y="1013.0" />
+      <point x="1538.6125000000002" y="1013.0" />
+      <point x="-114.58333333333326" y="71.0" />
+    </edge>
+    <edge source="ca.klapstein.nklapste_feelsbook.MainActivity" target="ca.klapstein.nklapste_feelsbook.FeelsBookFragmentPagerAdapter">
+      <point x="0.0" y="-81.0" />
+      <point x="1693.9378548534798" y="1921.0" />
+      <point x="1791.0638621794876" y="1921.0" />
+      <point x="-88.5" y="115.0" />
+    </edge>
+    <edge source="ca.klapstein.nklapste_feelsbook.FeelTab" target="ca.klapstein.nklapste_feelsbook.FeelAdapter">
+      <point x="104.70833333333326" y="-125.0" />
+      <point x="1046.9378548534796" y="1331.0" />
+      <point x="1469.6102678571428" y="1331.0" />
+      <point x="87.5" y="82.0" />
+    </edge>
+    <edge source="ca.klapstein.nklapste_feelsbook.Feel" target="ca.klapstein.nklapste_feelsbook.Feeling">
+      <point x="58.0" y="-115.0" />
+      <point x="597.1602678571428" y="221.0" />
+      <point x="684.8551739926744" y="221.0" />
+      <point x="-9.666666666666629" y="80.5" />
+    </edge>
+    <edge source="ca.klapstein.nklapste_feelsbook.FeelTab" target="ca.klapstein.nklapste_feelsbook.Feel">
+      <point x="-134.6250000000001" y="-125.0" />
+      <point x="807.6045215201464" y="1341.0" />
+      <point x="29.229166666666515" y="1341.0" />
+      <point x="29.229166666666515" y="531.0" />
+      <point x="457.96026785714275" y="531.0" />
+      <point x="-81.20000000000005" y="115.0" />
+    </edge>
+    <edge source="ca.klapstein.nklapste_feelsbook.FeelTab" target="ca.klapstein.nklapste_feelsbook.R">
+      <point x="44.875" y="-125.0" />
+      <point x="987.1045215201465" y="1311.0" />
+      <point x="1196.6102678571428" y="1311.0" />
+      <point x="1196.6102678571428" y="581.0" />
+      <point x="1260.1968406593412" y="581.0" />
+      <point x="0.0" y="14.5" />
+    </edge>
+    <edge source="ca.klapstein.nklapste_feelsbook.EditFeelDialog" target="ca.klapstein.nklapste_feelsbook.ModifyFeelDialog">
+      <point x="54.200000000000045" y="-114.0" />
+      <point x="295.51026785714294" y="1023.0" />
+      <point x="496.97952152014636" y="1023.0" />
+      <point x="-100.25" y="191.0" />
+    </edge>
+    <edge source="ca.klapstein.nklapste_feelsbook.AddFeelDialog" target="ca.klapstein.nklapste_feelsbook.Feeling">
+      <point x="54.200000000000045" y="-81.0" />
+      <point x="996.5102678571429" y="1023.0" />
+      <point x="1007.3723786630035" y="1023.0" />
+      <point x="1007.3723786630035" y="211.0" />
+      <point x="704.1885073260077" y="211.0" />
+      <point x="9.666666666666629" y="80.5" />
+    </edge>
+    <edge source="ca.klapstein.nklapste_feelsbook.FeelsBookPreferencesManager" target="ca.klapstein.nklapste_feelsbook.FeelTreeSet">
+      <point x="-93.5" y="-70.0" />
+      <point x="1671.6102678571428" y="1033.0" />
+      <point x="1676.1125000000002" y="1033.0" />
+      <point x="22.916666666666742" y="71.0" />
+    </edge>
+    <edge source="ca.klapstein.nklapste_feelsbook.FeelTreeSet" target="ca.klapstein.nklapste_feelsbook.Feeling">
+      <point x="91.66666666666674" y="-71.0" />
+      <point x="1744.8625000000002" y="581.0" />
+      <point x="1734.5301739926745" y="581.0" />
+      <point x="1734.5301739926745" y="191.0" />
+      <point x="723.521840659341" y="191.0" />
+      <point x="29.0" y="80.5" />
+    </edge>
+    <edge source="ca.klapstein.nklapste_feelsbook.FeelTab" target="ca.klapstein.nklapste_feelsbook.FeelsBookPreferencesManager">
+      <point x="164.54166666666674" y="-125.0" />
+      <point x="1106.771188186813" y="1351.0" />
+      <point x="1671.6102678571428" y="1351.0" />
+      <point x="-93.5" y="70.0" />
+    </edge>
+    <edge source="ca.klapstein.nklapste_feelsbook.ModifyFeelDialog" target="ca.klapstein.nklapste_feelsbook.Feel">
+      <point x="-150.375" y="-191.0" />
+      <point x="446.85452152014636" y="571.0" />
+      <point x="550.7602678571427" y="571.0" />
+      <point x="11.599999999999909" y="115.0" />
+    </edge>
+    <edge source="ca.klapstein.nklapste_feelsbook.ModifyFeelDialog" target="ca.klapstein.nklapste_feelsbook.R">
+      <point x="150.375" y="-191.0" />
+      <point x="747.6045215201464" y="551.0" />
+      <point x="1236.6254120879125" y="551.0" />
+      <point x="-23.57142857142867" y="14.5" />
+    </edge>
+    <edge source="ca.klapstein.nklapste_feelsbook.AddFeelDialog" target="ca.klapstein.nklapste_feelsbook.ModifyFeelDialog">
+      <point x="-54.200000000000045" y="-81.0" />
+      <point x="888.1102678571428" y="1003.0" />
+      <point x="697.4795215201464" y="1003.0" />
+      <point x="100.25" y="191.0" />
+    </edge>
+    <edge source="ca.klapstein.nklapste_feelsbook.FeelTab" target="ca.klapstein.nklapste_feelsbook.FeelTreeSet">
+      <point x="134.625" y="-125.0" />
+      <point x="1076.8545215201466" y="1341.0" />
+      <point x="1567.6102678571428" y="1341.0" />
+      <point x="1567.6102678571428" y="1033.0" />
+      <point x="1630.2791666666667" y="1033.0" />
+      <point x="-22.916666666666742" y="71.0" />
+    </edge>
+    <edge source="ca.klapstein.nklapste_feelsbook.StatsTab" target="ca.klapstein.nklapste_feelsbook.R">
+      <point x="44.875" y="-81.5" />
+      <point x="2012.9388621794876" y="1351.0" />
+      <point x="1973.6102678571428" y="1351.0" />
+      <point x="1973.6102678571428" y="501.0" />
+      <point x="1275.911126373627" y="501.0" />
+      <point x="15.71428571428578" y="14.5" />
+    </edge>
+    <edge source="ca.klapstein.nklapste_feelsbook.FeelTab" target="ca.klapstein.nklapste_feelsbook.RecyclerTouchListener">
+      <point x="-44.875" y="-125.0" />
+      <point x="897.3545215201465" y="1311.0" />
+      <point x="591.8102678571429" y="1311.0" />
+      <point x="0.0" y="92.5" />
+    </edge>
+    <edge source="ca.klapstein.nklapste_feelsbook.FeelTab" target="ca.klapstein.nklapste_feelsbook.Feeling">
+      <point x="-164.54166666666674" y="-125.0" />
+      <point x="777.6878548534797" y="1351.0" />
+      <point x="18.229166666666515" y="1351.0" />
+      <point x="18.229166666666515" y="191.0" />
+      <point x="655.8551739926744" y="191.0" />
+      <point x="-38.66666666666663" y="80.5" />
+    </edge>
+    <edge source="ca.klapstein.nklapste_feelsbook.FeelsBookFragmentPagerAdapter" target="ca.klapstein.nklapste_feelsbook.StatsTab">
+      <point x="88.5" y="-115.0" />
+      <point x="0.0" y="81.5" />
+    </edge>
+    <edge source="ca.klapstein.nklapste_feelsbook.FeelTab" target="ca.klapstein.nklapste_feelsbook.AddFeelDialog">
+      <point x="14.958333333333258" y="-125.0" />
+      <point x="957.1878548534797" y="1301.0" />
+      <point x="1010.0602678571429" y="1301.0" />
+      <point x="67.75" y="81.0" />
+    </edge>
+    <edge source="ca.klapstein.nklapste_feelsbook.StatsTab" target="ca.klapstein.nklapste_feelsbook.FeelTreeSet">
+      <point x="-44.875" y="-81.5" />
+      <point x="1923.1888621794876" y="1351.0" />
+      <point x="1962.6102678571428" y="1351.0" />
+      <point x="1962.6102678571428" y="1023.0" />
+      <point x="1767.7791666666667" y="1023.0" />
+      <point x="114.58333333333326" y="71.0" />
+    </edge>
+    <edge source="ca.klapstein.nklapste_feelsbook.MainActivity" target="ca.klapstein.nklapste_feelsbook.Feel">
+      <point x="-95.59999999999991" y="-81.0" />
+      <point x="1598.33785485348" y="1941.0" />
+      <point x="0.0" y="1941.0" />
+      <point x="0.0" y="521.0" />
+      <point x="434.7602678571428" y="521.0" />
+      <point x="-104.39999999999998" y="115.0" />
+    </edge>
+    <edge source="ca.klapstein.nklapste_feelsbook.EditFeelDialog" target="ca.klapstein.nklapste_feelsbook.R">
+      <point x="108.39999999999998" y="-114.0" />
+      <point x="349.71026785714287" y="1033.0" />
+      <point x="1024.0152358058606" y="1033.0" />
+      <point x="1024.0152358058606" y="561.0" />
+      <point x="1244.4825549450554" y="561.0" />
+      <point x="-15.71428571428578" y="14.5" />
+    </edge>
+    <edge source="ca.klapstein.nklapste_feelsbook.MainActivity" target="ca.klapstein.nklapste_feelsbook.R">
+      <point x="95.59999999999991" y="-81.0" />
+      <point x="1789.5378548534798" y="1941.0" />
+      <point x="2158.063862179488" y="1941.0" />
+      <point x="2158.063862179488" y="491.0" />
+      <point x="1283.7682692307699" y="491.0" />
+      <point x="23.57142857142867" y="14.5" />
+    </edge>
+    <edge source="ca.klapstein.nklapste_feelsbook.EditFeelDialog" target="ca.klapstein.nklapste_feelsbook.Feel">
+      <point x="-54.200000000000045" y="-114.0" />
+      <point x="187.11026785714284" y="1023.0" />
+      <point x="121.02916666666647" y="1023.0" />
+      <point x="121.02916666666647" y="541.0" />
+      <point x="481.1602678571428" y="541.0" />
+      <point x="-58.0" y="115.0" />
+    </edge>
+    <edge source="ca.klapstein.nklapste_feelsbook.StatsTab" target="ca.klapstein.nklapste_feelsbook.Feeling">
+      <point x="134.625" y="-81.5" />
+      <point x="2102.688862179488" y="1341.0" />
+      <point x="1991.3" y="1341.0" />
+      <point x="1991.3" y="181.0" />
+      <point x="733.1885073260077" y="181.0" />
+      <point x="38.66666666666663" y="80.5" />
+    </edge>
+    <edge source="ca.klapstein.nklapste_feelsbook.MainActivity" target="ca.klapstein.nklapste_feelsbook.FeelTab">
+      <point x="-47.799999999999955" y="-81.0" />
+      <point x="1646.13785485348" y="1931.0" />
+      <point x="852.4795215201465" y="1931.0" />
+      <point x="-89.75" y="125.0" />
+    </edge>
+    <edge source="ca.klapstein.nklapste_feelsbook.ModifyFeelDialog" target="ca.klapstein.nklapste_feelsbook.Feeling">
+      <point x="50.125" y="-191.0" />
+      <point x="647.3545215201464" y="541.0" />
+      <point x="782.6015453296702" y="541.0" />
+      <point x="782.6015453296702" y="221.0" />
+      <point x="694.521840659341" y="221.0" />
+      <point x="0.0" y="80.5" />
+    </edge>
+    <edge source="ca.klapstein.nklapste_feelsbook.FeelTab" target="ca.klapstein.nklapste_feelsbook.EditFeelDialog">
+      <point x="-104.70833333333348" y="-125.0" />
+      <point x="837.521188186813" y="1331.0" />
+      <point x="173.5602678571429" y="1331.0" />
+      <point x="-67.75" y="114.0" />
+    </edge>
+    <edge source="ca.klapstein.nklapste_feelsbook.AddFeelDialog" target="ca.klapstein.nklapste_feelsbook.R">
+      <point x="108.40000000000009" y="-81.0" />
+      <point x="1050.710267857143" y="1033.0" />
+      <point x="1134.6102678571428" y="1033.0" />
+      <point x="1134.6102678571428" y="571.0" />
+      <point x="1252.3396978021983" y="571.0" />
+      <point x="-7.85714285714289" y="14.5" />
+    </edge>
+    <edge source="ca.klapstein.nklapste_feelsbook.AddFeelDialog" target="ca.klapstein.nklapste_feelsbook.Feel">
+      <point x="0.0" y="-81.0" />
+      <point x="942.2295215201464" y="531.0" />
+      <point x="597.1602678571428" y="531.0" />
+      <point x="58.0" y="115.0" />
+    </edge>
+    <edge source="ca.klapstein.nklapste_feelsbook.FeelAdapter" target="ca.klapstein.nklapste_feelsbook.R">
+      <point x="-43.75" y="-82.0" />
+      <point x="1338.3602678571428" y="1033.0" />
+      <point x="1300.1102678571428" y="1033.0" />
+      <point x="1300.1102678571428" y="581.0" />
+      <point x="1268.053983516484" y="581.0" />
+      <point x="7.85714285714289" y="14.5" />
+    </edge>
+    <edge source="ca.klapstein.nklapste_feelsbook.FeelAdapter" target="ca.klapstein.nklapste_feelsbook.Feel">
+      <point x="-131.25" y="-82.0" />
+      <point x="1250.8602678571428" y="1033.0" />
+      <point x="1229.2352678571428" y="1033.0" />
+      <point x="1229.2352678571428" y="521.0" />
+      <point x="620.3602678571427" y="521.0" />
+      <point x="81.19999999999993" y="115.0" />
+    </edge>
+  </edges>
+  <settings layout="Hierarchic Group" zoom="0.22631824545030332" x="1171.5" y="1339.5" />
+  <SelectedNodes />
+  <Categories>
+    <Category>Fields</Category>
+    <Category>Constructors</Category>
+    <Category>Methods</Category>
+    <Category>Properties</Category>
+    <Category>Inner Classes</Category>
+  </Categories>
+  <SCOPE>Production</SCOPE>
+  <VISIBILITY>private</VISIBILITY>
+</Diagram>
+
