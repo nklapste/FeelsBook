@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="4dp"
+    android:clickable="true"
+    android:focusable="true"
+    android:orientation="vertical"
+    app:cardUseCompatPadding="true"
+    app:contentPadding="10dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="14dp">
+
+        <TextView
+            android:id="@+id/tallyLabel"
+            android:layout_width="233dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="TallyLabel"
+            android:textAppearance="@style/TextAppearance.AppCompat.Title" />
+
+        <View
+            android:layout_width="42dp"
+            android:layout_height="1dp"
+            android:layout_marginTop="5dp"
+            android:background="@android:color/darker_gray"
+            android:rotation="90" />
+
+        <TextView
+            android:id="@+id/tallyValue"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="TallyValue"
+            android:textAppearance="@android:style/TextAppearance.Medium" />
+    </LinearLayout>
+
+</android.support.v7.widget.CardView>

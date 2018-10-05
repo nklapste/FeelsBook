@@ -11,15 +11,17 @@ import static ca.klapstein.nklapste_feelsbook.Feel.dateFormat;
 
 
 /**
- * RecyclerView adapter for integrating a {@code FeelQueue}.
+ * RecyclerView adapter for integrating a {@code FeelTreeSet}.
+ *
+ * @see FeelTab for the implentation of this adapter with {@code mFeelAdapter}.
  */
-class FeelAdapter extends RecyclerView.Adapter<FeelAdapter.FeelViewHolder> {
+public class FeelAdapter extends RecyclerView.Adapter<FeelAdapter.FeelViewHolder> {
     private static final String TAG = "FeelAdapter";
 
-    private FeelQueue feelsList;
+    private final FeelTreeSet feelTreeSet;
 
-    public FeelAdapter(FeelQueue feelQueue) {
-        this.feelsList = feelQueue;
+    FeelAdapter(FeelTreeSet feelTreeSet) {
+        this.feelTreeSet = feelTreeSet;
     }
 
     @NonNull
@@ -34,33 +36,41 @@ class FeelAdapter extends RecyclerView.Adapter<FeelAdapter.FeelViewHolder> {
      * Replace the contents of a view (invoked by the layout manager)
      *
      * @param holder   {@code FeelViewHolder}
-     * @param position {@code position} position of the entity within the RecyclerView
+     * @param position {@code int} position of the entity within the RecyclerView.
      */
     @Override
     public void onBindViewHolder(@NonNull FeelViewHolder holder, final int position) {
-        Feel feel = (Feel) feelsList.toArray()[position];
+        Feel feel = (Feel) feelTreeSet.toArray()[position];
         holder.date.setText(dateFormat.format(feel.getDate()));
-        holder.title.setText(feel.getFeeling());
+        holder.feeling.setText(feel.getFeeling().toString());
         holder.comment.setText(feel.getComment());
     }
 
+    /**
+     * Get the total number of items within the {@code FeelTreeSet}.
+     *
+     * @return {@code int} the total number of items within the {@code FeelTreeSet}.
+     */
     @Override
     public int getItemCount() {
-        return feelsList.size();
+        return feelTreeSet.size();
     }
 
     /**
-     * Provide a reference to the views for each data item. Complex data items may need more than
-     * one view per item, and you provide access to all the views for a data item in a view holder
+     * Provide a reference to the views for each data item.
+     *
+     * For each {@code Feel} card set the card's date, feeling, and comment.
      */
-    public static class FeelViewHolder extends RecyclerView.ViewHolder {
-        public TextView title, comment, date, button;
+    static class FeelViewHolder extends RecyclerView.ViewHolder {
+        final TextView date;
+        final TextView feeling;
+        final TextView comment;
 
-        public FeelViewHolder(View view) {
+        FeelViewHolder(View view) {
             super(view);
-            title = (TextView) view.findViewById(R.id.feel_name);
-            date = (TextView) view.findViewById(R.id.feel_date);
-            comment = (TextView) view.findViewById(R.id.feel_comment);
+            feeling = view.findViewById(R.id.feel_name);
+            date = view.findViewById(R.id.feel_date);
+            comment = view.findViewById(R.id.feel_comment);
         }
     }
 }
