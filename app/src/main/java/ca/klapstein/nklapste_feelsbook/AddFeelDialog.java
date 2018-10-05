@@ -1,6 +1,5 @@
 package ca.klapstein.nklapste_feelsbook;
 
-
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 
@@ -12,6 +11,8 @@ import android.support.annotation.Nullable;
  */
 public class AddFeelDialog extends ModifyFeelDialog {
     public static final String TAG = "AddFeelDialog";
+
+    public static final String FEELING_ARG_TAG = "feeling";
 
     @Override
     protected CharSequence getDialogTitle() {
@@ -33,12 +34,12 @@ public class AddFeelDialog extends ModifyFeelDialog {
     @Override
     protected Feel getDefaultFeel(@Nullable Bundle args) {
         assert args != null;
-        Feeling feeling = Feeling.valueOf(args.getString("feeling"));
+        Feeling feeling = Feeling.valueOf(args.getString(FEELING_ARG_TAG));
         return new Feel(feeling);
     }
 
     /**
-     * Return the position of the Feel within FeelsBook {@code FeelTreeSet}.
+     * Return the position of the {@code Feel} within FeelsBook {@code FeelTreeSet}.
      *
      * Since this is adding a new {@code Feel} to FeelsBook it is not within {@code FeelTreeSet}.
      * Thus, return the position as {@code null} to indicate this.

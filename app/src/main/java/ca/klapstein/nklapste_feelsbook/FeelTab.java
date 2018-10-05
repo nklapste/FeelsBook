@@ -94,7 +94,7 @@ public class FeelTab extends Fragment {
                     AddFeelDialog addFeelDialog = new AddFeelDialog();
                     Bundle args = new Bundle();
                     addFeelDialog.setArguments(args);
-                    args.putString("feeling", feel.toString());
+                    args.putString(AddFeelDialog.FEELING_ARG_TAG, feel.toString());
                     addFeelDialog.show(getFragmentManager(), AddFeelDialog.TAG);
                 }
             });
@@ -108,11 +108,11 @@ public class FeelTab extends Fragment {
     }
 
     /**
-     * Create a popup menu on a long click of a Feel.
+     * Create a popup menu on a long click of a {@code Feel}.
      * <p>
      * This menu provides two options:
-     * 1. Edit the Feel.
-     * 2. Delete the Feel.
+     * 1. Edit the {@code Feel}.
+     * 2. Delete the {@code Feel}.
      *
      * @param view     {@code View}
      * @param position {@code int}
@@ -137,10 +137,10 @@ public class FeelTab extends Fragment {
                         EditFeelDialog editFeelDialog = new EditFeelDialog();
                         Bundle args = new Bundle();
                         // editFeelDialog requires some extra arguments noting the Feel to be edited
-                        args.putInt("position", position);
-                        args.putString("feeling", feel.getFeeling().toString());
-                        args.putString("comment", feel.getComment());
-                        args.putString("date", dateFormat.format(feel.getDate()));
+                        args.putInt(EditFeelDialog.POSITION_ARG_TAG, position);
+                        args.putString(EditFeelDialog.FEELING_ARG_TAG, feel.getFeeling().toString());
+                        args.putString(EditFeelDialog.COMMENT_ARG_TAG, feel.getComment());
+                        args.putString(EditFeelDialog.DATE_ARG_TAG, dateFormat.format(feel.getDate()));
                         editFeelDialog.setArguments(args);
                         editFeelDialog.show(getFragmentManager(), EditFeelDialog.TAG);
                         return true;
