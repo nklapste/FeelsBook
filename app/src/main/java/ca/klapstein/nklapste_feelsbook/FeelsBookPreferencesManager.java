@@ -26,7 +26,7 @@ class FeelsBookPreferencesManager {
      * @param context     {@code Context}
      * @param feelTreeSet {@code FeelTreeSet}
      */
-    public static void saveSharedPreferencesFeelList(Context context, FeelTreeSet feelTreeSet) {
+    static void saveSharedPreferencesFeelList(Context context, FeelTreeSet feelTreeSet) {
         SharedPreferences mPrefs = context.getSharedPreferences(FEELS_TREESET_PREF_NAME, Context.MODE_PRIVATE);
         SharedPreferences.Editor prefsEditor = mPrefs.edit();
         Gson gson = new Gson();
@@ -41,7 +41,7 @@ class FeelsBookPreferencesManager {
      * @param context {@code Context}
      * @return {@code FeelTreeSet}
      */
-    public static FeelTreeSet loadSharedPreferencesFeelList(Context context) {
+    static FeelTreeSet loadSharedPreferencesFeelList(Context context) {
         FeelTreeSet feelTreeSet;
         SharedPreferences mPrefs = context.getSharedPreferences(FEELS_TREESET_PREF_NAME, Context.MODE_PRIVATE);
         Gson gson = new Gson();

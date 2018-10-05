@@ -10,10 +10,13 @@ import java.util.TreeSet;
  * Since a {@code TreeSet} is inherently sorted it provides an easy way to implement the feelings
  * list while retaining order by date.
  * <p>
- * Additionally running tallies of each feeling are kept for quick statistics generation.
+ * Additionally running tallies of each {@code Feeling} are kept for quick statistics generation.
  * <p>
  * One limitation of using a {@code TreeSet} however is that no two feels can have the exact
  * same date, feeling, and comment. I deemed this as a reasonable sacrifice.
+ *
+ * @see Feel
+ * @see Feeling
  */
 public class FeelTreeSet extends TreeSet<Feel> {
     private static final String TAG = "FeelTreeSet";

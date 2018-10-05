@@ -10,6 +10,8 @@ import java.util.Locale;
 /**
  * Object Class defining a Feel. It contains a {@code Date} and {@code Feeling} and can
  * potentially contain an additional {@code String} comment.
+ *
+ * @see Feeling the "main" data contained within this class.
  */
 public class Feel implements Comparable<Feel> {
     static final SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss", Locale.getDefault());
@@ -20,6 +22,10 @@ public class Feel implements Comparable<Feel> {
 
     /**
      * Construct a {@code Feel} an effective container for {@code Feel}.
+     * <p>
+     * Set the comment to a default empty string {@code ""}.
+     * <p>
+     * Set the date to the current time.
      *
      * @param feeling {@code Feeling} the feeling felt.
      */
@@ -31,6 +37,8 @@ public class Feel implements Comparable<Feel> {
 
     /**
      * Construct a {@code Feel} an effective container for {@code Feel}.
+     * <p>
+     * Set the comment to a default empty string {@code ""}.
      *
      * @param feeling {@code Feeling} the feeling felt.
      * @param date    {@code} the date the feel was felt.

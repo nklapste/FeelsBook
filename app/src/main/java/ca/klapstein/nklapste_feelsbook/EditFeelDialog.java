@@ -11,7 +11,7 @@ import static ca.klapstein.nklapste_feelsbook.Feel.dateFormat;
 
 
 /**
- * Subclass of ModifyFeelDialog to manage editing an existing Feel within FeelsBook.
+ * Subclass of ModifyFeelDialog to manage editing an existing {@code Feel} within FeelsBook.
  *
  * @see ModifyFeelDialog
  */
@@ -59,7 +59,7 @@ public class EditFeelDialog extends ModifyFeelDialog {
     }
 
     /**
-     * Return the position of the Feel being modified within the FeelsBook {@code FeelTreeSet}.
+     * Return the position of the {@code Feel} being modified within the FeelsBook {@code FeelTreeSet}.
      * <p>
      * Since this is editing an existing {@code Feel} within FeelsBook it **must** have a position
      * within FeelsBook's {@code FeelTreeSet}.

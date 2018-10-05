@@ -16,6 +16,7 @@ import android.view.ViewGroup;
  */
 class FeelsBookFragmentPagerAdapter extends FragmentPagerAdapter {
     private static final String TAG = "FeelsBookFragmentPagerAdapter";
+
     private final SparseArray<Fragment> mPageReferenceMap = new SparseArray<>();
     private final String[] tabTitles = new String[]{"Feelings", "Stats"};
 

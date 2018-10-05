@@ -9,7 +9,7 @@ import android.view.View;
 
 
 /**
- * RecyclerTouchListener is based off code provided at:
+ * RecyclerTouchListener is based off code by Ravi Tamada provided at:
  * <p>
  * https://www.androidhive.info/2016/01/android-working-with-recycler-view/
  * <p>
@@ -57,6 +57,13 @@ class RecyclerTouchListener implements RecyclerView.OnItemTouchListener {
     public void onRequestDisallowInterceptTouchEvent(boolean disallowIntercept) {
     }
 
+    /**
+     * A {@code ClickListener} interface that provides stubs for a {@code onClick} and
+     * {@code onLongClick} methods for RecyclerViews. This allows {@code Feel} cards to
+     * be clicked and provide a dropdown menu.
+     *
+     * @see FeelTab for the implentation of this interface with {@code mFeelsRecyclerView}.
+     */
     public interface ClickListener {
         void onClick(View view, int position);
 

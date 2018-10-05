@@ -5,7 +5,7 @@ import android.support.annotation.Nullable;
 
 
 /**
- * Subclass of ModifyFeelDialog to manage adding a new Feel to FeelsBook.
+ * Subclass of ModifyFeelDialog to manage adding a new {@code Feel} to FeelsBook.
  *
  * @see ModifyFeelDialog
  */
