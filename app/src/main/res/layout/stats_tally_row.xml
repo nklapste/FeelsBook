@@ -22,7 +22,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="TallyLabel"
-            android:textAppearance="@android:style/TextAppearance.Material.Title" />
+            android:textAppearance="@style/TextAppearance.AppCompat.Title" />
 
         <View
             android:layout_width="42dp"

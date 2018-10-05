@@ -13,7 +13,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="?android:attr/selectableItemBackground"
+        android:background="?attr/selectableItemBackground"
         android:clickable="true"
         android:focusable="true"
         android:orientation="vertical"
@@ -25,7 +25,7 @@
             android:id="@+id/feel_date"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textAppearance="@android:style/TextAppearance.Material.Title"
+            android:textAppearance="@style/TextAppearance.AppCompat.Title"
             tools:text="date" />
 
         <TextView
@@ -33,7 +33,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
-            android:textAppearance="@android:style/TextAppearance.Material.Subhead"
+            android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
             tools:text="name" />
 
         <TextView
@@ -41,7 +41,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
-            android:textAppearance="@android:style/TextAppearance.Material.Small"
+            android:textAppearance="@style/TextAppearance.AppCompat.Small"
             tools:text="comment" />
 
     </LinearLayout>
